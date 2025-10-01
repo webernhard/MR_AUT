@@ -9,6 +9,3 @@
  ↓ weiterer Tastendruck zum Beenden des response audio-recordings
  ↓ self rating/confidence rating mittels trackball (VAS)
  ↓ insight-Abfrage ja/nein (2 Tasten Trackball)
-
-
-

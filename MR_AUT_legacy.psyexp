@@ -5,10 +5,10 @@
     <Param val="ptb" valType="str" updates="None" name="Audio lib"/>
     <Param val="" valType="str" updates="None" name="Completed URL"/>
     <Param val="auto" valType="str" updates="None" name="Data file delimiter"/>
-    <Param val="u'data/%s_%s_%s' % (expInfo['UPN-ID'], expName, expInfo['date'])" valType="code" updates="None" name="Data filename"/>
+    <Param val="u'data/%s_%s_%s' % (expInfo['Subject-ID'], expName, expInfo['date'])" valType="code" updates="None" name="Data filename"/>
     <Param val="True" valType="bool" updates="None" name="Enable Escape"/>
     <Param val="Thank you for your patience." valType="str" updates="None" name="End Message"/>
-    <Param val="{'UPN-ID': ''}" valType="code" updates="None" name="Experiment info"/>
+    <Param val="{'Subject-ID': '999'}" valType="code" updates="None" name="Experiment info"/>
     <Param val="False" valType="bool" updates="None" name="Force stereo"/>
     <Param val="True" valType="bool" updates="None" name="Full-screen window"/>
     <Param val="" valType="str" updates="None" name="HTML path"/>
@@ -23,7 +23,7 @@
     <Param val="True" valType="bool" updates="None" name="Save wide csv file"/>
     <Param val="2" valType="num" updates="None" name="Screen"/>
     <Param val="True" valType="bool" updates="None" name="Show info dlg"/>
-    <Param val="False" valType="bool" updates="None" name="Show mouse"/>
+    <Param val="True" valType="bool" updates="None" name="Show mouse"/>
     <Param val="height" valType="str" updates="None" name="Units"/>
     <Param val="2025.1.1" valType="str" updates="None" name="Use version"/>
     <Param val="[1920, 1080]" valType="code" updates="None" name="Window size (pixels)"/>
@@ -34,7 +34,7 @@
     <Param val="{'thisRow.t': 'priority.CRITICAL', 'expName': 'priority.LOW'}" valType="dict" updates="None" name="colPriority"/>
     <Param val="$[-1,-1,-1]" valType="str" updates="None" name="color"/>
     <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
-    <Param val="debug" valType="code" updates="None" name="consoleLoggingLevel"/>
+    <Param val="exp" valType="code" updates="None" name="consoleLoggingLevel"/>
     <Param val="default" valType="str" updates="None" name="ecSampleRate"/>
     <Param val="100.1.1.1" valType="str" updates="None" name="elAddress"/>
     <Param val="FILTER_LEVEL_2" valType="str" updates="None" name="elDataFiltering"/>
@@ -55,7 +55,7 @@
     <Param val="127.0.0.1" valType="str" updates="None" name="gpAddress"/>
     <Param val="4242" valType="num" updates="None" name="gpPort"/>
     <Param val="PsychToolbox" valType="str" updates="None" name="keyboardBackend"/>
-    <Param val="debug" valType="code" updates="None" name="logging level"/>
+    <Param val="exp" valType="code" updates="None" name="logging level"/>
     <Param val="False" valType="bool" updates="None" name="measureFrameRate"/>
     <Param val="('MIDDLE_BUTTON',)" valType="list" updates="None" name="mgBlink"/>
     <Param val="CONTINUOUS" valType="str" updates="None" name="mgMove"/>
@@ -263,51 +263,6 @@
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
     </Routine>
-    <Routine name="ruhe_fixation">
-      <RoutineSettingsComponent name="ruhe_fixation" plugin="None">
-        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
-        <Param val="" valType="str" updates="None" name="backgroundImg"/>
-        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
-        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
-        <Param val="" valType="str" updates="constant" name="desc"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
-        <Param val="ruhe_fixation" valType="code" updates="None" name="name"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="constant" name="skipIf"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
-      </RoutineSettingsComponent>
-      <TextComponent name="rf_fixation" plugin="None">
-        <Param val="white" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="" valType="str" updates="constant" name="flip"/>
-        <Param val="Arial" valType="str" updates="constant" name="font"/>
-        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.1" valType="code" updates="constant" name="letterHeight"/>
-        <Param val="rf_fixation" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="$rfDur" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="+" valType="extendedStr" updates="constant" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-        <Param val="" valType="code" updates="constant" name="wrapWidth"/>
-      </TextComponent>
-    </Routine>
     <Routine name="instr">
       <RoutineSettingsComponent name="instr" plugin="None">
         <Param val="none" valType="str" updates="None" name="backgroundFit"/>
@@ -454,162 +409,6 @@
         <Param val="rec_code" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
-    <Routine name="p_idea">
-      <RoutineSettingsComponent name="p_idea" plugin="None">
-        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
-        <Param val="" valType="str" updates="None" name="backgroundImg"/>
-        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
-        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
-        <Param val="" valType="str" updates="constant" name="desc"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
-        <Param val="p_idea" valType="code" updates="None" name="name"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="constant" name="skipIf"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
-      </RoutineSettingsComponent>
-      <CodeComponent name="p_code" plugin="None">
-        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="import sounddevice as sd&amp;#10;import soundfile as sf&amp;#10;import time&amp;#10;&amp;#10;## set audio recording parameters&amp;#10;sample_rate = 44100  # Sample rate (Hz)&amp;#10;channels = 1         # Number of audio channels (2 for stereo)&amp;#10;&amp;#10;## get/access the keyboard&amp;#10;p_kb = keyboard.Keyboard()&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="##  flags for spacekey  ##&amp;#10;#p_spacedown = False&amp;#10;#p_spaceup = True&amp;#10;&amp;#10;p_is_recording = False&amp;#10;&amp;#10;##  Counter for recording enumeration&amp;#10;p_recording_count = 1&amp;#10;&amp;#10;##  get start-time for 'p-...'-routine&amp;#10;p_startTime = core.getTime()&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
-        <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="##  check the loop-time  ##&amp;#10;if core.getTime() &gt; p_startTime + p_loopDur:&amp;#10;    p_spacedown = False&amp;#10;    continueRoutine = False # finish p_trial&amp;#10;&amp;#10;##  check for keypresses/-states  ##&amp;#10;p_response = p_kb.getKeys() # get a list of keys pressed at this instant&amp;#10;p_spacebar = p_kb.getState('space')&amp;#10;&amp;#10;##  check for 'escape'&amp;#10;if p_response:&amp;#10;    if 'escape' in p_response:&amp;#10;        continueRoutine = False&amp;#10;&amp;#10;&amp;#10;##  check the 'spacebar'-key responses  ##&amp;#10;## check for presses&amp;#10;if p_spacebar:&amp;#10;    &amp;#10;    while p_spacebar: # and core.getTime() &lt; p_startTime + p_loopDur:&amp;#10;    #while is_recording and core.getTime() &lt; p_startTime + p_loopDur:&amp;#10;        time.sleep(0.01)                        # Small delay to prevent CPU overuse (from ai)&amp;#10;        p_spacebar = p_kb.getState('space')&amp;#10;&amp;#10;    ##toggle recording state&amp;#10;    p_is_recording = not p_is_recording&amp;#10;    &amp;#10;    if p_is_recording:&amp;#10;        p_FZ.color = 'green'&amp;#10;        win.flip()&amp;#10;&amp;#10;        ## start recording / record audio stream&amp;#10;        p_audio_data = []&amp;#10;&amp;#10;        #prev. ver: spacekey↓record-on&gt;&gt;spacekey↑-record-off # # # with sd.InputStream(samplerate=sample_rate, channels=channels, callback=lambda indata, frames, time, status: audio_data.append(indata.copy())):&amp;#10;        p_stream = sd.InputStream(samplerate=sample_rate, channels=channels, callback=lambda indata, frames, time, status: p_audio_data.append(indata.copy()))&amp;#10;        p_stream.start()&amp;#10;        &amp;#10;    # Stop the current recording&amp;#10;    else:&amp;#10;        p_FZ.color = 'white'&amp;#10;        win.flip()&amp;#10;        &amp;#10;        p_stream.stop()&amp;#10;        p_stream.close()&amp;#10;        if p_audio_data:&amp;#10;            save_recording(p_audio_data, p_recording_count, wavDirName, sample_rate)&amp;#10;            p_recording_count += 1&amp;#10;            p_audio_data = []   # Nach der Speicherung&amp;#10;        else:&amp;#10;            print(&quot;Recording too short - nothing saved&quot;)&amp;#10;        &amp;#10;&amp;#10;    # Check if we've reached the time limit&amp;#10;    if core.getTime() &gt; p_startTime + p_loopDur and p_is_recording:&amp;#10;        # Stop recording if we hit the time limit during a recording&amp;#10;        p_stream.stop()&amp;#10;        p_stream.close()&amp;#10;        if p_audio_data:&amp;#10;            save_recording(p_audio_data, p_recording_count, recordings_dir, sample_rate)&amp;#10;            p_recording_count += 1&amp;#10;            p_audio_data = []   # Nach der Speicherung&amp;#10;        print(&quot;Program time limit reached during recording&quot;)&amp;#10;        &amp;#10;    time.sleep(0.01)  # Small delay in main loop to prevent CPU overuse&amp;#10;&amp;#10;&amp;#10;###   save_recording   ###&amp;#10;def save_recording(p_audio_data, p_recording_count, recordings_dir, sample_rate):&amp;#10;    &quot;&quot;&quot;Helper function to save a recording&quot;&quot;&quot;&amp;#10;    if not p_audio_data:&amp;#10;        return False&amp;#10;    &amp;#10;    # Convert list of numpy arrays into one large numpy array&amp;#10;    p_recording = np.concatenate(p_audio_data, axis=0)&amp;#10;    &amp;#10;    ## prepare the recording&amp;#10;    # ## Generate filename with enumeration and timestamp&amp;#10;    # timestamp = datetime.now().strftime(&quot;%Y%m%d_%H%M%S&quot;)&amp;#10;    # timestamp = data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;)   #local: set/mark start of current run&amp;#10;    #audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_idea{recording_count:02d}_{timestamp}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    p_audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_idea{p_recording_count:02d}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    &amp;#10;    # Save the recording to a file&amp;#10;    sf.write(p_audio_file, p_recording, sample_rate)&amp;#10;    print(f&quot;Recording #{p_recording_count} saved to {p_audio_file}&quot;)&amp;#10;    &amp;#10;    return True&amp;#10;" valType="extendedCode" updates="constant" name="Each Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="p_code" valType="code" updates="None" name="name"/>
-      </CodeComponent>
-      <TextComponent name="p_FZ" plugin="None">
-        <Param val="white" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="" valType="str" updates="constant" name="flip"/>
-        <Param val="Arial" valType="str" updates="constant" name="font"/>
-        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.1" valType="code" updates="constant" name="letterHeight"/>
-        <Param val="p_FZ" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="?" valType="extendedStr" updates="constant" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-        <Param val="" valType="code" updates="constant" name="wrapWidth"/>
-      </TextComponent>
-    </Routine>
-    <Routine name="smry">
-      <RoutineSettingsComponent name="smry" plugin="None">
-        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
-        <Param val="" valType="str" updates="None" name="backgroundImg"/>
-        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
-        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
-        <Param val="" valType="str" updates="constant" name="desc"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
-        <Param val="smry" valType="code" updates="None" name="name"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="constant" name="skipIf"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
-      </RoutineSettingsComponent>
-      <ImageComponent name="smry_img" plugin="None">
-        <Param val="center" valType="str" updates="constant" name="anchor"/>
-        <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
-        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="stim/instr/Instr4.JPG" valType="str" updates="constant" name="image"/>
-        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
-        <Param val="None" valType="str" updates="constant" name="mask"/>
-        <Param val="smry_img" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="(1.77,1)" valType="list" updates="constant" name="size"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="128" valType="code" updates="constant" name="texture resolution"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-      </ImageComponent>
-      <KeyboardComponent name="smry_key" plugin="None">
-        <Param val="'return','space'" valType="list" updates="constant" name="allowedKeys"/>
-        <Param val="" valType="str" updates="constant" name="correctAns"/>
-        <Param val="" valType="str" updates="None" name="deviceLabel"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
-        <Param val="smry_key" valType="code" updates="None" name="name"/>
-        <Param val="press" valType="str" updates="constant" name="registerOn"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="last key" valType="str" updates="constant" name="store"/>
-        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
-        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
-      </KeyboardComponent>
-      <TextComponent name="smry_hint" plugin="None">
-        <Param val="darkgreen" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="" valType="str" updates="constant" name="flip"/>
-        <Param val="Arial" valType="str" updates="constant" name="font"/>
-        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.025" valType="code" updates="constant" name="letterHeight"/>
-        <Param val="smry_hint" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, -.45)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="Weiter mit Leertaste" valType="extendedStr" updates="constant" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-        <Param val="" valType="code" updates="constant" name="wrapWidth"/>
-      </TextComponent>
-    </Routine>
     <Routine name="start">
       <RoutineSettingsComponent name="start" plugin="None">
         <Param val="none" valType="str" updates="None" name="backgroundFit"/>
@@ -676,6 +475,23 @@
       </KeyboardComponent>
     </Routine>
     <Routine name="t_item">
+      <CodeComponent name="fix_code" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="rand_dur = np.random.uniform(3, 9)&amp;#10;trials.addData('rand_dur', rand_dur)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="fix_code" valType="code" updates="None" name="name"/>
+      </CodeComponent>
       <RoutineSettingsComponent name="t_item" plugin="None">
         <Param val="none" valType="str" updates="None" name="backgroundFit"/>
         <Param val="" valType="str" updates="None" name="backgroundImg"/>
@@ -729,7 +545,7 @@
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
         <Param val="0.0" valType="code" updates="None" name="startVal"/>
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="$fixDur" valType="code" updates="constant" name="stopVal"/>
+        <Param val="$rand_dur" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
         <Param val="+" valType="extendedStr" updates="constant" name="text"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
@@ -743,7 +559,7 @@
         <Param val="t_item_mrk" valType="code" updates="None" name="name"/>
         <Param val="EIO" valType="str" updates="None" name="register"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="all_items[trials.thisN][mrk]" valType="code" updates="None" name="startData"/>
+        <Param val="MR_AUTitem_mrk" valType="code" updates="None" name="startData"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="condition" valType="str" updates="None" name="startType"/>
         <Param val="t_fixation.status==FINISHED" valType="code" updates="None" name="startVal"/>
@@ -753,35 +569,6 @@
         <Param val="True" valType="bool" updates="constant" name="syncScreen"/>
         <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
       </ParallelOutComponent>
-      <ImageComponent name="t_item_img" plugin="None">
-        <Param val="center" valType="str" updates="constant" name="anchor"/>
-        <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
-        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="$'stim\\items\\%s.jpg' % (all_items[trials.thisN][itm])" valType="str" updates="set every repeat" name="image"/>
-        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
-        <Param val="None" valType="str" updates="constant" name="mask"/>
-        <Param val="t_item_img" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="(1.77,1)" valType="list" updates="constant" name="size"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="condition" valType="str" updates="None" name="startType"/>
-        <Param val="t_fixation.status==FINISHED" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="$itemDur" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="128" valType="code" updates="constant" name="texture resolution"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-      </ImageComponent>
       <TextComponent name="AUTitem" plugin="None">
         <Param val="white" valType="color" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
@@ -804,11 +591,51 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="$itemDur" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="$MR_AUT_item" valType="str" updates="set every repeat" name="text"/>
+        <Param val="$MR_AUTitem" valType="str" updates="set every repeat" name="text"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="None" name="validator"/>
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
+      <KeyboardComponent name="idea_key" plugin="None">
+        <Param val="'return','space'" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="" valType="str" updates="None" name="deviceLabel"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="idea_key" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="condition" valType="str" updates="None" name="startType"/>
+        <Param val="AUTitem.status==STARTED" valType="code" updates="None" name="startVal"/>
+        <Param val="condition" valType="str" updates="None" name="stopType"/>
+        <Param val="AUTitem.status==FINISHED" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+      <MouseComponent name="idea_mse" plugin="None">
+        <Param val="" valType="list" updates="constant" name="clickable"/>
+        <Param val="" valType="list" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="any click" valType="str" updates="constant" name="forceEndRoutineOnPress"/>
+        <Param val="idea_mse" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="constant" name="newClicksOnly"/>
+        <Param val="on click" valType="str" updates="None" name="saveMouseState"/>
+        <Param val="name," valType="list" updates="constant" name="saveParamsClickable"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="condition" valType="str" updates="None" name="startType"/>
+        <Param val="AUTitem.status==STARTED" valType="code" updates="None" name="startVal"/>
+        <Param val="condition" valType="str" updates="None" name="stopType"/>
+        <Param val="AUTitem.status==FINISHED" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="mouse onset" valType="str" updates="constant" name="timeRelativeTo"/>
+      </MouseComponent>
     </Routine>
     <Routine name="settings">
       <RoutineSettingsComponent name="settings" plugin="None">
@@ -830,7 +657,7 @@
       <CodeComponent name="set_things" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="##  some start time info&amp;#10;print(data.getDateStr(format=&quot;%H:%M:%S.%m&quot;))   #local: set/mark start of current run&amp;#10;&amp;#10;##  enable parallel port for markers  ##&amp;#10;from psychopy import parallel&amp;#10;t_mrk = parallel.ParallelPort(address='0x3FF8')&amp;#10;&amp;#10;##  initialise microphone  ##&amp;#10;deviceManager.addDevice(&amp;#10;    deviceClass='psychopy.hardware.microphone.MicrophoneDevice',&amp;#10;    deviceName='mic', index=None, exclusive=False,&amp;#10;)&amp;#10;&amp;#10;#fn = os.path.join(_thisDir, 'data', expInfo['UPN-ID'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;))&amp;#10;custom_fn = '%s_%s_%s_%s' % (os.path.join(_thisDir, 'data', ''), expInfo['UPN-ID'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;))&amp;#10;#print(f'{fn=}')&amp;#10;&amp;#10;wavDirName = custom_fn + '_wav'&amp;#10;if not os.path.isdir(wavDirName):&amp;#10;    os.makedirs(wavDirName)  # to hold .wav files&amp;#10;#print(&quot;wavDirName&quot;); print(wavDirName)&amp;#10;&amp;#10;##  make microphone object for mic  #&amp;#10;idea_mic = sound.microphone.Microphone(&amp;#10;    device='mic',&amp;#10;    name='idea_mic',&amp;#10;    #recordingFolder=micRecFolder,&amp;#10;    recordingFolder=wavDirName,&amp;#10;    recordingExt='wav'&amp;#10;)&amp;#10;&amp;#10;## ### Options for DEBUG/RESARCH-mode ###&amp;#10;DEBUG = 1 #0=research-mode; 1=debug-mode &amp;#10;if DEBUG:&amp;#10;    loopDur = 7 #total time for ideas&amp;#10;    p_loopDur= 7#30 #total time for ideas&amp;#10;    itemDur = 2&amp;#10;    fixDur  = 1&amp;#10;    rfDur   = 2 #ruhe+fixation nach 3 items&amp;#10;else:&amp;#10;    loopDur = 180 #total time for ideas&amp;#10;    p_loopDur = 60 #total time for ideas&amp;#10;    itemDur = 30&amp;#10;    fixDur  = 10&amp;#10;    rfDur   = 180 #ruhe+fixation nach 3 items&amp;#10;&amp;#10;show_rf = 0 #rf= rest + fixation after 3 items/trials&amp;#10;&amp;#10;&amp;#10;header_pos_y = .40&amp;#10;main_pos_y   = 0&amp;#10;btn_pos_y    = -.25&amp;#10;hint_pos_y   = -.45&amp;#10;&amp;#10;##  quasi-random item shuffle  ##&amp;#10;#creaLying_cats = {&amp;#10;#    &quot;Pro&quot;: [&quot;stim\items\Pro1.jpg&quot;, &quot;stim\items\Pro2.jpg&quot;],&amp;#10;#    &quot;Self&quot;: [&quot;stim\items\Self1.jpg&quot;, &quot;stim\items\Self2.jpg&quot;],&amp;#10;#    &quot;Anti&quot;: [&quot;stim\items\Anti1.jpg&quot;, &quot;stim\items\Anti2.jpg&quot;]}&amp;#10;&amp;#10;itm = 0 #item&amp;#10;mrk = 1 #marker-code for item&amp;#10;creaLying_cats = {&amp;#10;    ##cat.   [item,marker]     #short description of list&amp;#10;    &quot;Pro&quot;:  [[&quot;Pro1&quot;,43], [&quot;Pro2&quot;,44]],&amp;#10;    &quot;Self&quot;: [[&quot;Self1&quot;,45], [&quot;Self2&quot;,46]],&amp;#10;    &quot;Anti&quot;: [[&quot;Anti1&quot;,41], [&quot;Anti2&quot;,42]]}&amp;#10;&amp;#10;all_items = []      #empty list&amp;#10;assigned_cat = {}   #empty dict&amp;#10;for category, items in creaLying_cats.items():&amp;#10;    all_items.extend(items)&amp;#10;    for item, item_mrk in items:&amp;#10;        assigned_cat[item] = category&amp;#10;&amp;#10;done = False&amp;#10;while not done:&amp;#10;    shuffle(all_items)&amp;#10;    valid = True&amp;#10;    for i in range(len(all_items) - 1):&amp;#10;        #if assigned_cat[all_items[i]] == assigned_cat[all_items[i+1]]:&amp;#10;        if assigned_cat[all_items[i][itm]] == assigned_cat[all_items[i+1][itm]]:&amp;#10;            valid = False&amp;#10;            break&amp;#10;    if valid:&amp;#10;        #print(f'{all_items=}')&amp;#10;        done = True&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="##  some start time info&amp;#10;print(data.getDateStr(format=&quot;%H:%M:%S.%m&quot;))   #local: set/mark start of current run&amp;#10;&amp;#10;##  enable parallel port for markers  ##&amp;#10;from psychopy import parallel&amp;#10;t_mrk = parallel.ParallelPort(address='0x3FF8')&amp;#10;&amp;#10;wavDirName = '%s_%s_%s_%s_%s' % (os.path.join(_thisDir, 'data', ''), expInfo['Subject-ID'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;), '_wav')&amp;#10;if not os.path.isdir(wavDirName):&amp;#10;    os.makedirs(wavDirName)  # to hold .wav files&amp;#10;#print(f&quot;{wavDirName=}&quot;)&amp;#10;&amp;#10;## ### Options for DEBUG/RESARCH-mode ###&amp;#10;DEBUG = 1 #0=research-mode; 1=debug-mode &amp;#10;if DEBUG: &amp;#10;    itemDur = 5&amp;#10;else: &amp;#10;    itemDur = 15&amp;#10;&amp;#10;header_pos_y = .40&amp;#10;main_pos_y   = 0&amp;#10;btn_pos_y    = -.25&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -865,22 +692,22 @@
       <CodeComponent name="t_code" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="&quot;&quot;&quot;&amp;#10;import sounddevice as sd&amp;#10;import soundfile as sf&amp;#10;import time&amp;#10;&amp;#10;## set audio recording parameters&amp;#10;sample_rate = 44100  # Sample rate (Hz)&amp;#10;channels = 1         # Number of audio channels (2 for stereo)&amp;#10;&quot;&quot;&quot;&amp;#10;&amp;#10;&amp;#10;## get/access the keyboard&amp;#10;t_kb = keyboard.Keyboard()&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="import sounddevice as sd&amp;#10;import soundfile as sf&amp;#10;import time&amp;#10;&amp;#10;## set audio recording parameters&amp;#10;sample_rate = 44100  # Sample rate (Hz)&amp;#10;channels = 1         # Number of audio channels (2 for stereo)&amp;#10;&amp;#10;## get/access the keyboard&amp;#10;t_kb = keyboard.Keyboard()&amp;#10;&amp;#10;### safe stop stream  ##&amp;#10;def safe_stop_stream(stream):                              # lukas&amp;#10;    ###Stop and close an input stream safely.###           # lukas&amp;#10;    if stream is not None:                                 # lukas&amp;#10;        try:                                               # lukas&amp;#10;            stream.stop()                                  # lukas: safe stop&amp;#10;        finally:                                           # lukas&amp;#10;            stream.close()                                 # lukas: safe close&amp;#10;    return None                                            # lukas: clear reference&amp;#10;&amp;#10;&amp;#10;###   save_recording   ###&amp;#10;def save_recording(audio_data, recording_count, recordings_dir, sample_rate):&amp;#10;    ###Helper function to save a recording###&amp;#10;    if not audio_data:&amp;#10;        print(&quot;No audio data to save.&quot;)&amp;#10;        return False&amp;#10;    &amp;#10;    # Convert list of numpy arrays into one large numpy array&amp;#10;    recording = np.concatenate(audio_data, axis=0)&amp;#10;    &amp;#10;    ## prepare the recording&amp;#10;    # ## Generate filename with enumeration and timestamp&amp;#10;    # timestamp = datetime.now().strftime(&quot;%Y%m%d_%H%M%S&quot;)&amp;#10;    # timestamp = data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;)   #local: set/mark start of current run&amp;#10;    #audio_file = os.path.join(wavDirName, f&quot;{expInfo['Subject-ID']}_idea{recording_count:02d}_{timestamp}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    #audio_file = os.path.join(wavDirName, f&quot;{expInfo['Subject-ID']}_{RITitems[trials.thisN][itm]}_idea{recording_count:02d}.wav&quot;)    #name the recording with 'sub.-ID', 'rec._count'&amp;#10;    #audio_file = os.path.join(wavDirName, f&quot;{expInfo['Subject-ID']}_{MR_AUT_items}_idea{recording_count:02d}.wav&quot;)    #name the recording with 'sub.-ID', 'rec._count'&amp;#10;    audio_file = os.path.join(wavDirName, f&quot;{expInfo['Subject-ID']}_{MR_AUTitem}.wav&quot;)    #name the recording with 'sub.-ID'&amp;#10;    &amp;#10;    &amp;#10;    try:&amp;#10;        # Save the recording to a file&amp;#10;        sf.write(audio_file, recording, sample_rate)&amp;#10;        #print(f&quot;Recording #{recording_count} saved to {audio_file}&quot;)&amp;#10;    except Exception as e:&amp;#10;        print(f&quot;Error saving recording: {e}&quot;)&amp;#10;        return False&amp;#10;        &amp;#10;    return True" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="##  flags for spacekey  ##&amp;#10;#t_spacedown = False&amp;#10;#t_spaceup = True&amp;#10;&amp;#10;is_recording = False&amp;#10;&amp;#10;##  Counter for recording enumeration&amp;#10;recording_count = 1&amp;#10;&amp;#10;##  get start-time for 't-...'-routine&amp;#10;t_startTime = core.getTime()&amp;#10;&amp;#10;t_FZ.color = 'white'&amp;#10;win.flip()&amp;#10;&amp;#10;##t_mrk: START Nachdenkphase&amp;#10;t_mrk.setData(50); core.wait(0.1); t_mrk.setData(0)&amp;#10;&amp;#10;&amp;#10;## Vor dem ersten Aufruf von getKeys() und getState() in &quot;each frame&quot;&amp;#10;t_kb.clearEvents(eventType='keyboard')  # Lösche alle vorherigen Tasteneingaben  " valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="##  recording flag  ##&amp;#10;is_recording = False&amp;#10;recording_started = False&amp;#10;&amp;#10;##  Counter for recording enumeration&amp;#10;recording_count = 1&amp;#10;&amp;#10;##  get start-time for 't-...'-routine&amp;#10;t_startTime = core.getTime()&amp;#10;&amp;#10;##t_mrk: START - white '?' &amp;&amp; ##t_mrk: 3min idea time START&amp;#10;t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)&amp;#10;&amp;#10;## Vor dem ersten Aufruf von getKeys() und getState() in &quot;each frame&quot;&amp;#10;t_kb.clearEvents(eventType='keyboard')  # Lösche alle vorherigen Tasteneingaben&amp;#10;&amp;#10;audio_data = []&amp;#10;stream = None&amp;#10;&amp;#10;################################################################################&amp;#10;&amp;#10;&quot;&quot;&quot;&amp;#10;##  flags for spacekey  ##&amp;#10;#t_spacedown = False&amp;#10;#t_spaceup = True&amp;#10;&amp;#10;is_recording = False&amp;#10;&amp;#10;##  Counter for recording enumeration&amp;#10;recording_count = 1&amp;#10;&amp;#10;##  get start-time for 't-...'-routine&amp;#10;t_startTime = core.getTime()&amp;#10;&amp;#10;#t_FZ.color = 'white'&amp;#10;win.flip()&amp;#10;&amp;#10;##t_mrk: START Nachdenkphase&amp;#10;t_mrk.setData(50); core.wait(0.1); t_mrk.setData(0)&amp;#10;&amp;#10;&amp;#10;## Vor dem ersten Aufruf von getKeys() und getState() in &quot;each frame&quot;&amp;#10;t_kb.clearEvents(eventType='keyboard')  # Lösche alle vorherigen Tasteneingaben  &amp;#10;&quot;&quot;&quot;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="##  check the loop-time  ##&amp;#10;if core.getTime() &gt; t_startTime + loopDur:&amp;#10;    ##t_mrk: STOP&amp;#10;    t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)&amp;#10;    save_recording(audio_data, recording_count, wavDirName, sample_rate)&amp;#10;    is_recording = False&amp;#10;    continueRoutine = False # finish p_trial&amp;#10;&amp;#10;##  check for keypresses/-states  ##&amp;#10;t_response = t_kb.getKeys() # get a list of keys pressed at this instant&amp;#10;t_spacebar = t_kb.getState('space')&amp;#10;&amp;#10;##  check for 'escape'&amp;#10;if t_response:&amp;#10;    if 'escape' in t_response:&amp;#10;        continueRoutine = False&amp;#10;&amp;#10;&amp;#10;##  check the 'spacebar'-key responses  ##&amp;#10;## check for presses&amp;#10;if t_spacebar:&amp;#10;    &amp;#10;    while t_spacebar: # and core.getTime() &lt; t_startTime + t_loopDur:&amp;#10;    #while is_recording and core.getTime() &lt; t_startTime + t_loopDur:&amp;#10;        time.sleep(0.01)                        # Small delay to prevent CPU overuse (from ai)&amp;#10;        t_spacebar = t_kb.getState('space')&amp;#10;&amp;#10;    ##toggle recording state&amp;#10;    is_recording = not is_recording&amp;#10;    &amp;#10;    if is_recording:&amp;#10;        ##t_mrk: START&amp;#10;        t_mrk.setData(48); core.wait(0.1); t_mrk.setData(0)&amp;#10;&amp;#10;        ## start recording / record audio stream&amp;#10;        audio_data = []&amp;#10;&amp;#10;        #prev. ver: spacekey↓record-on&gt;&gt;spacekey↑-record-off # # # with sd.InputStream(samplerate=sample_rate, channels=channels, callback=lambda indata, frames, time, status: audio_data.append(indata.copy())):&amp;#10;        stream = sd.InputStream(samplerate=sample_rate, channels=channels, callback=lambda indata, frames, time, status: audio_data.append(indata.copy()))&amp;#10;        stream.start()&amp;#10;        &amp;#10;        ##after recording started, flip to green '?'&amp;#10;        t_FZ.color = 'green'&amp;#10;        win.flip()&amp;#10;        &amp;#10;    # Stop the current recording&amp;#10;    else:&amp;#10;        ##before recording stops, bakc to white '?'&amp;#10;        t_FZ.color = 'white'&amp;#10;        win.flip()&amp;#10;        &amp;#10;        ## stop recording / stop audio stream&amp;#10;        stream.stop()&amp;#10;        stream.close()&amp;#10;        if audio_data:&amp;#10;            save_recording(audio_data, recording_count, wavDirName, sample_rate)&amp;#10;            recording_count += 1&amp;#10;            audio_data = []   # Nach der Speicherung&amp;#10;        else:&amp;#10;            print(&quot;Recording too short - nothing saved&quot;)&amp;#10;        ##t_mrk: STOP&amp;#10;        t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)&amp;#10;        &amp;#10;&amp;#10;    # Check if we've reached the time limit&amp;#10;    if core.getTime() &gt; t_startTime + loopDur and is_recording:&amp;#10;        # Stop recording if we hit the time limit during a recording&amp;#10;        stream.stop()&amp;#10;        stream.close()&amp;#10;        if audio_data:&amp;#10;            save_recording(audio_data, recording_count, wavDirName, sample_rate)&amp;#10;            recording_count += 1&amp;#10;            audio_data = []   # Nach der Speicherung&amp;#10;        ##t_mrk: STOP&amp;#10;        t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)&amp;#10;        &amp;#10;        print(&quot;Program time limit reached during recording&quot;)&amp;#10;        &amp;#10;    time.sleep(0.01)  # Small delay in main loop to prevent CPU overuse&amp;#10;&amp;#10;&amp;#10;###   save_recording   ###&amp;#10;def save_recording(audio_data, recording_count, recordings_dir, sample_rate):&amp;#10;    &quot;&quot;&quot;Helper function to save a recording&quot;&quot;&quot;&amp;#10;    if not audio_data:&amp;#10;        return False&amp;#10;    &amp;#10;    # Convert list of numpy arrays into one large numpy array&amp;#10;    recording = np.concatenate(audio_data, axis=0)&amp;#10;    &amp;#10;    ## prepare the recording&amp;#10;    # ## Generate filename with enumeration and timestamp&amp;#10;    # timestamp = datetime.now().strftime(&quot;%Y%m%d_%H%M%S&quot;)&amp;#10;    # timestamp = data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;)   #local: set/mark start of current run&amp;#10;    #audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_idea{recording_count:02d}_{timestamp}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_{all_items[trials.thisN][0]}_idea{recording_count:02d}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    &amp;#10;    # Save the recording to a file&amp;#10;    sf.write(audio_file, recording, sample_rate)&amp;#10;    print(f&quot;Recording #{recording_count} saved to {audio_file}&quot;)&amp;#10;    return True&amp;#10;&amp;#10;&amp;#10;#################################################################################################################################################################&amp;#10;##    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###   ##&amp;#10;#################################################################################################################################################################&amp;#10;&amp;#10;&quot;&quot;&quot;&amp;#10;## ### check the loop-time ###&amp;#10;if core.getTime() &gt; t_startTime + loopDur:&amp;#10;    continueRoutine = False # finish p_trial&amp;#10;&amp;#10;## ### check for keypresses ###&amp;#10;t_response = t_kb.getKeys() # get a list of keys pressed at this instant&amp;#10;t_spacebar = t_kb.getState('space')&amp;#10;&amp;#10;## check for 'escape'&amp;#10;if t_response:&amp;#10;    if 'escape' in t_response:&amp;#10;        continueRoutine = False&amp;#10;&amp;#10;&amp;#10;##  check the 'spacebar'-key responses  ##&amp;#10;## check for presses&amp;#10;if t_spacebar and not t_spacedown:&amp;#10;    if not t_spacedown:&amp;#10;        t_spacedown = True&amp;#10;        t_spaceup = False&amp;#10;        t_FZ.color = 'green'&amp;#10;        win.flip()&amp;#10;    &amp;#10;    ## prepare the recording&amp;#10;    # timestamp = data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;)   #local: set/mark start of current run&amp;#10;    #audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_idea{recording_count:02d}_{timestamp}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_{all_items[trials.thisN][0]}_idea{recording_count:02d}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    &amp;#10;    ## start recording&amp;#10;    audio_data = []&amp;#10;    &amp;#10;    # Record audio stream&amp;#10;    with sd.InputStream(samplerate=sample_rate, channels=channels, callback=lambda indata, frames, time, status: audio_data.append(indata.copy())):&amp;#10;        ## Continue recording until spacebar is released or loop-time is over&amp;#10;        while t_spacebar and core.getTime() &lt; t_startTime + loopDur:&amp;#10;            time.sleep(0.01)  # Small delay to prevent CPU overuse&amp;#10;            t_spacebar = p_kb.getState('space')&amp;#10;    &amp;#10;    if audio_data:&amp;#10;        ## Convert list of numpy arrays into one large numpy array&amp;#10;        recording = np.concatenate(audio_data, axis=0)&amp;#10;        &amp;#10;        ## Save the recording to a file&amp;#10;        sf.write(audio_file, recording, sample_rate)&amp;#10;        recording_count += 1  # Increment the recording counter&amp;#10;    else:&amp;#10;        print(&quot;Recording too short - nothing saved&quot;)&amp;#10;&amp;#10;&amp;#10;## check for releases&amp;#10;elif not t_spacebar and not t_spaceup:&amp;#10;    t_spacedown = False&amp;#10;    t_spaceup = True&amp;#10;    t_FZ.color = 'white'&amp;#10;    win.flip()&amp;#10;&quot;&quot;&quot;&amp;#10;" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="# Initialize recording on first call&amp;#10;if not recording_started:&amp;#10;    recording_started = True&amp;#10;    &amp;#10;    # Display blue question mark&amp;#10;    t_FZ.color = 'blue'&amp;#10;    t_FZ.text = '?'&amp;#10;    win.flip()&amp;#10;    &amp;#10;    # Start audio recording&amp;#10;    audio_data = []&amp;#10;    try:&amp;#10;        stream = sd.InputStream(&amp;#10;            samplerate=sample_rate,&amp;#10;            channels=channels,&amp;#10;            callback=lambda indata, frames, time, status: audio_data.append(indata.copy())&amp;#10;        )&amp;#10;        stream.start()&amp;#10;        &amp;#10;        # Send start marker&amp;#10;        t_mrk.setData(48); core.wait(0.1); t_mrk.setData(0)&amp;#10;        &amp;#10;    except Exception as e:&amp;#10;        print(f&quot;Recording failed to start: {e}&quot;)&amp;#10;        continueRoutine = False&amp;#10;&amp;#10;# Check for exit keys&amp;#10;keys = t_kb.getKeys()&amp;#10;if keys and any(k.name == 'escape' for k in keys):&amp;#10;    safe_stop_stream(stream)&amp;#10;    continueRoutine = False&amp;#10;&amp;#10;# Check for spacebar to stop&amp;#10;if t_kb.getState('space'):&amp;#10;    # Wait for release&amp;#10;    while t_kb.getState('space'):&amp;#10;        core.wait(0.01)&amp;#10;    &amp;#10;    # Stop and save&amp;#10;    safe_stop_stream(stream)&amp;#10;    &amp;#10;    if audio_data:&amp;#10;        #save_recording(audio_data, recording_count, wavDirName, sample_rate,&amp;#10;        #             expInfo['UPN-ID'], RITitems[trials.thisN][itm])&amp;#10;        save_recording(audio_data, recording_count, wavDirName, sample_rate)&amp;#10;        #             expInfo['UPN-ID'], RITitems[trials.thisN][itm])&amp;#10;    &amp;#10;    # Send stop marker&amp;#10;    t_mrk.setData(47); core.wait(0.1); t_mrk.setData(0)&amp;#10;    &amp;#10;    # Clear screen and finish&amp;#10;    t_FZ.text = ''&amp;#10;    win.flip()&amp;#10;    continueRoutine = False&amp;#10;&amp;#10;core.wait(0.01)&amp;#10;&amp;#10;#################################################################################################################################################################&amp;#10;##    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###   ##&amp;#10;#################################################################################################################################################################&amp;#10;&amp;#10;&quot;&quot;&quot;&amp;#10;##  check the loop-time  ##&amp;#10;if core.getTime() &gt; t_startTime + loopDur:&amp;#10;    ##t_mrk: STOP&amp;#10;    t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)&amp;#10;    save_recording(audio_data, recording_count, wavDirName, sample_rate)&amp;#10;    is_recording = False&amp;#10;    continueRoutine = False # finish p_trial&amp;#10;&amp;#10;##  check for keypresses/-states  ##&amp;#10;t_response = t_kb.getKeys() # get a list of keys pressed at this instant&amp;#10;t_spacebar = t_kb.getState('space')&amp;#10;&amp;#10;##  check for 'escape'&amp;#10;if t_response:&amp;#10;    if 'escape' in t_response:&amp;#10;        continueRoutine = False&amp;#10;&amp;#10;&amp;#10;##  check the 'spacebar'-key responses  ##&amp;#10;## check for presses&amp;#10;if t_spacebar:&amp;#10;    &amp;#10;    while t_spacebar: # and core.getTime() &lt; t_startTime + t_loopDur:&amp;#10;    #while is_recording and core.getTime() &lt; t_startTime + t_loopDur:&amp;#10;        time.sleep(0.01)                        # Small delay to prevent CPU overuse (from ai)&amp;#10;        t_spacebar = t_kb.getState('space')&amp;#10;&amp;#10;    ##toggle recording state&amp;#10;    is_recording = not is_recording&amp;#10;    &amp;#10;    if is_recording:&amp;#10;        ##t_mrk: START&amp;#10;        t_mrk.setData(48); core.wait(0.1); t_mrk.setData(0)&amp;#10;&amp;#10;        ## start recording / record audio stream&amp;#10;        audio_data = []&amp;#10;&amp;#10;        #prev. ver: spacekey↓record-on&gt;&gt;spacekey↑-record-off # # # with sd.InputStream(samplerate=sample_rate, channels=channels, callback=lambda indata, frames, time, status: audio_data.append(indata.copy())):&amp;#10;        stream = sd.InputStream(samplerate=sample_rate, channels=channels, callback=lambda indata, frames, time, status: audio_data.append(indata.copy()))&amp;#10;        stream.start()&amp;#10;        &amp;#10;        ##after recording started, flip to green '?'&amp;#10;        t_FZ.color = 'green'&amp;#10;        win.flip()&amp;#10;        &amp;#10;    # Stop the current recording&amp;#10;    else:&amp;#10;        ##before recording stops, bakc to white '?'&amp;#10;        t_FZ.color = 'white'&amp;#10;        win.flip()&amp;#10;        &amp;#10;        ## stop recording / stop audio stream&amp;#10;        stream.stop()&amp;#10;        stream.close()&amp;#10;        if audio_data:&amp;#10;            save_recording(audio_data, recording_count, wavDirName, sample_rate)&amp;#10;            recording_count += 1&amp;#10;            audio_data = []   # Nach der Speicherung&amp;#10;        else:&amp;#10;            print(&quot;Recording too short - nothing saved&quot;)&amp;#10;        ##t_mrk: STOP&amp;#10;        t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)&amp;#10;        &amp;#10;&amp;#10;    # Check if we've reached the time limit&amp;#10;    if core.getTime() &gt; t_startTime + loopDur and is_recording:&amp;#10;        # Stop recording if we hit the time limit during a recording&amp;#10;        stream.stop()&amp;#10;        stream.close()&amp;#10;        if audio_data:&amp;#10;            save_recording(audio_data, recording_count, wavDirName, sample_rate)&amp;#10;            recording_count += 1&amp;#10;            audio_data = []   # Nach der Speicherung&amp;#10;        ##t_mrk: STOP&amp;#10;        t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)&amp;#10;        &amp;#10;        print(&quot;Program time limit reached during recording&quot;)&amp;#10;        &amp;#10;    time.sleep(0.01)  # Small delay in main loop to prevent CPU overuse&amp;#10;&amp;#10;&amp;#10;###   save_recording   ###&amp;#10;def save_recording(audio_data, recording_count, recordings_dir, sample_rate):&amp;#10;    ###Helper function to save a recording###&amp;#10;    if not audio_data:&amp;#10;        return False&amp;#10;    &amp;#10;    # Convert list of numpy arrays into one large numpy array&amp;#10;    recording = np.concatenate(audio_data, axis=0)&amp;#10;    &amp;#10;    ## prepare the recording&amp;#10;    # ## Generate filename with enumeration and timestamp&amp;#10;    # timestamp = datetime.now().strftime(&quot;%Y%m%d_%H%M%S&quot;)&amp;#10;    # timestamp = data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;)   #local: set/mark start of current run&amp;#10;    #audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_idea{recording_count:02d}_{timestamp}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_{all_items[trials.thisN][0]}_idea{recording_count:02d}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    &amp;#10;    # Save the recording to a file&amp;#10;    sf.write(audio_file, recording, sample_rate)&amp;#10;    print(f&quot;Recording #{recording_count} saved to {audio_file}&quot;)&amp;#10;    return True&amp;#10;&quot;&quot;&quot;&amp;#10;&amp;#10;#################################################################################################################################################################&amp;#10;##    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###    ###   ##&amp;#10;#################################################################################################################################################################&amp;#10;&amp;#10;&quot;&quot;&quot;&amp;#10;## ### check the loop-time ###&amp;#10;if core.getTime() &gt; t_startTime + loopDur:&amp;#10;    continueRoutine = False # finish p_trial&amp;#10;&amp;#10;## ### check for keypresses ###&amp;#10;t_response = t_kb.getKeys() # get a list of keys pressed at this instant&amp;#10;t_spacebar = t_kb.getState('space')&amp;#10;&amp;#10;## check for 'escape'&amp;#10;if t_response:&amp;#10;    if 'escape' in t_response:&amp;#10;        continueRoutine = False&amp;#10;&amp;#10;&amp;#10;##  check the 'spacebar'-key responses  ##&amp;#10;## check for presses&amp;#10;if t_spacebar and not t_spacedown:&amp;#10;    if not t_spacedown:&amp;#10;        t_spacedown = True&amp;#10;        t_spaceup = False&amp;#10;        t_FZ.color = 'green'&amp;#10;        win.flip()&amp;#10;    &amp;#10;    ## prepare the recording&amp;#10;    # timestamp = data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;)   #local: set/mark start of current run&amp;#10;    #audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_idea{recording_count:02d}_{timestamp}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    audio_file = os.path.join(wavDirName, f&quot;{expInfo['UPN-ID']}_{all_items[trials.thisN][0]}_idea{recording_count:02d}.wav&quot;)    #name the recording with 'sub.-ID', timestamp' + 'rec._count'&amp;#10;    &amp;#10;    ## start recording&amp;#10;    audio_data = []&amp;#10;    &amp;#10;    # Record audio stream&amp;#10;    with sd.InputStream(samplerate=sample_rate, channels=channels, callback=lambda indata, frames, time, status: audio_data.append(indata.copy())):&amp;#10;        ## Continue recording until spacebar is released or loop-time is over&amp;#10;        while t_spacebar and core.getTime() &lt; t_startTime + loopDur:&amp;#10;            time.sleep(0.01)  # Small delay to prevent CPU overuse&amp;#10;            t_spacebar = p_kb.getState('space')&amp;#10;    &amp;#10;    if audio_data:&amp;#10;        ## Convert list of numpy arrays into one large numpy array&amp;#10;        recording = np.concatenate(audio_data, axis=0)&amp;#10;        &amp;#10;        ## Save the recording to a file&amp;#10;        sf.write(audio_file, recording, sample_rate)&amp;#10;        recording_count += 1  # Increment the recording counter&amp;#10;    else:&amp;#10;        print(&quot;Recording too short - nothing saved&quot;)&amp;#10;&amp;#10;&amp;#10;## check for releases&amp;#10;elif not t_spacebar and not t_spaceup:&amp;#10;    t_spacedown = False&amp;#10;    t_spaceup = True&amp;#10;    t_FZ.color = 'white'&amp;#10;    win.flip()&amp;#10;&quot;&quot;&quot;&amp;#10;" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="##  show mouse  ##&amp;#10;win.mouseVisible = True&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="t_code" valType="code" updates="None" name="name"/>
       </CodeComponent>
       <TextComponent name="t_FZ" plugin="None">
-        <Param val="white" valType="str" updates="constant" name="color"/>
+        <Param val="green" valType="str" updates="constant" name="color"/>
         <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
         <Param val="1" valType="num" updates="constant" name="contrast"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
@@ -906,225 +733,6 @@
         <Param val="" valType="code" updates="None" name="validator"/>
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
-    </Routine>
-    <Routine name="p_item1">
-      <RoutineSettingsComponent name="p_item1" plugin="None">
-        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
-        <Param val="" valType="str" updates="None" name="backgroundImg"/>
-        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
-        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
-        <Param val="" valType="str" updates="constant" name="desc"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
-        <Param val="p_item1" valType="code" updates="None" name="name"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="constant" name="skipIf"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
-      </RoutineSettingsComponent>
-      <ParallelOutComponent name="p_item1_mrk" plugin="None">
-        <Param val="0x3FF8" valType="str" updates="None" name="address"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="p_item1_mrk" valType="code" updates="None" name="name"/>
-        <Param val="EIO" valType="str" updates="None" name="register"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="20" valType="code" updates="None" name="startData"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="0" valType="code" updates="None" name="stopData"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="0.25" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="constant" name="syncScreen"/>
-        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
-      </ParallelOutComponent>
-      <ImageComponent name="p_item1_img" plugin="None">
-        <Param val="center" valType="str" updates="constant" name="anchor"/>
-        <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
-        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="stim/Probe1.JPG" valType="str" updates="constant" name="image"/>
-        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
-        <Param val="None" valType="str" updates="constant" name="mask"/>
-        <Param val="p_item1_img" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="(1.77,1)" valType="list" updates="constant" name="size"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="128" valType="code" updates="constant" name="texture resolution"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-      </ImageComponent>
-      <KeyboardComponent name="p_item1_key" plugin="None">
-        <Param val="" valType="list" updates="constant" name="allowedKeys"/>
-        <Param val="" valType="str" updates="constant" name="correctAns"/>
-        <Param val="" valType="str" updates="None" name="deviceLabel"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
-        <Param val="p_item1_key" valType="code" updates="None" name="name"/>
-        <Param val="press" valType="str" updates="constant" name="registerOn"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="last key" valType="str" updates="constant" name="store"/>
-        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
-        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
-      </KeyboardComponent>
-      <TextComponent name="p_item1_hint" plugin="None">
-        <Param val="darkgreen" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="" valType="str" updates="constant" name="flip"/>
-        <Param val="Arial" valType="str" updates="constant" name="font"/>
-        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.025" valType="code" updates="constant" name="letterHeight"/>
-        <Param val="p_item1_hint" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, -.45)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="Weiter mit Leertaste" valType="extendedStr" updates="constant" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-        <Param val="" valType="code" updates="constant" name="wrapWidth"/>
-      </TextComponent>
-    </Routine>
-    <Routine name="p_item2">
-      <RoutineSettingsComponent name="p_item2" plugin="None">
-        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
-        <Param val="" valType="str" updates="None" name="backgroundImg"/>
-        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
-        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
-        <Param val="" valType="str" updates="constant" name="desc"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
-        <Param val="p_item2" valType="code" updates="None" name="name"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="constant" name="skipIf"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="" valType="code" updates="constant" name="stopVal"/>
-        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
-      </RoutineSettingsComponent>
-      <ParallelOutComponent name="p_fix_mrk" plugin="None">
-        <Param val="0x3FF8" valType="str" updates="None" name="address"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="p_fix_mrk" valType="code" updates="None" name="name"/>
-        <Param val="EIO" valType="str" updates="None" name="register"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="0" valType="code" updates="None" name="startData"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0" valType="code" updates="None" name="startVal"/>
-        <Param val="0" valType="code" updates="None" name="stopData"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="0.25" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="constant" name="syncScreen"/>
-        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
-      </ParallelOutComponent>
-      <TextComponent name="p_fixation" plugin="None">
-        <Param val="white" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="$fixDur" valType="code" updates="None" name="durationEstim"/>
-        <Param val="" valType="str" updates="constant" name="flip"/>
-        <Param val="Arial" valType="str" updates="constant" name="font"/>
-        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.1" valType="code" updates="constant" name="letterHeight"/>
-        <Param val="p_fixation" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="time (s)" valType="str" updates="None" name="startType"/>
-        <Param val="0.0" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="0" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="+" valType="extendedStr" updates="constant" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-        <Param val="" valType="code" updates="constant" name="wrapWidth"/>
-      </TextComponent>
-      <ParallelOutComponent name="p_item2_mrk" plugin="None">
-        <Param val="0x3FF8" valType="str" updates="None" name="address"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="p_item2_mrk" valType="code" updates="None" name="name"/>
-        <Param val="EIO" valType="str" updates="None" name="register"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="20" valType="code" updates="None" name="startData"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="condition" valType="str" updates="None" name="startType"/>
-        <Param val="p_fixation.status==FINISHED" valType="code" updates="None" name="startVal"/>
-        <Param val="0" valType="code" updates="None" name="stopData"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="0.25" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="constant" name="syncScreen"/>
-        <Param val="False" valType="bool" updates="None" name="syncScreenRefresh"/>
-      </ParallelOutComponent>
-      <ImageComponent name="p_item2_img" plugin="None">
-        <Param val="center" valType="str" updates="constant" name="anchor"/>
-        <Param val="$[1,1,1]" valType="str" updates="constant" name="color"/>
-        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
-        <Param val="1" valType="num" updates="constant" name="contrast"/>
-        <Param val="True" valType="bool" updates="None" name="disabled"/>
-        <Param val="False" valType="code" updates="constant" name="draggable"/>
-        <Param val="" valType="code" updates="None" name="durationEstim"/>
-        <Param val="False" valType="bool" updates="constant" name="flipHoriz"/>
-        <Param val="False" valType="bool" updates="constant" name="flipVert"/>
-        <Param val="stim/Probe2.JPG" valType="str" updates="constant" name="image"/>
-        <Param val="linear" valType="str" updates="constant" name="interpolate"/>
-        <Param val="None" valType="str" updates="constant" name="mask"/>
-        <Param val="p_item2_img" valType="code" updates="None" name="name"/>
-        <Param val="1" valType="code" updates="constant" name="opacity"/>
-        <Param val="0" valType="code" updates="constant" name="ori"/>
-        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
-        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="(1.77,1)" valType="list" updates="constant" name="size"/>
-        <Param val="" valType="code" updates="None" name="startEstim"/>
-        <Param val="condition" valType="str" updates="None" name="startType"/>
-        <Param val="p_fixation.status==FINISHED" valType="code" updates="None" name="startVal"/>
-        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
-        <Param val="$itemDur" valType="code" updates="constant" name="stopVal"/>
-        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="128" valType="code" updates="constant" name="texture resolution"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
-        <Param val="" valType="code" updates="None" name="validator"/>
-      </ImageComponent>
     </Routine>
     <Routine name="AUT_rating">
       <RoutineSettingsComponent name="AUT_rating" plugin="None">
@@ -1156,7 +764,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="Marker.setData(57);&amp;#10;core.wait(0.1);&amp;#10;Marker.setData(0);&amp;#10;" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="##  marker: AUTrating STOP  ##&amp;#10;t_mrk.setData(57); core.wait(0.1); t_mrk.setData(0)" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="##  marker: AUTrating STOP  ##&amp;#10;t_mrk.setData(57); core.wait(0.1); t_mrk.setData(0)&amp;#10;&amp;#10;##  hide mouse  ##&amp;#10;win.mouseVisible = False&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="AUTrating_code" valType="code" updates="None" name="name"/>
       </CodeComponent>
@@ -1377,9 +985,87 @@
         <Param val="" valType="code" updates="constant" name="wrapWidth"/>
       </TextComponent>
     </Routine>
+    <Routine name="wait4scanner">
+      <RoutineSettingsComponent name="wait4scanner" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
+        <Param val="wait4scanner" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <TextComponent name="GOfromMRT_txt" plugin="None">
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Arial" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.025" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="GOfromMRT_txt" valType="code" updates="None" name="name"/>
+        <Param val="sin(3*t)+0.25" valType="num" updates="set every frame" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="...awaiting clearance ('5') from the MRI-Scanner..." valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <KeyboardComponent name="GOfromMRT_key" plugin="None">
+        <Param val="'5'" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="" valType="str" updates="None" name="deviceLabel"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="GOfromMRT_key" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+    </Routine>
   </Routines>
   <Flow>
     <Routine name="settings"/>
+    <LoopInitiator loopType="TrialHandler" name="wait4scanner_byp">
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
+      <Param name="conditions" updates="None" val="None" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="" valType="file"/>
+      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
+      <Param name="isTrials" updates="None" val="True" valType="bool"/>
+      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="nReps" updates="None" val="0" valType="num"/>
+      <Param name="name" updates="None" val="wait4scanner_byp" valType="code"/>
+      <Param name="random seed" updates="None" val="" valType="code"/>
+    </LoopInitiator>
+    <Routine name="wait4scanner"/>
+    <LoopTerminator name="wait4scanner_byp"/>
     <LoopInitiator loopType="TrialHandler" name="byp_start">
       <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="None" valType="str"/>
@@ -1418,62 +1104,10 @@
     <Routine name="p_start"/>
     <LoopTerminator name="ps_byp"/>
     <LoopTerminator name="byp_start"/>
-    <LoopInitiator loopType="TrialHandler" name="pract_byp">
-      <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="str"/>
-      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="random" valType="str"/>
-      <Param name="nReps" updates="None" val="0" valType="code"/>
-      <Param name="name" updates="None" val="pract_byp" valType="code"/>
-      <Param name="random seed" updates="None" val="" valType="code"/>
-    </LoopInitiator>
-    <Routine name="p_item1"/>
-    <Routine name="p_item2"/>
-    <LoopInitiator loopType="TrialHandler" name="byp_p_idea_loop">
-      <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="file"/>
-      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="False" valType="bool"/>
-      <Param name="loopType" updates="None" val="random" valType="str"/>
-      <Param name="nReps" updates="None" val="1" valType="num"/>
-      <Param name="name" updates="None" val="byp_p_idea_loop" valType="code"/>
-      <Param name="random seed" updates="None" val="" valType="code"/>
-    </LoopInitiator>
-    <LoopInitiator loopType="TrialHandler" name="p_idea_loop">
-      <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="str"/>
-      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="random" valType="str"/>
-      <Param name="nReps" updates="None" val="1" valType="code"/>
-      <Param name="name" updates="None" val="p_idea_loop" valType="code"/>
-      <Param name="random seed" updates="None" val="" valType="code"/>
-    </LoopInitiator>
-    <Routine name="p_idea"/>
-    <LoopTerminator name="p_idea_loop"/>
-    <LoopTerminator name="byp_p_idea_loop"/>
-    <LoopTerminator name="pract_byp"/>
-    <LoopInitiator loopType="TrialHandler" name="smry_byp">
-      <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="file"/>
-      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="random" valType="str"/>
-      <Param name="nReps" updates="None" val="0" valType="num"/>
-      <Param name="name" updates="None" val="smry_byp" valType="code"/>
-      <Param name="random seed" updates="None" val="" valType="code"/>
-    </LoopInitiator>
-    <Routine name="smry"/>
-    <LoopTerminator name="smry_byp"/>
     <Routine name="start"/>
     <LoopInitiator loopType="TrialHandler" name="trials">
       <Param name="Selected rows" updates="None" val="1:5" valType="str"/>
-      <Param name="conditions" updates="None" val="[OrderedDict([('MR_AUT_item', 'Gabel')]), OrderedDict([('MR_AUT_item', 'Bananenschale')]), OrderedDict([('MR_AUT_item', 'Tischtennisball')]), OrderedDict([('MR_AUT_item', 'Klopapier')]), OrderedDict([('MR_AUT_item', 'Stirnband')]), OrderedDict([('MR_AUT_item', 'Socke')]), OrderedDict([('MR_AUT_item', 'Blumenvase')]), OrderedDict([('MR_AUT_item', 'Lampe')]), OrderedDict([('MR_AUT_item', 'Hufeisen')]), OrderedDict([('MR_AUT_item', 'Knetmasse')]), OrderedDict([('MR_AUT_item', 'Konservendose')]), OrderedDict([('MR_AUT_item', 'Zahnbürste')]), OrderedDict([('MR_AUT_item', 'Bügeleisen')]), OrderedDict([('MR_AUT_item', 'Pflaster')]), OrderedDict([('MR_AUT_item', 'Kleiderhaken')]), OrderedDict([('MR_AUT_item', 'Autoreifen')]), OrderedDict([('MR_AUT_item', 'Spiegel')]), OrderedDict([('MR_AUT_item', 'Schaumstoffpolster')]), OrderedDict([('MR_AUT_item', 'Reisekoffer')]), OrderedDict([('MR_AUT_item', 'Badewanne')]), OrderedDict([('MR_AUT_item', 'Krawatte')]), OrderedDict([('MR_AUT_item', 'Frisbee')]), OrderedDict([('MR_AUT_item', 'Föhn')]), OrderedDict([('MR_AUT_item', 'Glocke')]), OrderedDict([('MR_AUT_item', 'Pinsel')]), OrderedDict([('MR_AUT_item', 'Gürtel')]), OrderedDict([('MR_AUT_item', 'Mülleimer')]), OrderedDict([('MR_AUT_item', 'Seil')]), OrderedDict([('MR_AUT_item', 'Locher')]), OrderedDict([('MR_AUT_item', 'Uhr')])]" valType="str"/>
+      <Param name="conditions" updates="None" val="[OrderedDict([('MR_AUTitem', 'Autoreifen'), ('MR_AUTitem_mrk', np.int64(101))]), OrderedDict([('MR_AUTitem', 'Badewanne'), ('MR_AUTitem_mrk', np.int64(102))]), OrderedDict([('MR_AUTitem', 'Bananenschale'), ('MR_AUTitem_mrk', np.int64(103))]), OrderedDict([('MR_AUTitem', 'Blumenvase'), ('MR_AUTitem_mrk', np.int64(104))]), OrderedDict([('MR_AUTitem', 'Bügeleisen'), ('MR_AUTitem_mrk', np.int64(105))]), OrderedDict([('MR_AUTitem', 'Föhn'), ('MR_AUTitem_mrk', np.int64(106))]), OrderedDict([('MR_AUTitem', 'Frisbee'), ('MR_AUTitem_mrk', np.int64(107))]), OrderedDict([('MR_AUTitem', 'Gabel'), ('MR_AUTitem_mrk', np.int64(108))]), OrderedDict([('MR_AUTitem', 'Glocke'), ('MR_AUTitem_mrk', np.int64(109))]), OrderedDict([('MR_AUTitem', 'Gürtel'), ('MR_AUTitem_mrk', np.int64(110))]), OrderedDict([('MR_AUTitem', 'Hufeisen'), ('MR_AUTitem_mrk', np.int64(111))]), OrderedDict([('MR_AUTitem', 'Kleiderhaken'), ('MR_AUTitem_mrk', np.int64(112))]), OrderedDict([('MR_AUTitem', 'Klopapier'), ('MR_AUTitem_mrk', np.int64(113))]), OrderedDict([('MR_AUTitem', 'Knetmasse'), ('MR_AUTitem_mrk', np.int64(114))]), OrderedDict([('MR_AUTitem', 'Konservendose'), ('MR_AUTitem_mrk', np.int64(115))]), OrderedDict([('MR_AUTitem', 'Krawatte'), ('MR_AUTitem_mrk', np.int64(116))]), OrderedDict([('MR_AUTitem', 'Lampe'), ('MR_AUTitem_mrk', np.int64(117))]), OrderedDict([('MR_AUTitem', 'Locher'), ('MR_AUTitem_mrk', np.int64(118))]), OrderedDict([('MR_AUTitem', 'Mülleimer'), ('MR_AUTitem_mrk', np.int64(119))]), OrderedDict([('MR_AUTitem', 'Pflaster'), ('MR_AUTitem_mrk', np.int64(120))]), OrderedDict([('MR_AUTitem', 'Pinsel'), ('MR_AUTitem_mrk', np.int64(121))]), OrderedDict([('MR_AUTitem', 'Reisekoffer'), ('MR_AUTitem_mrk', np.int64(122))]), OrderedDict([('MR_AUTitem', 'Schaumstoffpolster'), ('MR_AUTitem_mrk', np.int64(123))]), OrderedDict([('MR_AUTitem', 'Seil'), ('MR_AUTitem_mrk', np.int64(124))]), OrderedDict([('MR_AUTitem', 'Socke'), ('MR_AUTitem_mrk', np.int64(125))]), OrderedDict([('MR_AUTitem', 'Spiegel'), ('MR_AUTitem_mrk', np.int64(126))]), OrderedDict([('MR_AUTitem', 'Stirnband'), ('MR_AUTitem_mrk', np.int64(127))]), OrderedDict([('MR_AUTitem', 'Tischtennisball'), ('MR_AUTitem_mrk', np.int64(128))]), OrderedDict([('MR_AUTitem', 'Uhr'), ('MR_AUTitem_mrk', np.int64(129))]), OrderedDict([('MR_AUTitem', 'Zahnbürste'), ('MR_AUTitem_mrk', np.int64(130))])]" valType="str"/>
       <Param name="conditionsFile" updates="None" val="stim/MR_AUT_items.csv" valType="str"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
       <Param name="isTrials" updates="None" val="False" valType="bool"/>
@@ -1497,19 +1131,6 @@
     <Routine name="t_idea"/>
     <LoopTerminator name="item_loop"/>
     <Routine name="AUT_rating"/>
-    <LoopInitiator loopType="TrialHandler" name="rf_loop">
-      <Param name="Selected rows" updates="None" val="" valType="str"/>
-      <Param name="conditions" updates="None" val="None" valType="str"/>
-      <Param name="conditionsFile" updates="None" val="" valType="str"/>
-      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
-      <Param name="isTrials" updates="None" val="True" valType="bool"/>
-      <Param name="loopType" updates="None" val="sequential" valType="str"/>
-      <Param name="nReps" updates="None" val="show_rf" valType="code"/>
-      <Param name="name" updates="None" val="rf_loop" valType="code"/>
-      <Param name="random seed" updates="None" val="" valType="code"/>
-    </LoopInitiator>
-    <Routine name="ruhe_fixation"/>
-    <LoopTerminator name="rf_loop"/>
     <LoopTerminator name="trials"/>
     <Routine name="thx"/>
   </Flow>
