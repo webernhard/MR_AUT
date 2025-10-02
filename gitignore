@@ -1,5 +1,7 @@
 ### bws ###
 data/
+*.csv
+*.psydat
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

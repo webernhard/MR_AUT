@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on Oktober 02, 2025, at 09:45
+    on Oktober 02, 2025, at 09:41
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -408,6 +408,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         frameDur = 1.0 / 60.0  # could not measure, so guess
     
     # Start Code - component code to be run after the window creation
+    if expInfo['session']:
+        bids_handler = BIDSHandler(dataset='MR_AUT_BIDS',
+         subject=expInfo['participant'], task=expInfo['expName'],
+         session=expInfo['session'], data_type='func', acq='',
+         runs=True)
+    else:
+        bids_handler = BIDSHandler(dataset='MR_AUT_BIDS',
+         subject=expInfo['participant'], task=expInfo['expName'],
+         data_type='func', acq='', runs=True)
+    bids_handler.createDataset()
+    bids_handler.addLicense('CC-BY-4.0', force=True)
+    bids_handler.addTaskCode(force=True)
+    bids_handler.addEnvironment()
     
     # --- Initialize components for Routine "settings" ---
     # Run 'Begin Experiment' code from set_things
@@ -493,14 +506,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         startValue=None, size=(0.5, 0.025), pos=(0, 0.1), units=win.units,
         labels=["Ja", "Nein", "Weiß nicht"],ticks=None, granularity=1,
         style='radio', styleTweaks=(), opacity=None,
-        labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
+        labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Open Sans', labelHeight=0.025,
         flip=False, ori=0.0, depth=-1, readOnly=False)
     iihs = visual.Slider(win=win, name='iihs',
         startValue=None, size=(1.0, 0.025), pos=(0, -0.1), units=win.units,
-        labels=["sehr\nwenig", "sehr\nstark"], ticks=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), granularity=1.0,
+        labels=["Not Arousing", "Neutral", "Highly Arousing"], ticks=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), granularity=1.0,
         style='rating', styleTweaks=(), opacity=None,
-        labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
+        labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Open Sans', labelHeight=0.025,
         flip=False, ori=0.0, depth=-2, readOnly=False)
     insight_btn = visual.Rect(
@@ -508,7 +521,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         width=(0.15, 0.045)[0], height=(0.15, 0.045)[1],
         ori=0.0, pos=(0, -.4), draggable=False, anchor='center',
         lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
+        colorSpace='rgb', lineColor='white', fillColor='grey',
         opacity=None, depth=-3.0, interpolate=True)
     insight_btn_txt = visual.TextStim(win=win, name='insight_btn_txt',
         text='Weiter',
@@ -537,7 +550,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, 0), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     idea_key = keyboard.Keyboard(deviceName='idea_key')
     idea_mse = event.Mouse(win=win)
     x, y = [None, None]
@@ -680,14 +693,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         startValue=None, size=(0.5, 0.025), pos=(0, 0.1), units=win.units,
         labels=["Ja", "Nein", "Weiß nicht"],ticks=None, granularity=1,
         style='radio', styleTweaks=(), opacity=None,
-        labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
+        labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Open Sans', labelHeight=0.025,
         flip=False, ori=0.0, depth=-1, readOnly=False)
     iihs = visual.Slider(win=win, name='iihs',
         startValue=None, size=(1.0, 0.025), pos=(0, -0.1), units=win.units,
-        labels=["sehr\nwenig", "sehr\nstark"], ticks=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), granularity=1.0,
+        labels=["Not Arousing", "Neutral", "Highly Arousing"], ticks=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), granularity=1.0,
         style='rating', styleTweaks=(), opacity=None,
-        labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
+        labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Open Sans', labelHeight=0.025,
         flip=False, ori=0.0, depth=-2, readOnly=False)
     insight_btn = visual.Rect(
@@ -695,7 +708,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         width=(0.15, 0.045)[0], height=(0.15, 0.045)[1],
         ori=0.0, pos=(0, -.4), draggable=False, anchor='center',
         lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
+        colorSpace='rgb', lineColor='white', fillColor='grey',
         opacity=None, depth=-3.0, interpolate=True)
     insight_btn_txt = visual.TextStim(win=win, name='insight_btn_txt',
         text='Weiter',
@@ -2121,8 +2134,46 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         thisExp.addData('t_item.stopped', t_item.tStop)
         if t_fix_mrk.status == STARTED:
             win.callOnFlip(t_fix_mrk.setData, int(0))
+        try:
+            if t_fixation.tStopRefresh is not None:
+                duration_val = t_fixation.tStopRefresh - t_fixation.tStartRefresh
+            else:
+                duration_val = thisExp.thisEntry['t_item.stopped'] - t_fixation.tStartRefresh
+            bids_event = BIDSTaskEvent(
+                onset=t_fixation.tStartRefresh,
+                duration=duration_val,
+                trial_type='fixation',
+            )
+            if bids_handler:
+                bids_handler.addEvent(bids_event)
+            else:
+                trials.addData('bidsEvent_fix.event', bids_event)
+        except BIDSError as e:
+            print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         if t_item_mrk.status == STARTED:
             win.callOnFlip(t_item_mrk.setData, int(0))
+        try:
+            if AUTitem.tStopRefresh is not None:
+                duration_val = AUTitem.tStopRefresh - AUTitem.tStartRefresh
+            else:
+                duration_val = thisExp.thisEntry['t_item.stopped'] - AUTitem.tStartRefresh
+            if hasattr(AUTitem, 'rt'):
+                rt_val = AUTitem.rt
+            else:
+                rt_val = None
+                logging.warning('The linked component "AUTitem" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
+            bids_event = BIDSTaskEvent(
+                onset=AUTitem.tStartRefresh,
+                duration=duration_val,
+                response_time=rt_val,
+                trial_type='AUTitem',
+            )
+            if bids_handler:
+                bids_handler.addEvent(bids_event)
+            else:
+                trials.addData('bidsEvent_AUTitem.event', bids_event)
+        except BIDSError as e:
+            print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         # check responses
         if idea_key.keys in ['', [], None]:  # No response was made
             idea_key.keys = None
@@ -2137,6 +2188,28 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         trials.addData('idea_mse.midButton', idea_mse.midButton)
         trials.addData('idea_mse.rightButton', idea_mse.rightButton)
         trials.addData('idea_mse.time', idea_mse.time)
+        try:
+            if idea_mse.tStopRefresh is not None:
+                duration_val = idea_mse.tStopRefresh - idea_mse.tStartRefresh
+            else:
+                duration_val = thisExp.thisEntry['t_item.stopped'] - idea_mse.tStartRefresh
+            if hasattr(idea_mse, 'rt'):
+                rt_val = idea_mse.rt
+            else:
+                rt_val = None
+                logging.warning('The linked component "idea_mse" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
+            bids_event = BIDSTaskEvent(
+                onset=idea_mse.tStartRefresh,
+                duration=duration_val,
+                response_time=rt_val,
+                trial_type='idea',
+            )
+            if bids_handler:
+                bids_handler.addEvent(bids_event)
+            else:
+                trials.addData('bidsEvent_idea.event', bids_event)
+        except BIDSError as e:
+            print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         # the Routine "t_item" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
@@ -3485,6 +3558,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     else:
         routineTimer.addTime(-5.000000)
     thisExp.nextEntry()
+    thisExp.nextEntry()
+    # the Routine "data_bidsExport" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
+    ignore_list = [
+        'participant',
+        'session',
+        'date',
+        'expName',
+        'psychopyVersion',
+        'OS',
+        'frameRate'
+    ]
+    participant_info = {
+        key: thisExp.extraInfo[key]
+        for key in thisExp.extraInfo
+        if key not in ignore_list
+    }
+    # write tsv file and update
+    try:
+        if bids_handler.events:
+            bids_handler.writeEvents(participant_info, add_stimuli=True, execute_sidecar=True, generate_hed_metadata=True)
+    except Exception as e:
+        print(f"[psychopy-bids(settings)] An error occurred when writing BIDS events: {e}")
     
     # mark experiment as finished
     endExperiment(thisExp, win=win)
