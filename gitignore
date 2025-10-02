@@ -2,6 +2,7 @@
 data/
 *.csv
 *.psydat
+MR_AUT_BIDS/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
