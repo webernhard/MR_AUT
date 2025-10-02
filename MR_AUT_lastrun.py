@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on Oktober 02, 2025, at 09:45
+    on Oktober 02, 2025, at 10:53
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -481,46 +481,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         languageStyle='LTR',
         depth=-2.0);
     
-    # --- Initialize components for Routine "insight2" ---
-    qu_header2_txt = visual.TextStim(win=win, name='qu_header2_txt',
-        text='Hatten Sie ein Gefühl der Einsicht ("Ahh"-Moment)?',
-        font='Arial',
-        pos=(0, header_pos_y), draggable=False, height=0.035, wrapWidth=None, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=0.0);
-    moi = visual.Slider(win=win, name='moi',
-        startValue=None, size=(0.5, 0.025), pos=(0, 0.1), units=win.units,
-        labels=["Ja", "Nein", "Weiß nicht"],ticks=None, granularity=1,
-        style='radio', styleTweaks=(), opacity=None,
-        labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
-        font='Open Sans', labelHeight=0.025,
-        flip=False, ori=0.0, depth=-1, readOnly=False)
-    iihs = visual.Slider(win=win, name='iihs',
-        startValue=None, size=(1.0, 0.025), pos=(0, -0.1), units=win.units,
-        labels=["sehr\nwenig", "sehr\nstark"], ticks=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), granularity=1.0,
-        style='rating', styleTweaks=(), opacity=None,
-        labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
-        font='Open Sans', labelHeight=0.025,
-        flip=False, ori=0.0, depth=-2, readOnly=False)
-    insight_btn = visual.Rect(
-        win=win, name='insight_btn',
-        width=(0.15, 0.045)[0], height=(0.15, 0.045)[1],
-        ori=0.0, pos=(0, -.4), draggable=False, anchor='center',
-        lineWidth=1.0,
-        colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
-    insight_btn_txt = visual.TextStim(win=win, name='insight_btn_txt',
-        text='Weiter',
-        font='Arial',
-        pos=(0, -.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
-        color='black', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=-4.0);
-    insight_mse = event.Mouse(win=win)
-    x, y = [None, None]
-    insight_mse.mouseClock = core.Clock()
-    
     # --- Initialize components for Routine "t_item" ---
     t_fix_mrk = parallel.ParallelPort(address='0x3FF8')
     t_fixation = visual.TextStim(win=win, name='t_fixation',
@@ -584,8 +544,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         #audio_file = os.path.join(wavDirName, f"{expInfo['Subject-ID']}_idea{recording_count:02d}_{timestamp}.wav")    #name the recording with 'sub.-ID', timestamp' + 'rec._count'
         #audio_file = os.path.join(wavDirName, f"{expInfo['Subject-ID']}_{RITitems[trials.thisN][itm]}_idea{recording_count:02d}.wav")    #name the recording with 'sub.-ID', 'rec._count'
         #audio_file = os.path.join(wavDirName, f"{expInfo['Subject-ID']}_{MR_AUT_items}_idea{recording_count:02d}.wav")    #name the recording with 'sub.-ID', 'rec._count'
-        audio_file = os.path.join(wavDirName, f"{expInfo['Subject-ID']}_{MR_AUTitem}.wav")    #name the recording with 'sub.-ID'
-        
+        audio_file = os.path.join(wavDirName, f"{expInfo['participant']}_{MR_AUTitem}.wav")    #name the recording with 'participant'/'sub.-ID'
         
         try:
             # Save the recording to a file
@@ -652,25 +611,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         languageStyle='LTR',
         depth=-8.0);
     
-    # --- Initialize components for Routine "insight" ---
-    qu_header_txt = visual.TextStim(win=win, name='qu_header_txt',
-        text='Hatten Sie ein Gefühl der Einsicht ("Ahh"-Moment)?',
-        font='Arial',
-        pos=(0, header_pos_y), draggable=False, height=0.035, wrapWidth=None, ori=0.0, 
-        color='white', colorSpace='rgb', opacity=None, 
-        languageStyle='LTR',
-        depth=0.0);
-    insight_qu = visual.Slider(win=win, name='insight_qu',
-        startValue=None, size=(0.35, 0.025), pos=(0, 0), units=win.units,
-        labels=["Ja", "Nein"],ticks=None, granularity=1,
-        style='radio', styleTweaks=(), opacity=None,
-        labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
-        font='Open Sans', labelHeight=0.035,
-        flip=False, ori=0.0, depth=-1, readOnly=False)
-    
     # --- Initialize components for Routine "insight2" ---
     qu_header2_txt = visual.TextStim(win=win, name='qu_header2_txt',
-        text='Hatten Sie ein Gefühl der Einsicht ("Ahh"-Moment)?',
+        text='Hatten Sie ein Gefühl der Einsicht ("Ahhh!"-Moment)?',
         font='Arial',
         pos=(0, header_pos_y), draggable=False, height=0.035, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
@@ -678,32 +621,39 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         depth=0.0);
     moi = visual.Slider(win=win, name='moi',
         startValue=None, size=(0.5, 0.025), pos=(0, 0.1), units=win.units,
-        labels=["Ja", "Nein", "Weiß nicht"],ticks=None, granularity=1,
+        labels=["Nein", "Weiß nicht", "Ja"],ticks=None, granularity=1,
         style='radio', styleTweaks=(), opacity=None,
         labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Open Sans', labelHeight=0.025,
         flip=False, ori=0.0, depth=-1, readOnly=False)
+    iihs_txt = visual.TextStim(win=win, name='iihs_txt',
+        text='Wenn JA, wie stark war dieses Gefühl:',
+        font='Arial',
+        pos=(0, -0.09), draggable=False, height=0.03, wrapWidth=None, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-2.0);
     iihs = visual.Slider(win=win, name='iihs',
-        startValue=None, size=(1.0, 0.025), pos=(0, -0.1), units=win.units,
-        labels=["sehr\nwenig", "sehr\nstark"], ticks=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), granularity=1.0,
+        startValue=None, size=(1.0, 0.025), pos=(0, -0.15), units=win.units,
+        labels=["sehr\nschwach", "sehr\nstark"], ticks=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), granularity=1.0,
         style='rating', styleTweaks=(), opacity=None,
         labelColor='darkgreen', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Open Sans', labelHeight=0.025,
-        flip=False, ori=0.0, depth=-2, readOnly=False)
+        flip=False, ori=0.0, depth=-3, readOnly=False)
     insight_btn = visual.Rect(
         win=win, name='insight_btn',
         width=(0.15, 0.045)[0], height=(0.15, 0.045)[1],
         ori=0.0, pos=(0, -.4), draggable=False, anchor='center',
         lineWidth=1.0,
         colorSpace='rgb', lineColor='white', fillColor='white',
-        opacity=None, depth=-3.0, interpolate=True)
+        opacity=None, depth=-4.0, interpolate=True)
     insight_btn_txt = visual.TextStim(win=win, name='insight_btn_txt',
         text='Weiter',
         font='Arial',
         pos=(0, -.4), draggable=False, height=0.025, wrapWidth=None, ori=0.0, 
         color='black', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-4.0);
+        depth=-5.0);
     insight_mse = event.Mouse(win=win)
     x, y = [None, None]
     insight_mse.mouseClock = core.Clock()
@@ -1534,251 +1484,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     byp_start.status = FINISHED
     
     
-    # --- Prepare to start Routine "insight2" ---
-    # create an object to store info about Routine insight2
-    insight2 = data.Routine(
-        name='insight2',
-        components=[qu_header2_txt, moi, iihs, insight_btn, insight_btn_txt, insight_mse],
-    )
-    insight2.status = NOT_STARTED
-    continueRoutine = True
-    # update component parameters for each repeat
-    moi.reset()
-    iihs.reset()
-    # setup some python lists for storing info about the insight_mse
-    insight_mse.x = []
-    insight_mse.y = []
-    insight_mse.leftButton = []
-    insight_mse.midButton = []
-    insight_mse.rightButton = []
-    insight_mse.time = []
-    insight_mse.clicked_name = []
-    gotValidClick = False  # until a click is received
-    # store start times for insight2
-    insight2.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-    insight2.tStart = globalClock.getTime(format='float')
-    insight2.status = STARTED
-    thisExp.addData('insight2.started', insight2.tStart)
-    insight2.maxDuration = None
-    # keep track of which components have finished
-    insight2Components = insight2.components
-    for thisComponent in insight2.components:
-        thisComponent.tStart = None
-        thisComponent.tStop = None
-        thisComponent.tStartRefresh = None
-        thisComponent.tStopRefresh = None
-        if hasattr(thisComponent, 'status'):
-            thisComponent.status = NOT_STARTED
-    # reset timers
-    t = 0
-    _timeToFirstFrame = win.getFutureFlipTime(clock="now")
-    frameN = -1
-    
-    # --- Run Routine "insight2" ---
-    insight2.forceEnded = routineForceEnded = not continueRoutine
-    while continueRoutine:
-        # get current time
-        t = routineTimer.getTime()
-        tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-        tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-        # update/draw components on each frame
-        
-        # *qu_header2_txt* updates
-        
-        # if qu_header2_txt is starting this frame...
-        if qu_header2_txt.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            qu_header2_txt.frameNStart = frameN  # exact frame index
-            qu_header2_txt.tStart = t  # local t and not account for scr refresh
-            qu_header2_txt.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(qu_header2_txt, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'qu_header2_txt.started')
-            # update status
-            qu_header2_txt.status = STARTED
-            qu_header2_txt.setAutoDraw(True)
-        
-        # if qu_header2_txt is active this frame...
-        if qu_header2_txt.status == STARTED:
-            # update params
-            pass
-        
-        # *moi* updates
-        
-        # if moi is starting this frame...
-        if moi.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            moi.frameNStart = frameN  # exact frame index
-            moi.tStart = t  # local t and not account for scr refresh
-            moi.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(moi, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'moi.started')
-            # update status
-            moi.status = STARTED
-            moi.setAutoDraw(True)
-        
-        # if moi is active this frame...
-        if moi.status == STARTED:
-            # update params
-            pass
-        
-        # *iihs* updates
-        
-        # if iihs is starting this frame...
-        if iihs.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
-            # keep track of start time/frame for later
-            iihs.frameNStart = frameN  # exact frame index
-            iihs.tStart = t  # local t and not account for scr refresh
-            iihs.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(iihs, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'iihs.started')
-            # update status
-            iihs.status = STARTED
-            iihs.setAutoDraw(True)
-        
-        # if iihs is active this frame...
-        if iihs.status == STARTED:
-            # update params
-            pass
-        
-        # *insight_btn* updates
-        
-        # if insight_btn is starting this frame...
-        if insight_btn.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            insight_btn.frameNStart = frameN  # exact frame index
-            insight_btn.tStart = t  # local t and not account for scr refresh
-            insight_btn.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(insight_btn, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'insight_btn.started')
-            # update status
-            insight_btn.status = STARTED
-            insight_btn.setAutoDraw(True)
-        
-        # if insight_btn is active this frame...
-        if insight_btn.status == STARTED:
-            # update params
-            pass
-        
-        # *insight_btn_txt* updates
-        
-        # if insight_btn_txt is starting this frame...
-        if insight_btn_txt.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            insight_btn_txt.frameNStart = frameN  # exact frame index
-            insight_btn_txt.tStart = t  # local t and not account for scr refresh
-            insight_btn_txt.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(insight_btn_txt, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'insight_btn_txt.started')
-            # update status
-            insight_btn_txt.status = STARTED
-            insight_btn_txt.setAutoDraw(True)
-        
-        # if insight_btn_txt is active this frame...
-        if insight_btn_txt.status == STARTED:
-            # update params
-            pass
-        # *insight_mse* updates
-        
-        # if insight_mse is starting this frame...
-        if insight_mse.status == NOT_STARTED and t >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            insight_mse.frameNStart = frameN  # exact frame index
-            insight_mse.tStart = t  # local t and not account for scr refresh
-            insight_mse.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(insight_mse, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.addData('insight_mse.started', t)
-            # update status
-            insight_mse.status = STARTED
-            insight_mse.mouseClock.reset()
-            prevButtonState = insight_mse.getPressed()  # if button is down already this ISN'T a new click
-        if insight_mse.status == STARTED:  # only update if started and not finished!
-            buttons = insight_mse.getPressed()
-            if buttons != prevButtonState:  # button state changed?
-                prevButtonState = buttons
-                if sum(buttons) > 0:  # state changed to a new click
-                    # check if the mouse was inside our 'clickable' objects
-                    gotValidClick = False
-                    clickableList = environmenttools.getFromNames(insight_btn, namespace=locals())
-                    for obj in clickableList:
-                        # is this object clicked on?
-                        if obj.contains(insight_mse):
-                            gotValidClick = True
-                            insight_mse.clicked_name.append(obj.name)
-                    if not gotValidClick:
-                        insight_mse.clicked_name.append(None)
-                    x, y = insight_mse.getPos()
-                    insight_mse.x.append(x)
-                    insight_mse.y.append(y)
-                    buttons = insight_mse.getPressed()
-                    insight_mse.leftButton.append(buttons[0])
-                    insight_mse.midButton.append(buttons[1])
-                    insight_mse.rightButton.append(buttons[2])
-                    insight_mse.time.append(insight_mse.mouseClock.getTime())
-                    
-                    continueRoutine = False  # end routine on response
-        
-        # check for quit (typically the Esc key)
-        if defaultKeyboard.getKeys(keyList=["escape"]):
-            thisExp.status = FINISHED
-        if thisExp.status == FINISHED or endExpNow:
-            endExperiment(thisExp, win=win)
-            return
-        # pause experiment here if requested
-        if thisExp.status == PAUSED:
-            pauseExperiment(
-                thisExp=thisExp, 
-                win=win, 
-                timers=[routineTimer, globalClock], 
-                currentRoutine=insight2,
-            )
-            # skip the frame we paused on
-            continue
-        
-        # check if all components have finished
-        if not continueRoutine:  # a component has requested a forced-end of Routine
-            insight2.forceEnded = routineForceEnded = True
-            break
-        continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in insight2.components:
-            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                continueRoutine = True
-                break  # at least one component has not yet finished
-        
-        # refresh the screen
-        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-            win.flip()
-    
-    # --- Ending Routine "insight2" ---
-    for thisComponent in insight2.components:
-        if hasattr(thisComponent, "setAutoDraw"):
-            thisComponent.setAutoDraw(False)
-    # store stop times for insight2
-    insight2.tStop = globalClock.getTime(format='float')
-    insight2.tStopRefresh = tThisFlipGlobal
-    thisExp.addData('insight2.stopped', insight2.tStop)
-    thisExp.addData('moi.response', moi.getRating())
-    thisExp.addData('moi.rt', moi.getRT())
-    thisExp.addData('iihs.response', iihs.getRating())
-    thisExp.addData('iihs.rt', iihs.getRT())
-    # store data for thisExp (ExperimentHandler)
-    thisExp.addData('insight_mse.x', insight_mse.x)
-    thisExp.addData('insight_mse.y', insight_mse.y)
-    thisExp.addData('insight_mse.leftButton', insight_mse.leftButton)
-    thisExp.addData('insight_mse.midButton', insight_mse.midButton)
-    thisExp.addData('insight_mse.rightButton', insight_mse.rightButton)
-    thisExp.addData('insight_mse.time', insight_mse.time)
-    thisExp.addData('insight_mse.clicked_name', insight_mse.clicked_name)
-    thisExp.nextEntry()
-    # the Routine "insight2" was not non-slip safe, so reset the non-slip timer
-    routineTimer.reset()
-    
     # set up handler to look after randomisation of conditions etc
     trials = data.TrialHandler2(
         name='trials',
@@ -2192,7 +1897,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             recording_count = 1
             
             ##  get start-time for 't-...'-routine
-            t_startTime = core.getTime()
+            #t_startTime = core.getTime()
             
             ##t_mrk: START - white '?' && ##t_mrk: 3min idea time START
             t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)
@@ -2881,145 +2586,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # the Routine "AUT_rating" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
-        # --- Prepare to start Routine "insight" ---
-        # create an object to store info about Routine insight
-        insight = data.Routine(
-            name='insight',
-            components=[qu_header_txt, insight_qu],
-        )
-        insight.status = NOT_STARTED
-        continueRoutine = True
-        # update component parameters for each repeat
-        insight_qu.reset()
-        # store start times for insight
-        insight.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-        insight.tStart = globalClock.getTime(format='float')
-        insight.status = STARTED
-        thisExp.addData('insight.started', insight.tStart)
-        insight.maxDuration = None
-        # keep track of which components have finished
-        insightComponents = insight.components
-        for thisComponent in insight.components:
-            thisComponent.tStart = None
-            thisComponent.tStop = None
-            thisComponent.tStartRefresh = None
-            thisComponent.tStopRefresh = None
-            if hasattr(thisComponent, 'status'):
-                thisComponent.status = NOT_STARTED
-        # reset timers
-        t = 0
-        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
-        frameN = -1
-        
-        # --- Run Routine "insight" ---
-        insight.forceEnded = routineForceEnded = not continueRoutine
-        while continueRoutine:
-            # if trial has changed, end Routine now
-            if hasattr(thisTrial, 'status') and thisTrial.status == STOPPING:
-                continueRoutine = False
-            # get current time
-            t = routineTimer.getTime()
-            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-            # update/draw components on each frame
-            
-            # *qu_header_txt* updates
-            
-            # if qu_header_txt is starting this frame...
-            if qu_header_txt.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                # keep track of start time/frame for later
-                qu_header_txt.frameNStart = frameN  # exact frame index
-                qu_header_txt.tStart = t  # local t and not account for scr refresh
-                qu_header_txt.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(qu_header_txt, 'tStartRefresh')  # time at next scr refresh
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'qu_header_txt.started')
-                # update status
-                qu_header_txt.status = STARTED
-                qu_header_txt.setAutoDraw(True)
-            
-            # if qu_header_txt is active this frame...
-            if qu_header_txt.status == STARTED:
-                # update params
-                pass
-            
-            # *insight_qu* updates
-            
-            # if insight_qu is starting this frame...
-            if insight_qu.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                # keep track of start time/frame for later
-                insight_qu.frameNStart = frameN  # exact frame index
-                insight_qu.tStart = t  # local t and not account for scr refresh
-                insight_qu.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(insight_qu, 'tStartRefresh')  # time at next scr refresh
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'insight_qu.started')
-                # update status
-                insight_qu.status = STARTED
-                insight_qu.setAutoDraw(True)
-            
-            # if insight_qu is active this frame...
-            if insight_qu.status == STARTED:
-                # update params
-                pass
-            
-            # Check insight_qu for response to end Routine
-            if insight_qu.getRating() is not None and insight_qu.status == STARTED:
-                continueRoutine = False
-            
-            # check for quit (typically the Esc key)
-            if defaultKeyboard.getKeys(keyList=["escape"]):
-                thisExp.status = FINISHED
-            if thisExp.status == FINISHED or endExpNow:
-                endExperiment(thisExp, win=win)
-                return
-            # pause experiment here if requested
-            if thisExp.status == PAUSED:
-                pauseExperiment(
-                    thisExp=thisExp, 
-                    win=win, 
-                    timers=[routineTimer, globalClock], 
-                    currentRoutine=insight,
-                )
-                # skip the frame we paused on
-                continue
-            
-            # check if all components have finished
-            if not continueRoutine:  # a component has requested a forced-end of Routine
-                insight.forceEnded = routineForceEnded = True
-                break
-            continueRoutine = False  # will revert to True if at least one component still running
-            for thisComponent in insight.components:
-                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                    continueRoutine = True
-                    break  # at least one component has not yet finished
-            
-            # refresh the screen
-            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-                win.flip()
-        
-        # --- Ending Routine "insight" ---
-        for thisComponent in insight.components:
-            if hasattr(thisComponent, "setAutoDraw"):
-                thisComponent.setAutoDraw(False)
-        # store stop times for insight
-        insight.tStop = globalClock.getTime(format='float')
-        insight.tStopRefresh = tThisFlipGlobal
-        thisExp.addData('insight.stopped', insight.tStop)
-        trials.addData('insight_qu.response', insight_qu.getRating())
-        trials.addData('insight_qu.rt', insight_qu.getRT())
-        # Run 'End Routine' code from hide_mse
-        ##  hide mouse  ##
-        win.mouseVisible = False
-        # the Routine "insight" was not non-slip safe, so reset the non-slip timer
-        routineTimer.reset()
-        
         # --- Prepare to start Routine "insight2" ---
         # create an object to store info about Routine insight2
         insight2 = data.Routine(
             name='insight2',
-            components=[qu_header2_txt, moi, iihs, insight_btn, insight_btn_txt, insight_mse],
+            components=[qu_header2_txt, moi, iihs_txt, iihs, insight_btn, insight_btn_txt, insight_mse],
         )
         insight2.status = NOT_STARTED
         continueRoutine = True
@@ -3108,10 +2679,30 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # update params
                 pass
             
+            # *iihs_txt* updates
+            
+            # if iihs_txt is starting this frame...
+            if iihs_txt.status == NOT_STARTED and moi.getRating() == 'Ja':
+                # keep track of start time/frame for later
+                iihs_txt.frameNStart = frameN  # exact frame index
+                iihs_txt.tStart = t  # local t and not account for scr refresh
+                iihs_txt.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(iihs_txt, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'iihs_txt.started')
+                # update status
+                iihs_txt.status = STARTED
+                iihs_txt.setAutoDraw(True)
+            
+            # if iihs_txt is active this frame...
+            if iihs_txt.status == STARTED:
+                # update params
+                pass
+            
             # *iihs* updates
             
             # if iihs is starting this frame...
-            if iihs.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+            if iihs.status == NOT_STARTED and moi.getRating() == 'Ja':
                 # keep track of start time/frame for later
                 iihs.frameNStart = frameN  # exact frame index
                 iihs.tStart = t  # local t and not account for scr refresh
@@ -3205,8 +2796,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         insight_mse.midButton.append(buttons[1])
                         insight_mse.rightButton.append(buttons[2])
                         insight_mse.time.append(insight_mse.mouseClock.getTime())
-                        
-                        continueRoutine = False  # end routine on response
+                        if gotValidClick:
+                            continueRoutine = False  # end routine on response
             
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):
