@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "seek": 0,
+    "start": 0.0,
+    "end": 5.0,
+    "text": " Kann man als Ohrring verwenden?",
+    "tokens": [
+      50364,
+      29074,
+      587,
+      3907,
+      876,
+      81,
+      2937,
+      24615,
+      8896,
+      30,
+      50614
+    ],
+    "temperature": 0.0,
+    "avg_logprob": -0.4638177951176961,
+    "compression_ratio": 0.7948717948717948,
+    "no_speech_prob": 0.051397260278463364
+  }
+]

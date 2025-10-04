@@ -1,0 +1,29 @@
+[
+  {
+    "id": 0,
+    "seek": 0,
+    "start": 0.0,
+    "end": 4.0,
+    "text": " Kann man gut als Briefbeschwerer verwenden.",
+    "tokens": [
+      50364,
+      29074,
+      587,
+      5228,
+      3907,
+      39805,
+      6446,
+      339,
+      1554,
+      260,
+      24615,
+      8896,
+      13,
+      50564
+    ],
+    "temperature": 0.0,
+    "avg_logprob": -0.34347778956095376,
+    "compression_ratio": 0.8431372549019608,
+    "no_speech_prob": 0.04119677096605301
+  }
+]
