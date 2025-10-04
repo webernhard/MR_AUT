@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on Oktober 02, 2025, at 12:33
+    on Sa.  4 Okt. 17:56:59 2025
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -20,8 +20,7 @@ from psychopy import locale_setup
 from psychopy import prefs
 from psychopy import plugins
 plugins.activatePlugins()
-prefs.hardware['audioLib'] = ['sounddevice', 'ptb']
-prefs.hardware['keyboardBackend'] = 'event'
+prefs.hardware['audioLib'] = 'sounddevice'
 from psychopy import sound, gui, visual, core, data, event, logging, clock, colors, layout, hardware, parallel
 from psychopy.tools import environmenttools
 from psychopy.constants import (
@@ -35,21 +34,12 @@ from numpy import (sin, cos, tan, log, log10, pi, average,
 from numpy.random import random, randint, normal, shuffle, choice as randchoice
 import os  # handy system and path functions
 import sys  # to get file system encoding
-import platform  # for platform detection
 
 from psychopy.hardware import keyboard
 from psychopy_bids.bids import BIDSBehEvent
 from psychopy_bids.bids import BIDSTaskEvent
 from psychopy_bids.bids import BIDSError
 from psychopy_bids.bids import BIDSHandler
-
-# Check if running on macOS (where parallel ports don't work)
-IS_MAC = platform.system() == 'Darwin'
-
-def safe_setData(port, value):
-    """Safely set parallel port data, skipping on macOS where parallel ports don't work."""
-    if not IS_MAC:
-        port.setData(value)
 
 # --- Setup global variables (available in all functions) ---
 # create a device manager to handle hardware (keyboards, mice, mirophones, speakers, etc.)
@@ -82,7 +72,7 @@ or run the experiment with `--pilot` as an argument. To change what pilot
 PILOTING = core.setPilotModeFromArgs()
 # start off with values from experiment settings
 _fullScr = True
-_winSize = [1920, 1080]
+_winSize = [2240, 1260]
 # if in pilot mode, apply overrides according to preferences
 if PILOTING:
     # force windowed mode
@@ -151,7 +141,7 @@ def setupData(expInfo, dataDir=None):
     thisExp = data.ExperimentHandler(
         name=expName, version=expVersion,
         extraInfo=expInfo, runtimeInfo=None,
-        originPath='C:\\Users\\weberbe\\Nextcloud\\__PsychoPy\\MR_AUT_test\\MR_AUT_lastrun.py',
+        originPath='/Users/karl/work/github/MR_AUT/MR_AUT_legacy_lastrun.py',
         savePickle=True, saveWideText=True,
         dataFileName=dataDir + os.sep + filename, sortColumns='time'
     )
@@ -247,15 +237,15 @@ def setupWindow(expInfo=None, win=None):
 
 def setupDevices(expInfo, thisExp, win):
     """
-    Setup whatever devices are available (mouse, keyboard, speaker, eyetracker, etc.) and add them to
+    Setup whatever devices are available (mouse, keyboard, speaker, eyetracker, etc.) and add them to 
     the device manager (deviceManager)
-
+    
     Parameters
     ==========
     expInfo : dict
         Information about this experiment, created by the `setupExpInfo` function.
     thisExp : psychopy.data.ExperimentHandler
-        Handler object for this experiment, contains the data to save and information about
+        Handler object for this experiment, contains the data to save and information about 
         where to save it to.
     win : psychopy.visual.Window
         Window in which to run this experiment.
@@ -264,58 +254,42 @@ def setupDevices(expInfo, thisExp, win):
     bool
         True if completed successfully.
     """
-    import platform
-
     # --- Setup input devices ---
     ioConfig = {}
     ioSession = ioServer = eyetracker = None
-
+    
     # store ioServer object in the device manager
     deviceManager.ioServer = ioServer
-
-    # On macOS, avoid registering keyboards with device manager to prevent cleanup issues
-    if platform.system() == 'Darwin':
-        # Create keyboards without registering them with device manager
-        global defaultKeyboard, GOfromMRT_key, idea_key, r_end_key, thx_key
-        defaultKeyboard = keyboard.Keyboard(backend='ptb')
-        GOfromMRT_key = keyboard.Keyboard(backend='ptb')
-        idea_key = keyboard.Keyboard(backend='ptb')
-        r_end_key = keyboard.Keyboard(backend='ptb')
-        thx_key = keyboard.Keyboard(backend='ptb')
-    else:
-        # create a default keyboard (e.g. to check for escape)
-        if deviceManager.getDevice('defaultKeyboard') is None:
-            deviceManager.addDevice(
-                deviceClass='keyboard', deviceName='defaultKeyboard', backend='ptb'
-            )
-        if deviceManager.getDevice('GOfromMRT_key') is None:
-            # initialise GOfromMRT_key
-            GOfromMRT_key = deviceManager.addDevice(
-                deviceClass='keyboard',
-                deviceName='GOfromMRT_key',
-                backend='ptb'
-            )
-        if deviceManager.getDevice('idea_key') is None:
-            # initialise idea_key
-            idea_key = deviceManager.addDevice(
-                deviceClass='keyboard',
-                deviceName='idea_key',
-                backend='ptb'
-            )
-        if deviceManager.getDevice('r_end_key') is None:
-            # initialise r_end_key
-            r_end_key = deviceManager.addDevice(
-                deviceClass='keyboard',
-                deviceName='r_end_key',
-                backend='ptb'
-            )
-        if deviceManager.getDevice('thx_key') is None:
-            # initialise thx_key
-            thx_key = deviceManager.addDevice(
-                deviceClass='keyboard',
-                deviceName='thx_key',
-                backend='ptb'
-            )
+    
+    # create a default keyboard (e.g. to check for escape)
+    if deviceManager.getDevice('defaultKeyboard') is None:
+        deviceManager.addDevice(
+            deviceClass='keyboard', deviceName='defaultKeyboard', backend='ptb'
+        )
+    if deviceManager.getDevice('GOfromMRT_key') is None:
+        # initialise GOfromMRT_key
+        GOfromMRT_key = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='GOfromMRT_key',
+        )
+    if deviceManager.getDevice('idea_key') is None:
+        # initialise idea_key
+        idea_key = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='idea_key',
+        )
+    if deviceManager.getDevice('r_end_key') is None:
+        # initialise r_end_key
+        r_end_key = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='r_end_key',
+        )
+    if deviceManager.getDevice('thx_key') is None:
+        # initialise thx_key
+        thx_key = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='thx_key',
+        )
     # return True if completed successfully
     return True
 
@@ -403,54 +377,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # get device handles from dict of input devices
     ioServer = deviceManager.ioServer
     # get/create a default keyboard (e.g. to check for escape)
-    global defaultKeyboard  # Declare global before use
-    if platform.system() != 'Darwin':  # Only register with deviceManager on non-macOS
-        defaultKeyboard = deviceManager.getDevice('defaultKeyboard')
-        if defaultKeyboard is None:
-            deviceManager.addDevice(
-                deviceClass='keyboard', deviceName='defaultKeyboard', backend='PsychToolbox'
-            )
-    # On macOS, defaultKeyboard is created globally in setupDevices
-
-    # Patch KeyboardDevice methods to handle missing _buffers attribute on macOS
-    from psychopy.hardware.keyboard import KeyboardDevice
-    original_stop = KeyboardDevice.stop
-    original_clearEvents = KeyboardDevice.clearEvents
-    original_dispatchMessages = KeyboardDevice.dispatchMessages
-
-    def safe_stop(self):
-        try:
-            return original_stop(self)
-        except AttributeError as e:
-            if "_buffers" in str(e):
-                # Skip cleanup for keyboards that don't have _buffers (common on macOS)
-                return
-            else:
-                raise
-
-    def safe_clearEvents(self, eventType=None):
-        try:
-            return original_clearEvents(self, eventType=eventType)
-        except AttributeError as e:
-            if "_buffers" in str(e):
-                # Skip clearEvents for keyboards that don't have _buffers (common on macOS)
-                return []
-            else:
-                raise
-
-    def safe_dispatchMessages(self):
-        try:
-            return original_dispatchMessages(self)
-        except AttributeError as e:
-            if "_buffers" in str(e):
-                # Skip dispatchMessages for keyboards that don't have _buffers (common on macOS)
-                return
-            else:
-                raise
-
-    KeyboardDevice.stop = safe_stop
-    KeyboardDevice.clearEvents = safe_clearEvents
-    KeyboardDevice.dispatchMessages = safe_dispatchMessages
+    defaultKeyboard = deviceManager.getDevice('defaultKeyboard')
+    if defaultKeyboard is None:
+        deviceManager.addDevice(
+            deviceClass='keyboard', deviceName='defaultKeyboard', backend='PsychToolbox'
+        )
     eyetracker = deviceManager.getDevice('eyetracker')
     # make sure we're running in the directory for this experiment
     os.chdir(_thisDir)
@@ -513,9 +444,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='white', colorSpace='rgb', opacity=1.0, 
         languageStyle='LTR',
         depth=0.0);
-    GOfromMRT_key = keyboard.Keyboard(deviceName='GOfromMRT_key', backend='ptb')
+    GOfromMRT_key = keyboard.Keyboard(deviceName='GOfromMRT_key')
     
-    # --- Initialize components for Routine "t_item" ---
+    # --- Initialize components for Routine "AUT_item" ---
     t_fix_mrk = parallel.ParallelPort(address='0x3FF8')
     t_fixation = visual.TextStim(win=win, name='t_fixation',
         text='+',
@@ -532,13 +463,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-5.0);
-    idea_key = keyboard.Keyboard(deviceName='idea_key', backend='ptb')
+    idea_key = keyboard.Keyboard(deviceName='idea_key')
     idea_mse = event.Mouse(win=win)
     x, y = [None, None]
     idea_mse.mouseClock = core.Clock()
     
-    # --- Initialize components for Routine "t_idea" ---
-    # Run 'Begin Experiment' code from t_code
+    # --- Initialize components for Routine "AUT_response" ---
+    # Run 'Begin Experiment' code from idea_code
     import sounddevice as sd
     import soundfile as sf
     import time
@@ -548,7 +479,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     channels = 1         # Number of audio channels (2 for stereo)
     
     ## get/access the keyboard
-    t_kb = keyboard.Keyboard(backend='ptb')
+    t_kb = keyboard.Keyboard()
     
     ### safe stop stream  ##
     def safe_stop_stream(stream):                              # lukas
@@ -589,7 +520,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             return False
             
         return True
-    t_FZ = visual.TextStim(win=win, name='t_FZ',
+    FZ = visual.TextStim(win=win, name='FZ',
         text='?',
         font='Arial',
         pos=(0, 0), draggable=False, height=0.1, wrapWidth=None, ori=0, 
@@ -612,7 +543,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         labelColor='black', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Open Sans', labelHeight=0.7035,
         flip=False, ori=0, depth=-2, readOnly=False)
-    r_end_key = keyboard.Keyboard(deviceName='r_end_key', backend='ptb')
+    r_end_key = keyboard.Keyboard(deviceName='r_end_key')
     r1_mouse = event.Mouse(win=win)
     x, y = [None, None]
     r1_mouse.mouseClock = core.Clock()
@@ -645,7 +576,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         languageStyle='LTR',
         depth=-9.0);
     
-    # --- Initialize components for Routine "insight" ---
+    # --- Initialize components for Routine "AUT_insight" ---
     insi_possible_header = visual.TextStim(win=win, name='insi_possible_header',
         text='Hattest Du das Gefühl eines Insights? (>"Ahhh!"-Moment<)',
         font='Arial',
@@ -700,7 +631,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='white', colorSpace='rgb', opacity=1, 
         languageStyle='LTR',
         depth=0.0);
-    thx_key = keyboard.Keyboard(deviceName='thx_key', backend='ptb')
+    thx_key = keyboard.Keyboard(deviceName='thx_key')
     thx_hint = visual.TextStim(win=win, name='thx_hint',
         text='Beenden mit Enter',
         font='Arial',
@@ -777,11 +708,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # update/draw components on each frame
         
         # check for quit (typically the Esc key)
-        try:
-            if defaultKeyboard.getKeys(keyList=["escape"]):
-                thisExp.status = FINISHED
-        except AttributeError:
-            pass
+        if defaultKeyboard.getKeys(keyList=["escape"]):
+            thisExp.status = FINISHED
         if thisExp.status == FINISHED or endExpNow:
             endExperiment(thisExp, win=win)
             return
@@ -951,11 +879,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = False
             
             # check for quit (typically the Esc key)
-            try:
-                if defaultKeyboard.getKeys(keyList=["escape"]):
-                    thisExp.status = FINISHED
-            except AttributeError:
-                pass
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
             if thisExp.status == FINISHED or endExpNow:
                 endExperiment(thisExp, win=win)
                 return
@@ -1055,13 +980,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             for paramName in thisTrial:
                 globals()[paramName] = thisTrial[paramName]
         
-        # --- Prepare to start Routine "t_item" ---
-        # create an object to store info about Routine t_item
-        t_item = data.Routine(
-            name='t_item',
+        # --- Prepare to start Routine "AUT_item" ---
+        # create an object to store info about Routine AUT_item
+        AUT_item = data.Routine(
+            name='AUT_item',
             components=[t_fix_mrk, t_fixation, t_item_mrk, AUTitem, idea_key, idea_mse],
         )
-        t_item.status = NOT_STARTED
+        AUT_item.status = NOT_STARTED
         continueRoutine = True
         # update component parameters for each repeat
         # Run 'Begin Routine' code from fix_code
@@ -1081,15 +1006,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         idea_mse.rightButton = []
         idea_mse.time = []
         gotValidClick = False  # until a click is received
-        # store start times for t_item
-        t_item.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-        t_item.tStart = globalClock.getTime(format='float')
-        t_item.status = STARTED
-        thisExp.addData('t_item.started', t_item.tStart)
-        t_item.maxDuration = None
+        # store start times for AUT_item
+        AUT_item.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+        AUT_item.tStart = globalClock.getTime(format='float')
+        AUT_item.status = STARTED
+        thisExp.addData('AUT_item.started', AUT_item.tStart)
+        AUT_item.maxDuration = None
         # keep track of which components have finished
-        t_itemComponents = t_item.components
-        for thisComponent in t_item.components:
+        AUT_itemComponents = AUT_item.components
+        for thisComponent in AUT_item.components:
             thisComponent.tStart = None
             thisComponent.tStop = None
             thisComponent.tStartRefresh = None
@@ -1101,8 +1026,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         _timeToFirstFrame = win.getFutureFlipTime(clock="now")
         frameN = -1
         
-        # --- Run Routine "t_item" ---
-        t_item.forceEnded = routineForceEnded = not continueRoutine
+        # --- Run Routine "AUT_item" ---
+        AUT_item.forceEnded = routineForceEnded = not continueRoutine
         while continueRoutine:
             # if trial has changed, end Routine now
             if hasattr(thisTrial, 'status') and thisTrial.status == STOPPING:
@@ -1116,7 +1041,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # *t_fix_mrk* updates
             
             # if t_fix_mrk is starting this frame...
-            if t >= 0-frameTolerance:
+            if t_fix_mrk.status == NOT_STARTED and t >= 0-frameTolerance:
                 # keep track of start time/frame for later
                 t_fix_mrk.frameNStart = frameN  # exact frame index
                 t_fix_mrk.tStart = t  # local t and not account for scr refresh
@@ -1124,17 +1049,24 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.timeOnFlip(t_fix_mrk, 'tStartRefresh')  # time at next scr refresh
                 # add timestamp to datafile
                 thisExp.addData('t_fix_mrk.started', t)
-                win.callOnFlip(lambda: safe_setData(t_fix_mrk, int(10)))
+                # update status
+                t_fix_mrk.status = STARTED
+                t_fix_mrk.status = STARTED
+                win.callOnFlip(t_fix_mrk.setData, int(10))
             
             # if t_fix_mrk is stopping this frame...
-            if tThisFlipGlobal > t_fix_mrk.tStartRefresh + 0.25-frameTolerance:
-                # keep track of stop time/frame for later
-                t_fix_mrk.tStop = t  # not accounting for scr refresh
-                t_fix_mrk.tStopRefresh = tThisFlipGlobal  # on global time
-                t_fix_mrk.frameNStop = frameN  # exact frame index
-                # add timestamp to datafile
-                thisExp.addData('t_fix_mrk.stopped', t)
-                win.callOnFlip(lambda: safe_setData(t_fix_mrk, int(0)))
+            if t_fix_mrk.status == STARTED:
+                # is it time to stop? (based on global clock, using actual start)
+                if tThisFlipGlobal > t_fix_mrk.tStartRefresh + 0.25-frameTolerance:
+                    # keep track of stop time/frame for later
+                    t_fix_mrk.tStop = t  # not accounting for scr refresh
+                    t_fix_mrk.tStopRefresh = tThisFlipGlobal  # on global time
+                    t_fix_mrk.frameNStop = frameN  # exact frame index
+                    # add timestamp to datafile
+                    thisExp.addData('t_fix_mrk.stopped', t)
+                    # update status
+                    t_fix_mrk.status = FINISHED
+                    win.callOnFlip(t_fix_mrk.setData, int(0))
             
             # *t_fixation* updates
             
@@ -1172,7 +1104,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # *t_item_mrk* updates
             
             # if t_item_mrk is starting this frame...
-            if t_fixation.status==FINISHED:
+            if t_item_mrk.status == NOT_STARTED and t_fixation.status==FINISHED:
                 # keep track of start time/frame for later
                 t_item_mrk.frameNStart = frameN  # exact frame index
                 t_item_mrk.tStart = t  # local t and not account for scr refresh
@@ -1180,17 +1112,24 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.timeOnFlip(t_item_mrk, 'tStartRefresh')  # time at next scr refresh
                 # add timestamp to datafile
                 thisExp.addData('t_item_mrk.started', t)
-                win.callOnFlip(lambda: safe_setData(t_item_mrk, int(MR_AUTitem_mrk)))
+                # update status
+                t_item_mrk.status = STARTED
+                t_item_mrk.status = STARTED
+                win.callOnFlip(t_item_mrk.setData, int(MR_AUTitem_mrk))
             
-            # Parallel ports don't have status, just send stop signal after duration
-            if t_fixation.status==FINISHED and tThisFlipGlobal > t_item_mrk.tStartRefresh + 0.25-frameTolerance:
-                # keep track of stop time/frame for later
-                t_item_mrk.tStop = t  # not accounting for scr refresh
-                t_item_mrk.tStopRefresh = tThisFlipGlobal  # on global time
-                t_item_mrk.frameNStop = frameN  # exact frame index
-                # add timestamp to datafile
-                thisExp.addData('t_item_mrk.stopped', t)
-                win.callOnFlip(lambda: safe_setData(t_item_mrk, int(0)))
+            # if t_item_mrk is stopping this frame...
+            if t_item_mrk.status == STARTED:
+                # is it time to stop? (based on global clock, using actual start)
+                if tThisFlipGlobal > t_item_mrk.tStartRefresh + 0.25-frameTolerance:
+                    # keep track of stop time/frame for later
+                    t_item_mrk.tStop = t  # not accounting for scr refresh
+                    t_item_mrk.tStopRefresh = tThisFlipGlobal  # on global time
+                    t_item_mrk.frameNStop = frameN  # exact frame index
+                    # add timestamp to datafile
+                    thisExp.addData('t_item_mrk.stopped', t)
+                    # update status
+                    t_item_mrk.status = FINISHED
+                    win.callOnFlip(t_item_mrk.setData, int(0))
             
             # *AUTitem* updates
             
@@ -1311,11 +1250,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         continueRoutine = False  # end routine on response
             
             # check for quit (typically the Esc key)
-            try:
-                if defaultKeyboard.getKeys(keyList=["escape"]):
-                    thisExp.status = FINISHED
-            except AttributeError:
-                pass
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
             if thisExp.status == FINISHED or endExpNow:
                 endExperiment(thisExp, win=win)
                 return
@@ -1325,17 +1261,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisExp=thisExp, 
                     win=win, 
                     timers=[routineTimer, globalClock], 
-                    currentRoutine=t_item,
+                    currentRoutine=AUT_item,
                 )
                 # skip the frame we paused on
                 continue
             
             # check if all components have finished
             if not continueRoutine:  # a component has requested a forced-end of Routine
-                t_item.forceEnded = routineForceEnded = True
+                AUT_item.forceEnded = routineForceEnded = True
                 break
             continueRoutine = False  # will revert to True if at least one component still running
-            for thisComponent in t_item.components:
+            for thisComponent in AUT_item.components:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
@@ -1344,20 +1280,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
         
-        # --- Ending Routine "t_item" ---
-        for thisComponent in t_item.components:
+        # --- Ending Routine "AUT_item" ---
+        for thisComponent in AUT_item.components:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        # store stop times for t_item
-        t_item.tStop = globalClock.getTime(format='float')
-        t_item.tStopRefresh = tThisFlipGlobal
-        thisExp.addData('t_item.stopped', t_item.tStop)
-        win.callOnFlip(lambda: safe_setData(t_fix_mrk, int(0)))
+        # store stop times for AUT_item
+        AUT_item.tStop = globalClock.getTime(format='float')
+        AUT_item.tStopRefresh = tThisFlipGlobal
+        thisExp.addData('AUT_item.stopped', AUT_item.tStop)
+        if t_fix_mrk.status == STARTED:
+            win.callOnFlip(t_fix_mrk.setData, int(0))
         try:
             if t_fixation.tStopRefresh is not None:
                 duration_val = t_fixation.tStopRefresh - t_fixation.tStartRefresh
             else:
-                duration_val = thisExp.thisEntry['t_item.stopped'] - t_fixation.tStartRefresh
+                duration_val = thisExp.thisEntry['AUT_item.stopped'] - t_fixation.tStartRefresh
             bids_event = BIDSTaskEvent(
                 onset=t_fixation.tStartRefresh,
                 duration=duration_val,
@@ -1369,21 +1306,16 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 trials.addData('bidsEvent_fix.event', bids_event)
         except BIDSError as e:
             print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
-        win.callOnFlip(lambda: safe_setData(t_item_mrk, int(0)))
+        if t_item_mrk.status == STARTED:
+            win.callOnFlip(t_item_mrk.setData, int(0))
         try:
             if AUTitem.tStopRefresh is not None:
                 duration_val = AUTitem.tStopRefresh - AUTitem.tStartRefresh
             else:
-                duration_val = thisExp.thisEntry['t_item.stopped'] - AUTitem.tStartRefresh
-            if hasattr(AUTitem, 'rt'):
-                rt_val = AUTitem.rt
-            else:
-                rt_val = None
-                logging.warning('The linked component "AUTitem" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
+                duration_val = thisExp.thisEntry['AUT_item.stopped'] - AUTitem.tStartRefresh
             bids_event = BIDSTaskEvent(
                 onset=AUTitem.tStartRefresh,
                 duration=duration_val,
-                response_time=rt_val,
                 trial_type='AUTitem',
             )
             if bids_handler:
@@ -1410,7 +1342,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if idea_mse.tStopRefresh is not None:
                 duration_val = idea_mse.tStopRefresh - idea_mse.tStartRefresh
             else:
-                duration_val = thisExp.thisEntry['t_item.stopped'] - idea_mse.tStartRefresh
+                duration_val = thisExp.thisEntry['AUT_item.stopped'] - idea_mse.tStartRefresh
             if hasattr(idea_mse, 'rt'):
                 rt_val = idea_mse.rt
             else:
@@ -1428,7 +1360,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 trials.addData('bidsEvent_idea.event', bids_event)
         except BIDSError as e:
             print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
-        # the Routine "t_item" was not non-slip safe, so reset the non-slip timer
+        # the Routine "AUT_item" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
         # set up handler to look after randomisation of conditions etc
@@ -1465,16 +1397,16 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 for paramName in thisItem_loop:
                     globals()[paramName] = thisItem_loop[paramName]
             
-            # --- Prepare to start Routine "t_idea" ---
-            # create an object to store info about Routine t_idea
-            t_idea = data.Routine(
-                name='t_idea',
-                components=[t_FZ],
+            # --- Prepare to start Routine "AUT_response" ---
+            # create an object to store info about Routine AUT_response
+            AUT_response = data.Routine(
+                name='AUT_response',
+                components=[FZ],
             )
-            t_idea.status = NOT_STARTED
+            AUT_response.status = NOT_STARTED
             continueRoutine = True
             # update component parameters for each repeat
-            # Run 'Begin Routine' code from t_code
+            # Run 'Begin Routine' code from idea_code
             ##  recording flag  ##
             is_recording = False
             recording_started = False
@@ -1486,7 +1418,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             #t_startTime = core.getTime()
             
             ##t_mrk: START - (white/)blue '?' && ##t_mrk: 3min idea time START
-            safe_setData(t_mrk, 49); core.wait(0.1); safe_setData(t_mrk, 0)
+            t_mrk.setData(49); core.wait(0.1); t_mrk.setData(0)
             
             ## Vor dem ersten Aufruf von getKeys() und getState() in "each frame"
             t_kb.clearEvents(eventType='keyboard')  # Lösche alle vorherigen Tasteneingaben
@@ -1513,22 +1445,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             win.flip()
             
             ##t_mrk: START Nachdenkphase
-            safe_setData(t_mrk, 50); core.wait(0.1); safe_setData(t_mrk, 0)
+            t_mrk.setData(50); core.wait(0.1); t_mrk.setData(0)
             
             
             ## Vor dem ersten Aufruf von getKeys() und getState() in "each frame"
             t_kb.clearEvents(eventType='keyboard')  # Lösche alle vorherigen Tasteneingaben  
             """
             
-            # store start times for t_idea
-            t_idea.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-            t_idea.tStart = globalClock.getTime(format='float')
-            t_idea.status = STARTED
-            thisExp.addData('t_idea.started', t_idea.tStart)
-            t_idea.maxDuration = None
+            # store start times for AUT_response
+            AUT_response.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+            AUT_response.tStart = globalClock.getTime(format='float')
+            AUT_response.status = STARTED
+            thisExp.addData('AUT_response.started', AUT_response.tStart)
+            AUT_response.maxDuration = None
             # keep track of which components have finished
-            t_ideaComponents = t_idea.components
-            for thisComponent in t_idea.components:
+            AUT_responseComponents = AUT_response.components
+            for thisComponent in AUT_response.components:
                 thisComponent.tStart = None
                 thisComponent.tStop = None
                 thisComponent.tStartRefresh = None
@@ -1540,8 +1472,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             _timeToFirstFrame = win.getFutureFlipTime(clock="now")
             frameN = -1
             
-            # --- Run Routine "t_idea" ---
-            t_idea.forceEnded = routineForceEnded = not continueRoutine
+            # --- Run Routine "AUT_response" ---
+            AUT_response.forceEnded = routineForceEnded = not continueRoutine
             while continueRoutine:
                 # if trial has changed, end Routine now
                 if hasattr(thisItem_loop, 'status') and thisItem_loop.status == STOPPING:
@@ -1552,14 +1484,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                # Run 'Each Frame' code from t_code
+                # Run 'Each Frame' code from idea_code
                 # Initialize recording on first call
                 if not recording_started:
                     recording_started = True
                     
                     # Display blue question mark
                     t_FZ.color = 'darkgreen'
-                    t_FZ.text = '?'
+                    #t_FZ.text = '?'
                     win.flip()
                     
                     # Start audio recording
@@ -1573,7 +1505,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         stream.start()
                         
                         # Send start marker
-                        safe_setData(t_mrk, 48); core.wait(0.1); safe_setData(t_mrk, 0)
+                        t_mrk.setData(48); core.wait(0.1); t_mrk.setData(0)
                         
                     except Exception as e:
                         print(f"Recording failed to start: {e}")
@@ -1601,7 +1533,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         #             expInfo['UPN-ID'], RITitems[trials.thisN][itm])
                     
                     # Send stop marker
-                    safe_setData(t_mrk, 47); core.wait(0.1); safe_setData(t_mrk, 0)
+                    t_mrk.setData(47); core.wait(0.1); t_mrk.setData(0)
                     
                     # Clear screen and finish
                     t_FZ.text = ''
@@ -1781,32 +1713,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 """
                 
                 
-                # *t_FZ* updates
+                # *FZ* updates
                 
-                # if t_FZ is starting this frame...
-                if t_FZ.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # if FZ is starting this frame...
+                if FZ.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                     # keep track of start time/frame for later
-                    t_FZ.frameNStart = frameN  # exact frame index
-                    t_FZ.tStart = t  # local t and not account for scr refresh
-                    t_FZ.tStartRefresh = tThisFlipGlobal  # on global time
-                    win.timeOnFlip(t_FZ, 'tStartRefresh')  # time at next scr refresh
+                    FZ.frameNStart = frameN  # exact frame index
+                    FZ.tStart = t  # local t and not account for scr refresh
+                    FZ.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(FZ, 'tStartRefresh')  # time at next scr refresh
                     # add timestamp to datafile
-                    thisExp.timestampOnFlip(win, 't_FZ.started')
+                    thisExp.timestampOnFlip(win, 'FZ.started')
                     # update status
-                    t_FZ.status = STARTED
-                    t_FZ.setAutoDraw(True)
+                    FZ.status = STARTED
+                    FZ.setAutoDraw(True)
                 
-                # if t_FZ is active this frame...
-                if t_FZ.status == STARTED:
+                # if FZ is active this frame...
+                if FZ.status == STARTED:
                     # update params
                     pass
                 
                 # check for quit (typically the Esc key)
-                try:
-                    if defaultKeyboard.getKeys(keyList=["escape"]):
-                        thisExp.status = FINISHED
-                except AttributeError:
-                    pass
+                if defaultKeyboard.getKeys(keyList=["escape"]):
+                    thisExp.status = FINISHED
                 if thisExp.status == FINISHED or endExpNow:
                     endExperiment(thisExp, win=win)
                     return
@@ -1816,17 +1745,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         thisExp=thisExp, 
                         win=win, 
                         timers=[routineTimer, globalClock], 
-                        currentRoutine=t_idea,
+                        currentRoutine=AUT_response,
                     )
                     # skip the frame we paused on
                     continue
                 
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
-                    t_idea.forceEnded = routineForceEnded = True
+                    AUT_response.forceEnded = routineForceEnded = True
                     break
                 continueRoutine = False  # will revert to True if at least one component still running
-                for thisComponent in t_idea.components:
+                for thisComponent in AUT_response.components:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
@@ -1835,19 +1764,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
             
-            # --- Ending Routine "t_idea" ---
-            for thisComponent in t_idea.components:
+            # --- Ending Routine "AUT_response" ---
+            for thisComponent in AUT_response.components:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            # store stop times for t_idea
-            t_idea.tStop = globalClock.getTime(format='float')
-            t_idea.tStopRefresh = tThisFlipGlobal
-            thisExp.addData('t_idea.stopped', t_idea.tStop)
-            # Run 'End Routine' code from t_code
+            # store stop times for AUT_response
+            AUT_response.tStop = globalClock.getTime(format='float')
+            AUT_response.tStopRefresh = tThisFlipGlobal
+            thisExp.addData('AUT_response.stopped', AUT_response.tStop)
+            # Run 'End Routine' code from idea_code
             ##  show mouse  ##
             win.mouseVisible = True
             
-            # the Routine "t_idea" was not non-slip safe, so reset the non-slip timer
+            # the Routine "AUT_response" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
             # mark thisItem_loop as finished
             if hasattr(thisItem_loop, 'status'):
@@ -2100,11 +2029,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 pass
             
             # check for quit (typically the Esc key)
-            try:
-                if defaultKeyboard.getKeys(keyList=["escape"]):
-                    thisExp.status = FINISHED
-            except AttributeError:
-                pass
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
             if thisExp.status == FINISHED or endExpNow:
                 endExperiment(thisExp, win=win)
                 return
@@ -2143,7 +2069,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         thisExp.addData('AUT_rating.stopped', AUT_rating.tStop)
         # Run 'End Routine' code from AUTrating_code
         ##  marker: AUTrating STOP  ##
-        safe_setData(t_mrk, 57); core.wait(0.1); safe_setData(t_mrk, 0)
+        t_mrk.setData(57); core.wait(0.1); t_mrk.setData(0)
         
         trials.addData('VASrating.response', VASrating.getRating())
         trials.addData('VASrating.rt', VASrating.getRT())
@@ -2200,13 +2126,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # the Routine "AUT_rating" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
-        # --- Prepare to start Routine "insight" ---
-        # create an object to store info about Routine insight
-        insight = data.Routine(
-            name='insight',
+        # --- Prepare to start Routine "AUT_insight" ---
+        # create an object to store info about Routine AUT_insight
+        AUT_insight = data.Routine(
+            name='AUT_insight',
             components=[insi_possible_header, insi_possible, insi_intensity_txt, insi_intensity, insi_btn, insi_btn_txt, insi_mse],
         )
-        insight.status = NOT_STARTED
+        AUT_insight.status = NOT_STARTED
         continueRoutine = True
         # update component parameters for each repeat
         # Run 'Begin Routine' code from insi_code
@@ -2225,15 +2151,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         insi_mse.time = []
         insi_mse.clicked_name = []
         gotValidClick = False  # until a click is received
-        # store start times for insight
-        insight.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-        insight.tStart = globalClock.getTime(format='float')
-        insight.status = STARTED
-        thisExp.addData('insight.started', insight.tStart)
-        insight.maxDuration = None
+        # store start times for AUT_insight
+        AUT_insight.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+        AUT_insight.tStart = globalClock.getTime(format='float')
+        AUT_insight.status = STARTED
+        thisExp.addData('AUT_insight.started', AUT_insight.tStart)
+        AUT_insight.maxDuration = None
         # keep track of which components have finished
-        insightComponents = insight.components
-        for thisComponent in insight.components:
+        AUT_insightComponents = AUT_insight.components
+        for thisComponent in AUT_insight.components:
             thisComponent.tStart = None
             thisComponent.tStop = None
             thisComponent.tStartRefresh = None
@@ -2245,8 +2171,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         _timeToFirstFrame = win.getFutureFlipTime(clock="now")
         frameN = -1
         
-        # --- Run Routine "insight" ---
-        insight.forceEnded = routineForceEnded = not continueRoutine
+        # --- Run Routine "AUT_insight" ---
+        AUT_insight.forceEnded = routineForceEnded = not continueRoutine
         while continueRoutine:
             # if trial has changed, end Routine now
             if hasattr(thisTrial, 'status') and thisTrial.status == STOPPING:
@@ -2434,11 +2360,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             continueRoutine = False  # end routine on response
             
             # check for quit (typically the Esc key)
-            try:
-                if defaultKeyboard.getKeys(keyList=["escape"]):
-                    thisExp.status = FINISHED
-            except AttributeError:
-                pass
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
             if thisExp.status == FINISHED or endExpNow:
                 endExperiment(thisExp, win=win)
                 return
@@ -2448,17 +2371,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisExp=thisExp, 
                     win=win, 
                     timers=[routineTimer, globalClock], 
-                    currentRoutine=insight,
+                    currentRoutine=AUT_insight,
                 )
                 # skip the frame we paused on
                 continue
             
             # check if all components have finished
             if not continueRoutine:  # a component has requested a forced-end of Routine
-                insight.forceEnded = routineForceEnded = True
+                AUT_insight.forceEnded = routineForceEnded = True
                 break
             continueRoutine = False  # will revert to True if at least one component still running
-            for thisComponent in insight.components:
+            for thisComponent in AUT_insight.components:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
@@ -2467,17 +2390,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
         
-        # --- Ending Routine "insight" ---
-        for thisComponent in insight.components:
+        # --- Ending Routine "AUT_insight" ---
+        for thisComponent in AUT_insight.components:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        # store stop times for insight
-        insight.tStop = globalClock.getTime(format='float')
-        insight.tStopRefresh = tThisFlipGlobal
-        thisExp.addData('insight.stopped', insight.tStop)
+        # store stop times for AUT_insight
+        AUT_insight.tStop = globalClock.getTime(format='float')
+        AUT_insight.tStopRefresh = tThisFlipGlobal
+        thisExp.addData('AUT_insight.stopped', AUT_insight.tStop)
         # Run 'End Routine' code from insi_code
         ##  marker: insight_rating STOP  ##
-        safe_setData(t_mrk, 59); core.wait(0.1); safe_setData(t_mrk, 0)
+        t_mrk.setData(59); core.wait(0.1); t_mrk.setData(0)
         
         ##  hide mouse  ##
         win.mouseVisible = False
@@ -2487,7 +2410,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if insi_possible.tStopRefresh is not None:
                 duration_val = insi_possible.tStopRefresh - insi_possible.tStartRefresh
             else:
-                duration_val = thisExp.thisEntry['insight.stopped'] - insi_possible.tStartRefresh
+                duration_val = thisExp.thisEntry['AUT_insight.stopped'] - insi_possible.tStartRefresh
             if hasattr(insi_possible, 'rt'):
                 rt_val = insi_possible.rt
             else:
@@ -2520,7 +2443,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if insi_intensity.tStopRefresh is not None:
                 duration_val = insi_intensity.tStopRefresh - insi_intensity.tStartRefresh
             else:
-                duration_val = thisExp.thisEntry['insight.stopped'] - insi_intensity.tStartRefresh
+                duration_val = thisExp.thisEntry['AUT_insight.stopped'] - insi_intensity.tStartRefresh
             if hasattr(insi_intensity, 'rt'):
                 rt_val = insi_intensity.rt
             else:
@@ -2538,7 +2461,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 trials.addData('bidsEvent_intensity_insi.event', bids_event)
         except BIDSError as e:
             print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
-        # the Routine "insight" was not non-slip safe, so reset the non-slip timer
+        # the Routine "AUT_insight" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         # mark thisTrial as finished
         if hasattr(thisTrial, 'status'):
@@ -2711,11 +2634,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 thx_hint.setAutoDraw(False)
         
         # check for quit (typically the Esc key)
-        try:
-            if defaultKeyboard.getKeys(keyList=["escape"]):
-                thisExp.status = FINISHED
-        except AttributeError:
-            pass
+        if defaultKeyboard.getKeys(keyList=["escape"]):
+            thisExp.status = FINISHED
         if thisExp.status == FINISHED or endExpNow:
             endExperiment(thisExp, win=win)
             return
@@ -2768,7 +2688,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         routineTimer.addTime(-5.000000)
     thisExp.nextEntry()
     thisExp.nextEntry()
-    # the Routine "data_bidsExport" was not non-slip safe, so reset the non-slip timer
+    # the Routine "AUT_data_bidsExport" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     ignore_list = [
         'participant',
@@ -2844,7 +2764,7 @@ def endExperiment(thisExp, win=None):
 def quit(thisExp, win=None, thisSession=None):
     """
     Fully quit, closing the window and ending the Python process.
-
+    
     Parameters
     ==========
     win : psychopy.visual.Window
@@ -2852,63 +2772,22 @@ def quit(thisExp, win=None, thisSession=None):
     thisSession : psychopy.session.Session or None
         Handle of the Session object this experiment is being run from, if any.
     """
-    try:
-        thisExp.abort()  # or data files will save again on exit
-    except Exception as e:
-        print(f"Note: Experiment abort encountered an issue: {e}")
-
+    thisExp.abort()  # or data files will save again on exit
     # make sure everything is closed down
     if win is not None:
-        try:
-            # Flip one final time so any remaining win.callOnFlip()
-            # and win.timeOnFlip() tasks get executed before quitting
-            win.flip()
-            win.close()
-        except Exception as e:
-            print(f"Note: Window cleanup encountered an issue: {e}")
-
+        # Flip one final time so any remaining win.callOnFlip() 
+        # and win.timeOnFlip() tasks get executed before quitting
+        win.flip()
+        win.close()
     logging.flush()
     if thisSession is not None:
-        try:
-            thisSession.stop()
-        except Exception as e:
-            print(f"Note: Session cleanup encountered an issue: {e}")
-
-    # Handle keyboard device cleanup issues gracefully
-    try:
-        # terminate Python process
-        core.quit()
-    except AttributeError as e:
-        # Handle specific keyboard cleanup issues on macOS
-        if "'KeyboardDevice' object has no attribute '_buffers'" in str(e):
-            print("Note: Keyboard cleanup issue detected (common on macOS), continuing with exit...")
-            import sys
-            sys.exit(0)
-        else:
-            # Re-raise other AttributeErrors
-            raise
-    except Exception as e:
-        # If there's an issue with device cleanup (common on macOS), just exit
-        print(f"Note: Exit cleanup encountered an issue: {e}")
-        import sys
-        sys.exit(0)
+        thisSession.stop()
+    # terminate Python process
+    core.quit()
 
 
 # if running this experiment as a script...
 if __name__ == '__main__':
-    # Safety guard: prevent accidental runs on macOS where audio/keyboard
-    # device handling in this script has been known to hang/freeze systems.
-    # To deliberately run on macOS set environment variable MR_AUT_ALLOW_RUN=1
-    import os, sys
-    try:
-        is_darwin = platform.system() == 'Darwin'
-    except Exception:
-        is_darwin = False
-    if is_darwin and os.environ.get('MR_AUT_ALLOW_RUN', '0') != '1':
-        print("MR_AUT: Running on macOS is disabled by default for safety.")
-        print("If you understand the risks and want to proceed, re-run with:\n  MR_AUT_ALLOW_RUN=1 python MR_AUT_lastrun.py")
-        sys.exit(0)
-
     # call all functions in order
     expInfo = showExpInfoDlg(expInfo=expInfo)
     thisExp = setupData(expInfo=expInfo)

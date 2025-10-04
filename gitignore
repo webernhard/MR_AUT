@@ -3,6 +3,9 @@ data/
 *.csv
 *.psydat
 MR_AUT_BIDS/
+.venv/
+tests/
+install/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

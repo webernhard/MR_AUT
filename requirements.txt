@@ -1,0 +1,15 @@
+psychopy
+sounddevice
+soundfile
+numpy
+# optional
+psychopy-bids
+psychopy-bids
+sounddevice
+soundfile
+openai-whisper
+torch
+noisereduce
+deepmultilingualpunctuation
+scipy
+imageio-ffmpeg

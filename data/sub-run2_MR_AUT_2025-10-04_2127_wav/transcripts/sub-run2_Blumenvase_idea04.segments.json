@@ -1,0 +1,24 @@
+[
+  {
+    "id": 0,
+    "seek": 0,
+    "start": 0.0,
+    "end": 5.76,
+    "text": " runterwerfen und zusammenkäben",
+    "tokens": [
+      50364,
+      33295,
+      1554,
+      6570,
+      674,
+      14311,
+      21036,
+      1799,
+      50652
+    ],
+    "temperature": 0.0,
+    "avg_logprob": -0.5263305187225342,
+    "compression_ratio": 0.7948717948717948,
+    "no_speech_prob": 0.02840181440114975
+  }
+]

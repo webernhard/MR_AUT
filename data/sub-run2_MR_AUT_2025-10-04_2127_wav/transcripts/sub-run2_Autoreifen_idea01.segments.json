@@ -1,0 +1,28 @@
+[
+  {
+    "id": 0,
+    "seek": 0,
+    "start": 0.0,
+    "end": 4.4,
+    "text": " Damit kann man einen schönen Bilderrahmen machen.",
+    "tokens": [
+      50364,
+      24495,
+      4028,
+      587,
+      4891,
+      25032,
+      2866,
+      44719,
+      424,
+      9547,
+      7069,
+      13,
+      50584
+    ],
+    "temperature": 0.0,
+    "avg_logprob": -0.3533532278878348,
+    "compression_ratio": 0.9259259259259259,
+    "no_speech_prob": 0.0032730887178331614
+  }
+]
