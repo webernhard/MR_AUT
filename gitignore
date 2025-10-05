@@ -7,7 +7,7 @@ MR_AUT_BIDS/
 tests/
 install/
 gen/
-
+data/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

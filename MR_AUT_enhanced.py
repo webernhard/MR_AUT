@@ -2,14 +2,36 @@
 """
 MR_AUT_enhanced.py
 
-Compact, enhanced AUT paradigm that restores key features from the original:
-- wait for scanner trigger ('5')
-- show items from stim/MR_AUT_items.csv
-- send parallel-port markers when available
-- record audio between SPACE press and next SPACE press (safe handling)
-- save WAV per participant/item with timestamp
-- simple numeric creativity rating (0-9) via keyboard
-- optional BIDS events if psychopy-bids is installed
+Compact AUT paradigm (enhanced & configurable)
+
+Default behaviour (can be overridden by a JSON paradigm spec):
+- Welcome/trigger screen (wait for '5')
+- For each trial:
+    * Fixation with jitter (default 3–7 s)
+    * Randomly pick an unused word from stim CSV (without replacement)
+    * Display word immediately (no fixed pre-display period)
+    * Press key '1' to START recording (word turns green while recording)
+    * Press key '1' again to STOP recording
+    * Rating phase (slider / creativity)
+    * (Optional markers + BIDS logging preserved)
+
+You can define an external spec file (JSON) to adjust timings / keys / selection policy.
+Example (save as paradigm_spec.json):
+{
+    "trigger_key": "5",
+    "fixation_jitter": {"min": 3.0, "max": 7.0},
+    "item_selection": "random_without_replacement",
+    "recording": {
+        "start_key": "1",
+        "stop_key": "1",
+        "item_color_recording": "green",
+        "indicator_text": "RECORDING... (press 1 to stop)"
+    },
+    "pre_record_display": {"mode": "wait_for_start"},
+    "rating": {"method": "slider", "label_left": "gar nicht kreativ", "label_right": "sehr kreativ"}
+}
+
+Run with:  python MR_AUT_enhanced.py --paradigm paradigm_spec.json --ui --count 3
 
 This script is compact (~300 lines) but includes the essential features.
 It will not run on macOS unless MR_AUT_ALLOW_RUN=1 is set (safety guard).
@@ -21,6 +43,7 @@ import time
 import json
 import platform
 from datetime import datetime
+import random
 
 from psychopy import visual, core, event, logging
 from psychopy.hardware import keyboard
@@ -117,14 +140,20 @@ def safe_makedirs(p):
 
 
 def read_items(csv_path):
+    """Return list of item strings from CSV (column 'MR_AUTitem' or first column)."""
     items = []
     with open(csv_path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if 'MR_AUTitem' in row:
-                items.append(row['MR_AUTitem'])
-            else:
-                items.append(next(iter(row.values())))
+            val = row.get('MR_AUTitem')
+            if val is None:
+                # fall back to first value
+                try:
+                    val = next(iter(row.values()))
+                except Exception:
+                    continue
+            if val:
+                items.append(val)
     return items
 
 
@@ -246,10 +275,425 @@ def get_rating(win, prompt='Rate creativity 0-9 (press digit)'):
             return int(k)
         core.wait(0.01)
 
+def get_rating_slider(win, prompt, labels):
+    """Presents a visual analogue scale and waits for a mouse click."""
+    header_pos_y = 0.40
+    main_pos_y = 0.0
+    
+    header_txt = visual.TextStim(win=win, text=prompt, pos=(0, header_pos_y), color='white', height=0.045)
+    slider = visual.Slider(win=win, startValue=5, size=(1.0, 0.03), pos=(0, main_pos_y), units='height',
+                           labels=None, ticks=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], granularity=0,
+                           style=['slider'], labelColor='black', markerColor='Red', lineColor='White')
+    
+    l_label = visual.TextStim(win=win, text=labels[0], pos=(-.5, main_pos_y - .075), color='darkgreen', height=0.03)
+    r_label = visual.TextStim(win=win, text=labels[1], pos=(.5, main_pos_y - .075), color='darkgreen', height=0.03)
+    
+    mouse = event.Mouse(win=win)
+    
+    while True:
+        header_txt.draw()
+        slider.draw()
+        l_label.draw()
+        r_label.draw()
+        win.flip()
+        
+        if mouse.getPressed()[0]:
+            # Wait for release to avoid multiple triggers
+            while mouse.getPressed()[0]:
+                core.wait(0.01)
+            return slider.getRating()
+        
+        if event.getKeys(keyList=['escape']):
+            return None
+        
+        core.wait(0.01)
+
+
+def draw_timing_bar(win, timing_cfg, elapsed):
+    """
+    Draws a horizontal timing bar with n_segments, filling as time passes.
+    timing_cfg: dict from JSON
+    elapsed: seconds elapsed in current event
+    """
+    n = timing_cfg.get('n_segments', 5)
+    seg_dur = timing_cfg.get('segment_duration', 3)
+    position = timing_cfg.get('position', 'bottom')
+    shape = timing_cfg.get('shape', 'rect')
+    size = timing_cfg.get('size', [0.08, 0.01])
+    color_empty = timing_cfg.get('color_empty', 'darkgray')
+    color_filled = timing_cfg.get('color_filled', 'lightgray')
+    filled = int(elapsed // seg_dur)
+    # Calculate y position
+    y = -0.45 if position == 'bottom' else 0.45
+    # Draw bars
+    for i in range(n):
+        x = -0.2 + i * (size[0] + 0.01)
+        bar_color = color_filled if i < filled else color_empty
+        if shape == 'rect':
+            bar = visual.Rect(win, width=size[0], height=size[1], pos=(x, y), fillColor=bar_color, lineColor=None)
+            bar.draw()
+        elif shape == 'circle':
+            circ = visual.Circle(win, radius=size[0]/2, pos=(x, y), fillColor=bar_color, lineColor=None)
+            circ.draw()
+
+def run_paradigm(paradigm_spec, items, win, t_mrk, participant, wavDirName, bids_handler=None):
+    """
+    Executes the experiment based on the paradigm specification.
+    """
+    # Experiment-relative zero: start counting onsets from scanner trigger
+    exp_start = time.time()
+    recording_count = 1
+    bids_events = []
+    item_iterator = iter(items)
+    current_visual_stim = None  # To hold the last displayed visual stimulus
+    
+    # Determine response device
+    settings = paradigm_spec.get('settings', {})
+    response_device = settings.get('response_device', 'keyboard')
+    mouse = event.Mouse(win=win) if response_device == 'mouse' else None
+
+    # Process each block in the paradigm
+    for block_idx, block in enumerate(paradigm_spec.get('paradigm', [])):
+        logging.info(f"Starting block {block_idx + 1}: {block.get('block_type', 'untitled')}")
+
+        # Determine number of trials for this block
+        n_trials_val = block.get('n_trials', 1)
+        if isinstance(n_trials_val, str) and n_trials_val.startswith('from_stimuli:'):
+            stim_key = n_trials_val.split(':')[-1]
+            n_trials = paradigm_spec.get('stimuli', {}).get(stim_key, {}).get('n_trials', 1)
+        else:
+            n_trials = int(n_trials_val)
+
+        # Loop through trials
+        for trial_num in range(n_trials):
+            logging.info(f"  Trial {trial_num + 1}/{n_trials}")
+            trial_onset_time = time.time()
+            current_item = next(item_iterator, None)
+            if current_item is None:
+                logging.warning("  No more items left in stimulus list.")
+                break
+            
+            rating = None
+            wav_file = None
+
+            # Execute trial sequence
+            for event_name in block.get('trial_sequence', []):
+                if 'escape' in event.getKeys(keyList=['escape']):
+                    logging.warning("Experiment aborted by user during trial.")
+                    return bids_events, True # Return collected events and abort flag
+
+                event_def = paradigm_spec.get('events', {}).get(event_name)
+                if not event_def:
+                    logging.warning(f"    Event '{event_name}' not found in spec.")
+                    continue
+
+                logging.info(f"    Executing event: {event_name}")
+
+                # Resolve stimulus
+                stimulus_val = event_def.get('stimulus')
+                if stimulus_val == 'from_stimuli:items':
+                    display_text = current_item
+                else:
+                    display_text = stimulus_val
+
+                # Resolve duration
+                duration = event_def.get('duration')
+                # Support both float/int and dict duration
+                if isinstance(duration, dict):
+                    wait_duration = duration.get('max')
+                elif isinstance(duration, (float, int)):
+                    wait_duration = duration
+                elif duration is not None:
+                    try:
+                        wait_duration = float(duration)
+                    except Exception:
+                        wait_duration = None
+                else:
+                    wait_duration = None
+
+                # --- Event Execution Logic ---
+                event_type = event_def.get('type')
+
+                if event_type == 'visual':
+                    # Special handling for show_item with timing bar
+                    if event_name == 'show_item' and event_def.get('timing_bar', {}).get('enabled', False):
+                        timing_cfg = event_def.get('timing_bar', {})
+                        duration_cfg = event_def.get('duration', {})
+                        max_dur = duration_cfg.get('max', 15)
+                        end_on_button = duration_cfg.get('end_on_button', True)
+                        start_time = core.getTime()
+                        response_device = paradigm_spec.get('settings', {}).get('response_device', 'keyboard')
+                        mouse = event.Mouse(win=win) if response_device == 'mouse' else None
+                        response_keys = paradigm_spec.get('settings', {}).get('keyboard_keys', ['1'])
+                        stim = visual.TextStim(win, text=display_text, color=event_def.get('color', 'yellow'), height=0.07)
+                        responded = False
+                        while True:
+                            elapsed = core.getTime() - start_time
+                            stim.draw()
+                            draw_timing_bar(win, timing_cfg, elapsed)
+                            win.flip()
+                            if end_on_button and not responded:
+                                if response_device == 'mouse':
+                                    mouse_button = paradigm_spec.get('settings', {}).get('mouse_button_indices', [0])[0]
+                                    if mouse.getPressed()[mouse_button]:
+                                        while mouse.getPressed()[mouse_button]:
+                                            core.wait(0.01)
+                                        responded = True
+                                        break
+                                else:
+                                    if event.getKeys(keyList=response_keys + ['escape']):
+                                        responded = True
+                                        break
+                            if elapsed >= max_dur:
+                                break
+                            core.wait(0.01)
+                        # After response or timeout, start recording phase with word still visible
+                        # Get recording color from next event (record_response)
+                        rec_event = paradigm_spec.get('events', {}).get('record_response', {})
+                        rec_color = rec_event.get('recording_color', 'green')
+                        stim.color = rec_color
+                        stim.draw()
+                        win.flip()
+                        # Start recording
+                        audio_frames = []
+                        stream = None
+                        try:
+                            import sounddevice as sd
+                            stream = sd.InputStream(samplerate=44100, channels=1,
+                                                    callback=lambda indata, frames, time, status: audio_frames.append(indata.copy()))
+                            stream.start()
+                        except Exception as e:
+                            logging.warning(f"Failed to start audio stream: {e}")
+                        # Wait for stop response
+                        if response_device == 'mouse':
+                            mouse_button = paradigm_spec.get('settings', {}).get('mouse_button_indices', [0])[0]
+                            while not mouse.getPressed()[mouse_button]:
+                                if event.getKeys(keyList=['escape']):
+                                    logging.warning("Experiment aborted by user.")
+                                    if stream:
+                                        stream.stop(); stream.close()
+                                    return bids_events, True
+                                core.wait(0.01)
+                            while mouse.getPressed()[mouse_button]:
+                                core.wait(0.01)
+                        else:
+                            while True:
+                                keys = event.getKeys(keyList=response_keys + ['escape'])
+                                if 'escape' in keys:
+                                    logging.warning("Experiment aborted by user.")
+                                    if stream:
+                                        stream.stop(); stream.close()
+                                    return bids_events, True
+                                if response_keys[0] in keys:
+                                    break
+                                core.wait(0.01)
+                        # Stop stream
+                        if stream:
+                            stream.stop(); stream.close()
+                        # Save audio
+                        if audio_frames:
+                            wav_file_path = os.path.join(wavDirName, f"{participant}_{sanitize_filename(current_item)}_idea{recording_count:02d}.wav")
+                            if save_wav(audio_frames, 44100, wav_file_path):
+                                logging.info(f'Saved: {wav_file_path}')
+                                wav_file = os.path.basename(wav_file_path)
+                                recording_count += 1
+                        else:
+                            logging.info('No audio collected for this item')
+                        # After recording, show rating scale before continuing
+                        rate_event = paradigm_spec.get('events', {}).get('rate_creativity', {})
+                        if rate_event.get('method') == 'slider':
+                            rating = get_rating_slider(win, 
+                                                       prompt=rate_event.get('prompt', 'Rate creativity'),
+                                                       labels=rate_event.get('labels', ['low', 'high']))
+                        else:
+                            rating = get_rating(win, prompt=rate_event.get('prompt', 'Rate creativity 0-9'))
+                        logging.info(f'Rating for {current_item}: {rating}')
+                        # After rating, continue to next event
+                    elif event_name == 'fixation' and isinstance(event_def.get('duration'), dict):
+                        # Fixation with jitter
+                        fj = event_def.get('duration', {})
+                        fj_min = float(fj.get('min', 0.8))
+                        fj_max = float(fj.get('max', 1.2))
+                        rand_dur = random.uniform(fj_min, fj_max)
+                        stim = visual.TextStim(win, text=display_text, color=event_def.get('color', 'white'), height=0.15)
+                        stim.draw(); win.flip()
+                        core.wait(rand_dur)
+                    else:
+                        stim = visual.TextStim(win, text=display_text, color=event_def.get('color', 'white'), height=0.07)
+                        stim.draw()
+                        win.flip()
+                        current_visual_stim = stim  # Store the visual stimulus
+                        if wait_duration:
+                            core.wait(wait_duration)
+
+                elif event_type == 'audio_recording':
+                    # Resolve keys from spec
+                    if response_device == 'keyboard':
+                        response_keys = settings.get('keyboard_keys', ['1'])
+                        start_key = response_keys[0]
+                        stop_key = response_keys[0]
+                    else: # mouse
+                        start_key = 'mouse'
+                        stop_key = 'mouse'
+                        mouse_buttons = settings.get('mouse_button_indices', [0])
+
+
+                    # Resolve color
+                    rec_color = event_def.get('recording_color', 'green')
+
+                    # Wait for start response
+                    if current_visual_stim:
+                        current_visual_stim.draw()
+                    win.flip()
+                    
+                    if response_device == 'keyboard':
+                        keys = event.waitKeys(keyList=[start_key, 'escape'])
+                        if 'escape' in keys:
+                            logging.warning("Experiment aborted by user.")
+                            return bids_events, True
+                    else: # mouse
+                        while not mouse.getPressed()[mouse_buttons[0]]:
+                            if event.getKeys(keyList=['escape']):
+                                logging.warning("Experiment aborted by user.")
+                                return bids_events, True
+                            core.wait(0.01)
+                        # Wait for release
+                        while mouse.getPressed()[mouse_buttons[0]]:
+                            core.wait(0.01)
+
+
+                    # Start recording and update visuals
+                    audio_frames = []
+                    stream = None
+                    try:
+                        stream = sd.InputStream(samplerate=44100, channels=1,
+                                                callback=lambda indata, frames, time, status: audio_frames.append(indata.copy()))
+                        stream.start()
+                        
+                        # Change color of the item to indicate recording
+                        if current_visual_stim:
+                            current_visual_stim.color = rec_color
+                            current_visual_stim.draw()
+                        
+                        win.flip()
+
+                    except Exception as e:
+                        logging.warning(f"Failed to start audio stream: {e}")
+
+                    # Wait for stop response
+                    if response_device == 'keyboard':
+                        keys = event.waitKeys(keyList=[stop_key, 'escape'])
+                        if 'escape' in keys:
+                            logging.warning("Experiment aborted by user.")
+                            if stream:
+                                stream.stop()
+                                stream.close()
+                            return bids_events, True
+                    else: # mouse
+                        while not mouse.getPressed()[mouse_buttons[0]]:
+                            if event.getKeys(keyList=['escape']):
+                                logging.warning("Experiment aborted by user.")
+                                if stream:
+                                    stream.stop()
+                                    stream.close()
+                                return bids_events, True
+                            core.wait(0.01)
+                        # Wait for release
+                        while mouse.getPressed()[mouse_buttons[0]]:
+                            core.wait(0.01)
+                    
+                    # Stop stream
+                    if stream:
+                        stream.stop()
+                        stream.close()
+
+                    # Save audio
+                    if audio_frames:
+                        wav_file_path = os.path.join(wavDirName, f"{participant}_{sanitize_filename(current_item)}_idea{recording_count:02d}.wav")
+                        if save_wav(audio_frames, 44100, wav_file_path):
+                            logging.info(f'Saved: {wav_file_path}')
+                            wav_file = os.path.basename(wav_file_path)
+                            recording_count += 1
+                    else:
+                        logging.info('No audio collected for this item')
+
+                elif event_type == 'rating_scale':
+                    if event_def.get('method') == 'slider':
+                        rating = get_rating_slider(win, 
+                                                   prompt=event_def.get('prompt', 'Rate creativity'),
+                                                   labels=event_def.get('labels', ['low', 'high']))
+                    else: # fallback to keypress
+                        rating = get_rating(win, prompt=event_def.get('prompt', 'Rate creativity 0-9'))
+                    
+                    logging.info(f'Rating for {current_item}: {rating}')
+                elif event_type == 'visual' and event_name == 'show_item':
+                    # Timing bar logic
+                    timing_cfg = event_def.get('timing_bar', {})
+                    duration_cfg = event_def.get('duration', {})
+                    max_dur = duration_cfg.get('max', 15)
+                    end_on_button = duration_cfg.get('end_on_button', True)
+                    start_time = core.getTime()
+                    response_device = paradigm_spec.get('settings', {}).get('response_device', 'keyboard')
+                    mouse = event.Mouse(win=win) if response_device == 'mouse' else None
+                    response_keys = paradigm_spec.get('settings', {}).get('keyboard_keys', ['1'])
+                    stim = visual.TextStim(win, text=display_text, color=event_def.get('color', 'yellow'), height=0.07)
+                    responded = False
+                    while True:
+                        elapsed = core.getTime() - start_time
+                        stim.draw()
+                        if timing_cfg.get('enabled', False):
+                            draw_timing_bar(win, timing_cfg, elapsed)
+                        win.flip()
+                        if end_on_button and not responded:
+                            if response_device == 'mouse':
+                                if mouse.getPressed()[0]:
+                                    while mouse.getPressed()[0]:
+                                        core.wait(0.01)
+                                    responded = True
+                                    break
+                            else:
+                                if event.getKeys(keyList=response_keys + ['escape']):
+                                    responded = True
+                                    break
+                        if elapsed >= max_dur:
+                            break
+                        core.wait(0.01)
+                    # After response or timeout, continue to next event
+
+            # --- End of Trial ---
+            # BIDS event logging
+            try:
+                trial_duration = time.time() - trial_onset_time
+                onset_rel = float(trial_onset_time - exp_start)
+                bids_events.append({
+                    'onset': onset_rel,
+                    'duration': trial_duration,
+                    'trial_type': 'AUT_item',
+                    'stimulus': current_item,
+                    'rating': rating,
+                    'wav_file': wav_file if wav_file else 'n/a'
+                })
+                if bids_handler:
+                    bids_handler.addEvent(
+                        onset=onset_rel,
+                        duration=trial_duration,
+                        trial_type='AUT_item',
+                        stimulus=current_item,
+                        rating=rating
+                    )
+            except Exception as e:
+                logging.warning(f"Failed to log BIDS event: {e}")
+
+            if event.getKeys(keyList=['escape']):
+                logging.warning("Experiment aborted by user.")
+                return bids_events, True # Return collected events so far
+
+    return bids_events, False
 
 def main():
     # parse CLI args early so quick-test can bypass macOS guard
     import argparse
+    import random
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument('--quick-test', action='store_true')
     parser.add_argument('--dry-run', action='store_true')
@@ -257,6 +701,7 @@ def main():
     parser.add_argument('--force-run', action='store_true')
     parser.add_argument('--count', type=int, default=5, help='Number of items for quick-test')
     parser.add_argument('--ui', action='store_true', help='Run UI test (opens PsychoPy window)')
+    parser.add_argument('--paradigm', type=str, default=None, help='Path to paradigm spec JSON file')
     args, _ = parser.parse_known_args()
 
     # safety guard on macOS; allow quick-test or explicit force-run to bypass
@@ -288,14 +733,86 @@ def main():
     # parallel port
     t_mrk = init_parallel()
 
-    items = read_items(CSV_PATH)
+    # Load paradigm specification (JSON)
+    default_spec = {
+        "settings": {
+            "response_device": "keyboard",
+            "keyboard_keys": ["1"],
+            "mouse_button_indices": [0],
+            "bids_logging": False
+        },
+        "stimuli": {
+            "items": {
+                "file": "stim/MR_AUT_items.csv",
+                "sampling": "random",
+                "n_trials": 5
+            }
+        },
+        "events": {
+            "fixation": {
+                "type": "visual",
+                "stimulus": "+",
+                "duration": {"min": 0.8, "max": 1.2},
+                "color": "white"
+            },
+            "show_item": {
+                "type": "visual",
+                "stimulus": "from_stimuli:items",
+                "duration": 5.0,
+                "color": "yellow"
+            },
+            "record_response": {
+                "type": "audio_recording",
+                "duration": "button_press"
+            },
+            "rate_creativity": {
+                "type": "rating_scale",
+                "method": "slider",
+                "duration": "button_press",
+                "prompt": "Wie kreativ war die Idee?",
+                "labels": ["gar nicht kreativ", "sehr kreativ"],
+                "color": "green"
+            }
+        },
+        "paradigm": [
+            {
+                "block_type": "task",
+                "n_trials": "from_stimuli:items",
+                "trial_sequence": [
+                    "fixation",
+                    "show_item",
+                    "record_response",
+                    "rate_creativity"
+                ]
+            }
+        ]
+    }
+    paradigm_spec = default_spec
+    if args.paradigm and os.path.isfile(args.paradigm):
+        try:
+            with open(args.paradigm, 'r', encoding='utf-8') as pj:
+                paradigm_spec = json.load(pj)
+            logging.info(f'Loaded paradigm spec from {args.paradigm}')
+        except Exception as e:
+            logging.warning(f'Failed loading paradigm spec {args.paradigm}: {e}')
 
-    # if running UI test, limit items to the requested count
+    # Load items based on spec
+    items_spec = paradigm_spec.get('stimuli', {}).get('items', {})
+    items_file = items_spec.get('file', CSV_PATH)
+    items = read_items(items_file)
+
+    # Handle item sampling
+    if items_spec.get('sampling') == 'random':
+        random.shuffle(items)
+
+    num_trials = items_spec.get('n_trials', len(items))
+    items = items[:num_trials]
+
+    # if running UI test, limit items to requested count after shuffle
     if args.ui:
-        items = items[: args.count if args.count > 0 else 1]
+        count = args.count if args.count > 0 else 1
+        items = items[:count]
         print(f'UI test mode: running {len(items)} item(s)')
-
-    # reuse args from earlier parsing (quick-test handled below)
 
     # quick-test: simulate multiple items without opening the UI (dry-run by default)
     if args.quick_test:
@@ -339,11 +856,12 @@ def main():
 
     win = visual.Window(fullscr=True, color='black', units='height')
 
-    # wait for scanner trigger
-    instr = visual.TextStim(win, text="Waiting for scanner ('5')...", color='white', height=0.04)
+    trigger_key = paradigm_spec.get("settings", {}).get("trigger_key", "5")
+    # wait for scanner trigger / welcome screen
+    instr = visual.TextStim(win, text=f"Waiting for trigger ('{trigger_key}')...", color='white', height=0.04)
     instr.draw(); win.flip()
     event.clearEvents()
-    event.waitKeys(keyList=['5', 'escape'])
+    event.waitKeys(keyList=[trigger_key, 'escape'])
 
     # prepare wav directory like original
     base_dir = globals().get('_thisDir', ROOT)
@@ -351,182 +869,11 @@ def main():
     wavDirName = os.path.join(base_dir, 'data', f"{participant}_{exp_name}_{datetime.now().strftime('%Y-%m-%d_%H%M')}_wav")
     safe_makedirs(wavDirName)
 
-    # experiment-relative zero: start counting onsets from scanner trigger
-    exp_start = time.time()
-
-    # keyboard for recording stop detection
-    t_kb = keyboard.Keyboard(backend='ptb')
-
-    recording_count = 1
-
-    # events collected for BIDS-style output
-    bids_events = []
-
-    for item in items:
-        # fixation + marker with jitter like original (3-9s)
-        try:
-            rand_dur = float(np.random.uniform(3, 9)) if np is not None else float(__import__('random').uniform(3, 9))
-        except Exception:
-            import random
-            rand_dur = random.uniform(3, 9)
-        fix = visual.TextStim(win, text='+', color='white', height=0.15)
-        fix.draw(); win.flip()
-        safe_setData(t_mrk, 10)  # fixation ON
-        # show fixation for randomized duration
-        core.wait(rand_dur)
-        safe_setData(t_mrk, 0)
-
-        # display item and send marker for itemDur (DEBUG short by default)
-        DEBUG = True
-        itemDur = 5 if DEBUG else 15
-        stim = visual.TextStim(win, text=item, color='white', height=0.07)
-        stim.draw(); win.flip()
-        safe_setData(t_mrk, 20)  # item ON
-        core.wait(itemDur)
-        safe_setData(t_mrk, 0)
-
-        # prepare wav filename base (use folder wavDirName, like original)
-        MR_AUTitem = sanitize_filename(item)
-        audio_data = []
-        stream = None
-
-        # send idea-phase marker (49)
-        safe_setData(t_mrk, 49); core.wait(0.1); safe_setData(t_mrk, 0)
-        trial_onset = time.time()
-
-        # WAIT for participant to press '1' to START recording
-        prompt_start = visual.TextStim(win, text="Press '1' to start recording", color='white', height=0.05)
-        prompt_start.draw(); win.flip()
-        event.clearEvents()
-        while True:
-            keys = event.getKeys(keyList=['1', 'escape'])
-            if 'escape' in keys:
-                break
-            if '1' in keys:
-                # start audio
-                try:
-                    stream = sd.InputStream(samplerate=44100, channels=1,
-                                            callback=lambda indata, frames, time_, status: audio_data.append(indata.copy()))
-                    stream.start()
-                    # send recording start marker (48)
-                    safe_setData(t_mrk, 48); core.wait(0.1); safe_setData(t_mrk, 0)
-                except Exception as e:
-                    logging.warning(f'Failed to start recording for item "{item}": {e}')
-                    stream = None
-                break
-            core.wait(0.01)
-
-        # show recording indicator while waiting for '1' to stop
-        rec_text = visual.TextStim(win, text="RECORDING... press '1' to stop", color='green', height=0.06)
-        stim.draw(); rec_text.draw(); win.flip()
-
-        # wait for '1' to stop (or 'escape')
-        event.clearEvents()
-        while True:
-            keys = event.getKeys(keyList=['1', 'escape'])
-            if 'escape' in keys:
-                break
-            if '1' in keys:
-                break
-            core.wait(0.01)
-
-        # stop stream safely
-        if stream is not None:
-            try:
-                stream.stop(); stream.close()
-            except Exception:
-                pass
-
-        # save recording if present
-        wav_file = None
-        if audio_data:
-            wav_file = os.path.join(wavDirName, f"{participant}_{MR_AUTitem}_idea{recording_count:02d}.wav")
-            try:
-                import numpy as _np
-                import soundfile as _sf
-                recording = _np.concatenate(audio_data, axis=0)
-                _sf.write(wav_file, recording, 44100)
-                logging.info(f'Saved: {wav_file}')
-                recording_count += 1
-            except Exception as e:
-                logging.warning(f'Failed saving wav for item "{item}": {e}')
-        else:
-            logging.info('No audio collected for this item')
-
-        # send stop marker (47)
-        safe_setData(t_mrk, 47); core.wait(0.1); safe_setData(t_mrk, 0)
-
-        # small inter-marker
-        safe_setData(t_mrk, 21)
-        core.wait(0.05)
-        safe_setData(t_mrk, 0)
-
-        # present analog slider and accept mouse click (trackball)
-        # match the original Builder slider styling and labels
-        header_pos_y = 0.40
-        main_pos_y = 0.0
-        btn_pos_y = -0.25
-        r_header_txt = visual.TextStim(win=win, text='Wie kreativ findest Du Deine Antwort', pos=(0, header_pos_y),
-                                       color='white', height=0.045)
-        slider = visual.Slider(win=win, startValue=5, size=(1.0, 0.03), pos=(0, main_pos_y), units='height',
-                               labels=None, ticks=[0,1,2,3,4,5,6,7,8,9,10], granularity=0,
-                               style=['slider'], labelColor='black', markerColor='Red', lineColor='White', colorSpace='rgb')
-        l_label = visual.TextStim(win=win, text='gar nicht kreativ', pos=(-.5, main_pos_y - .075), color='darkgreen', height=0.03)
-        r_label = visual.TextStim(win=win, text='sehr kreativ', pos=(.5, main_pos_y - .075), color='darkgreen', height=0.03)
-        rating_hint = visual.TextStim(win=win, text='Weiter', pos=(0, btn_pos_y), color='black', height=0.025)
-
-        mouse = event.Mouse(win=win)
-        mouse.mouseClock = core.Clock()
-
-        # draw and interact
-        r_header_txt.draw(); slider.draw(); l_label.draw(); r_label.draw(); rating_hint.draw(); win.flip()
-
-        # wait for mouse button press to confirm rating
-        rating = None
-        while True:
-            # redraw to show slider movement
-            slider.draw(); r_header_txt.draw(); l_label.draw(); r_label.draw(); rating_hint.draw(); win.flip()
-            buttons = mouse.getPressed()
-            if any(buttons):
-                # wait for release to avoid multiple triggers
-                while any(mouse.getPressed()):
-                    core.wait(0.01)
-                rating = slider.getRating()
-                break
-            core.wait(0.01)
-        logging.info(f'Rating for {item}: {rating}')
-
-        # collect event for BIDS TSV (experiment-relative onset)
-        try:
-            duration = time.time() - trial_onset
-        except Exception:
-            duration = None
-        try:
-            onset_rel = float(trial_onset - exp_start)
-        except Exception:
-            onset_rel = None
-        bids_events.append({
-            'onset': onset_rel,
-            'duration': duration,
-            'trial_type': 'AUTitem',
-            'response_time': None,
-            'rating': rating,
-            'wav_file': os.path.basename(wav_file) if wav_file else ''
-        })
-
-        # BIDS event (if psychopy_bids available) — use relative onset
-        if bids:
-            try:
-                event_obj = BIDSTaskEvent(onset=onset_rel if onset_rel is not None else time.time(), duration=duration or 0, trial_type='AUTitem')
-                bids.addEvent(event_obj)
-            except Exception as e:
-                logging.warning(f'Failed to add BIDS event: {e}')
-
-        # brief pause
-        core.wait(0.2)
-
-        if event.getKeys(keyList=['escape']):
-            break
+    # Run the paradigm
+    bids_events, aborted = run_paradigm(paradigm_spec, items, win, t_mrk, participant, wavDirName, bids_handler=bids)
+    
+    if aborted:
+        logging.warning("Run was aborted. Writing partial BIDS data.")
 
     # write BIDS-style events TSV and minimal dataset_description.json (only when not dry-run/quick-test)
     try:
@@ -536,7 +883,7 @@ def main():
             events_tsv = os.path.join(bids_out_dir, f"{participant}_task-{exp_name}_events.tsv")
             # write header and rows
             with open(events_tsv, 'w', encoding='utf-8') as et:
-                header = ['onset', 'duration', 'trial_type', 'response_time', 'rating', 'wav_file']
+                header = list(bids_events[0].keys()) if bids_events else []
                 et.write('\t'.join(header) + '\n')
                 for ev in bids_events:
                     row = [str(ev.get(h, '')) for h in header]

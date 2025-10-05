@@ -28,6 +28,20 @@ import wave
 import tempfile
 from pathlib import Path
 
+# --- Ensure ffmpeg symlink for whisper transcription ---
+VENV_BIN = os.path.join(os.path.dirname(sys.executable))
+try:
+    import imageio_ffmpeg
+    ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
+    symlink_path = os.path.join(VENV_BIN, 'ffmpeg')
+    if not os.path.exists(symlink_path):
+        os.symlink(ffmpeg_path, symlink_path)
+        print(f"INFO: Created symlink: {symlink_path} -> {ffmpeg_path}")
+    else:
+        print(f"INFO: ffmpeg symlink already exists: {symlink_path}")
+except Exception as e:
+    print(f"WARNING: Could not create ffmpeg symlink for whisper. Error: {e}")
+
 # optional audio processing imports
 try:
     import noisereduce as nr
@@ -73,11 +87,15 @@ def wav_duration(path):
         return None
 
 
-def transcribe_whisper(wav_path, model_name='small', language=None, device='cpu'):
+def transcribe_whisper(wav_path, model_name='small', language=None, device='cpu', ffmpeg_path=None):
     try:
         import whisper
     except Exception as e:
         raise RuntimeError('Whisper package not installed. pip install -U openai-whisper') from e
+
+    # If a specific ffmpeg path is provided, update whisper's internal command
+    if ffmpeg_path and os.path.exists(ffmpeg_path):
+        whisper.audio.FFMPEG_BINARY = ffmpeg_path
 
     # load model (caching handled by whisper)
     model = whisper.load_model(model_name, device=device)
@@ -194,6 +212,16 @@ def main():
     parser.add_argument('--diarize', action='store_true', help='Attempt speaker diarization (pyannote.io required)')
     args = parser.parse_args()
 
+    # Get the absolute path to the ffmpeg executable to pass to whisper
+    ffmpeg_executable = None
+    try:
+        import imageio_ffmpeg
+        ffmpeg_executable = imageio_ffmpeg.get_ffmpeg_exe()
+        print(f"INFO: Found ffmpeg executable at: {ffmpeg_executable}")
+    except Exception:
+        print("WARNING: Could not locate ffmpeg via imageio_ffmpeg. Transcription may fail.")
+
+
     wavs = list_wavs(args.wav_dir)
     if not wavs:
         print('No wav files found in', args.wav_dir)
@@ -220,7 +248,13 @@ def main():
                         print('Denoise failed, continuing with original wav:', e)
 
                 if args.backend == 'whisper':
-                    transcript, segments = transcribe_whisper(target_wav, model_name=args.model, language=args.language, device=args.device)
+                    transcript, segments = transcribe_whisper(
+                        target_wav, 
+                        model_name=args.model, 
+                        language=args.language, 
+                        device=args.device,
+                        ffmpeg_path=ffmpeg_executable
+                    )
                 else:
                     transcript, segments = transcribe_vosk(target_wav, vosk_model_dir=args.vosk_model_dir, language=args.language)
 

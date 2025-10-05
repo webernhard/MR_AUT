@@ -1,0 +1,21 @@
+[
+  {
+    "id": 0,
+    "seek": 0,
+    "start": 0.0,
+    "end": 3.0,
+    "text": " Test, test.",
+    "tokens": [
+      50364,
+      9279,
+      11,
+      1500,
+      13,
+      50514
+    ],
+    "temperature": 0.0,
+    "avg_logprob": -0.7616104398454938,
+    "compression_ratio": 0.6470588235294118,
+    "no_speech_prob": 0.13889114558696747
+  }
+]

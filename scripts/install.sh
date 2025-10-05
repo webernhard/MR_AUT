@@ -68,11 +68,31 @@ if [ ${#failed_packages[@]} -gt 0 ]; then
   done
 fi
 
-echo "Setting up ffmpeg..."
-FFMPEG_PATH=$("${VENV_DIR}/bin/python" -c "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())" 2>/dev/null || echo "")
-if [ -n "$FFMPEG_PATH" ] && [ -f "$FFMPEG_PATH" ]; then
-  ln -sf "$FFMPEG_PATH" "${VENV_DIR}/bin/ffmpeg"
-  echo "✓ ffmpeg linked"
+echo "Setting up ffmpeg for whisper..."
+VENV_BIN="${VIRTUAL_ENV}/bin"
+FFMPEG_LINK_TARGET="${VENV_BIN}/ffmpeg"
+
+# Method 1: Use the ffmpeg from imageio-ffmpeg if available
+FFMPEG_FROM_PKG=$("${VENV_BIN}/python" -c "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())" 2>/dev/null || echo "")
+
+if [ -n "$FFMPEG_FROM_PKG" ] && [ -f "$FFMPEG_FROM_PKG" ]; then
+  ln -sf "$FFMPEG_FROM_PKG" "$FFMPEG_LINK_TARGET"
+  echo "✓ ffmpeg linked from imageio-ffmpeg."
+elif command -v ffmpeg >/dev/null 2>&1; then
+  # Method 2: ffmpeg is in the system PATH, let's link it
+  SYSTEM_FFMPEG_PATH=$(command -v ffmpeg)
+  ln -sf "$SYSTEM_FFMPEG_PATH" "$FFMPEG_LINK_TARGET"
+  echo "✓ ffmpeg linked from system path: ${SYSTEM_FFMPEG_PATH}"
+else
+  # Method 3: All failed, instruct the user
+  echo "✗ WARNING: ffmpeg not found."
+  echo "    Whisper transcription will fail."
+  echo "    Please install ffmpeg on your system:"
+  case "$(uname -s)" in
+    Darwin) echo "      brew install ffmpeg" ;;
+    Linux)  echo "      sudo apt-get install ffmpeg" ;;
+    *)      echo "      (use your system's package manager)" ;;
+  esac
 fi
 
 echo ""

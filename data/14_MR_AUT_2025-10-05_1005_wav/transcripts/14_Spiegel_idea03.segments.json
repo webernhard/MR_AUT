@@ -1,0 +1,24 @@
+[
+  {
+    "id": 0,
+    "seek": 0,
+    "start": 0.0,
+    "end": 3.0,
+    "text": " Damit sieht man immer gut aus.",
+    "tokens": [
+      50364,
+      24495,
+      14289,
+      587,
+      5578,
+      5228,
+      3437,
+      13,
+      50514
+    ],
+    "temperature": 0.0,
+    "avg_logprob": -0.3726029872894287,
+    "compression_ratio": 0.7894736842105263,
+    "no_speech_prob": 0.008895807899534702
+  }
+]

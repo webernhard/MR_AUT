@@ -1,0 +1,25 @@
+[
+  {
+    "id": 0,
+    "seek": 0,
+    "start": 0.0,
+    "end": 4.0,
+    "text": " Kann man sich auf den Kopf setzen.",
+    "tokens": [
+      50364,
+      29074,
+      587,
+      3041,
+      2501,
+      1441,
+      28231,
+      35877,
+      13,
+      50564
+    ],
+    "temperature": 0.0,
+    "avg_logprob": -0.40863162820989435,
+    "compression_ratio": 0.8095238095238095,
+    "no_speech_prob": 0.020232858136296272
+  }
+]

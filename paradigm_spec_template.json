@@ -1,0 +1,66 @@
+{
+  "settings": {
+    "response_device": "mouse",
+    "mouse_button_indices": [0],
+    "keyboard_keys": ["1"],
+    "bids_logging": true
+  },
+  "stimuli": {
+    "items": {
+      "file": "stim/MR_AUT_items.csv",
+      "sampling": "random",
+      "n_trials": 3 
+    }
+  },
+  "events": {
+    "fixation": {
+      "type": "visual",
+      "stimulus": "+",
+      "duration": { "min": 0.8, "max": 1.2 },
+      "color": "white"
+    },
+    "show_item": {
+      "type": "visual",
+      "stimulus": "from_stimuli:items",
+      "duration": {"max": 15, "end_on_button": true},
+      "color": "yellow",
+      "timing_bar": {
+        "enabled": true,
+        "n_segments": 5,
+        "segment_duration": 3,
+        "position": "bottom",
+        "shape": "rect",
+        "size": [0.08, 0.01],
+        "color_empty": "gray",
+        "color_filled": "white"
+      }
+    },
+    "record_response": {
+      "type": "audio_recording",
+      "duration": "button_press",
+      "start_key": "from_settings:response_keys",
+      "stop_key": "from_settings:response_keys",
+      "recording_color": "green"
+    },
+    "rate_creativity": {
+      "type": "rating_scale",
+      "method": "slider",
+      "duration": "button_press",
+      "prompt": "Wie kreativ findest Du Deine Antwort?",
+      "labels": ["gar nicht kreativ", "sehr kreativ"],
+      "color": "green"
+    }
+  },
+  "paradigm": [
+    {
+      "block_type": "task",
+      "n_trials": "from_stimuli:items",
+      "trial_sequence": [
+        "fixation",
+        "show_item",
+        "record_response",
+        "rate_creativity"
+      ]
+    }
+  ]
+}
