@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on November 06, 2025, at 11:19
+    on November 06, 2025, at 15:19
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -219,11 +219,6 @@ def setupWindow(expInfo=None, win=None):
         win.backgroundImage = ''
         win.backgroundFit = 'none'
         win.units = 'height'
-    if expInfo is not None:
-        # get/measure frame rate if not already in expInfo
-        if win._monitorFrameRate is None:
-            win._monitorFrameRate = win.getActualFrameRate(infoMsg='Attempting to measure frame rate of screen, please wait...')
-        expInfo['frameRate'] = win._monitorFrameRate
     win.hideMessage()
     if PILOTING:
         # show a visual indicator if we're in piloting mode
@@ -982,7 +977,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         originPath=-1, 
         trialList=data.importConditions(
         'stim/MR_AUT_items.csv', 
-        selection='2:5'
+        selection='9:11'
     )
     , 
         seed=None, 
@@ -1239,7 +1234,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             bids_event = BIDSTaskEvent(
                 onset=AUTitem_txt.tStartRefresh,
                 duration=duration_val,
-                event_type=type(AUTitem_txt).__name__,
+                event_type="AUTitem %s" % (MR_AUTitem),
                 trial_type='AUTitem',
             )
             if bids_handler:
@@ -1476,6 +1471,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             bids_event = BIDSTaskEvent(
                 onset=AUTidea.tStartRefresh,
                 duration=duration_val,
+                event_type="response2 %s" % (MR_AUTitem),
                 trial_type='AUTresponse',
             )
             if bids_handler:

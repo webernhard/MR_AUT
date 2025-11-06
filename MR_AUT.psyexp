@@ -55,7 +55,7 @@
     <Param val="4242" valType="num" updates="None" name="gpPort"/>
     <Param val="PsychToolbox" valType="str" updates="None" name="keyboardBackend"/>
     <Param val="info" valType="code" updates="None" name="logging level"/>
-    <Param val="True" valType="bool" updates="None" name="measureFrameRate"/>
+    <Param val="False" valType="bool" updates="None" name="measureFrameRate"/>
     <Param val="('MIDDLE_BUTTON',)" valType="list" updates="None" name="mgBlink"/>
     <Param val="CONTINUOUS" valType="str" updates="None" name="mgMove"/>
     <Param val="0.5" valType="num" updates="None" name="mgSaccade"/>
@@ -295,13 +295,13 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="str" updates="None" name="event_type"/>
+        <Param val="$&quot;AUTitem %s&quot; % (MR_AUTitem)" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="AUTitem_txt" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTitem" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="None" name="onset"/>
-        <Param val="False" valType="bool" updates="None" name="overwrite_linked"/>
+        <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
         <Param val="" valType="str" updates="None" name="stim_file"/>
@@ -419,13 +419,13 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="" valType="str" updates="None" name="event_type"/>
+        <Param val="$&quot;response2 %s&quot; % (MR_AUTitem)" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="AUTidea" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTresponse" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="None" name="onset"/>
-        <Param val="False" valType="bool" updates="None" name="overwrite_linked"/>
+        <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
         <Param val="" valType="str" updates="None" name="stim_file"/>
@@ -1115,7 +1115,7 @@
     <Routine name="wait4scanner"/>
     <LoopTerminator name="wait4scanner_byp"/>
     <LoopInitiator loopType="TrialHandler" name="trials">
-      <Param name="Selected rows" updates="None" val="2:5" valType="str"/>
+      <Param name="Selected rows" updates="None" val="9:11" valType="str"/>
       <Param name="conditions" updates="None" val="[OrderedDict([('MR_AUTitem', 'Autoreifen'), ('MR_AUTitem_mrk', np.int64(101))]), OrderedDict([('MR_AUTitem', 'Badewanne'), ('MR_AUTitem_mrk', np.int64(102))]), OrderedDict([('MR_AUTitem', 'Bananenschale'), ('MR_AUTitem_mrk', np.int64(103))]), OrderedDict([('MR_AUTitem', 'Blumenvase'), ('MR_AUTitem_mrk', np.int64(104))]), OrderedDict([('MR_AUTitem', 'Bügeleisen'), ('MR_AUTitem_mrk', np.int64(105))]), OrderedDict([('MR_AUTitem', 'Föhn'), ('MR_AUTitem_mrk', np.int64(106))]), OrderedDict([('MR_AUTitem', 'Frisbee'), ('MR_AUTitem_mrk', np.int64(107))]), OrderedDict([('MR_AUTitem', 'Gabel'), ('MR_AUTitem_mrk', np.int64(108))]), OrderedDict([('MR_AUTitem', 'Glocke'), ('MR_AUTitem_mrk', np.int64(109))]), OrderedDict([('MR_AUTitem', 'Gürtel'), ('MR_AUTitem_mrk', np.int64(110))]), OrderedDict([('MR_AUTitem', 'Hufeisen'), ('MR_AUTitem_mrk', np.int64(111))]), OrderedDict([('MR_AUTitem', 'Kleiderhaken'), ('MR_AUTitem_mrk', np.int64(112))]), OrderedDict([('MR_AUTitem', 'Klopapier'), ('MR_AUTitem_mrk', np.int64(113))]), OrderedDict([('MR_AUTitem', 'Knetmasse'), ('MR_AUTitem_mrk', np.int64(114))]), OrderedDict([('MR_AUTitem', 'Konservendose'), ('MR_AUTitem_mrk', np.int64(115))]), OrderedDict([('MR_AUTitem', 'Krawatte'), ('MR_AUTitem_mrk', np.int64(116))]), OrderedDict([('MR_AUTitem', 'Lampe'), ('MR_AUTitem_mrk', np.int64(117))]), OrderedDict([('MR_AUTitem', 'Locher'), ('MR_AUTitem_mrk', np.int64(118))]), OrderedDict([('MR_AUTitem', 'Mülleimer'), ('MR_AUTitem_mrk', np.int64(119))]), OrderedDict([('MR_AUTitem', 'Pflaster'), ('MR_AUTitem_mrk', np.int64(120))]), OrderedDict([('MR_AUTitem', 'Pinsel'), ('MR_AUTitem_mrk', np.int64(121))]), OrderedDict([('MR_AUTitem', 'Reisekoffer'), ('MR_AUTitem_mrk', np.int64(122))]), OrderedDict([('MR_AUTitem', 'Schaumstoffpolster'), ('MR_AUTitem_mrk', np.int64(123))]), OrderedDict([('MR_AUTitem', 'Seil'), ('MR_AUTitem_mrk', np.int64(124))]), OrderedDict([('MR_AUTitem', 'Socke'), ('MR_AUTitem_mrk', np.int64(125))]), OrderedDict([('MR_AUTitem', 'Spiegel'), ('MR_AUTitem_mrk', np.int64(126))]), OrderedDict([('MR_AUTitem', 'Stirnband'), ('MR_AUTitem_mrk', np.int64(127))]), OrderedDict([('MR_AUTitem', 'Tischtennisball'), ('MR_AUTitem_mrk', np.int64(128))]), OrderedDict([('MR_AUTitem', 'Uhr'), ('MR_AUTitem_mrk', np.int64(129))]), OrderedDict([('MR_AUTitem', 'Zahnbürste'), ('MR_AUTitem_mrk', np.int64(130))])]" valType="str"/>
       <Param name="conditionsFile" updates="None" val="stim/MR_AUT_items.csv" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
