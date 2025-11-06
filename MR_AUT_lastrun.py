@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on November 05, 2025, at 16:53
+    on November 06, 2025, at 11:19
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -597,22 +597,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, 0.2), draggable=False, height=0.1, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-2.0);
-    likertRating_end_key = keyboard.Keyboard(deviceName='likertRating_end_key')
+        depth=-3.0);
     likertRating_l_label = visual.TextStim(win=win, name='likertRating_l_label',
         text='gar nicht',
         font='Arial',
         pos=(-.4, main_pos_y - .05), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-4.0);
     likertRating_r_label = visual.TextStim(win=win, name='likertRating_r_label',
         text='sehr',
         font='Arial',
         pos=(.4, main_pos_y - .05), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-6.0);
+        depth=-5.0);
+    likertRating_end_key = keyboard.Keyboard(deviceName='likertRating_end_key')
     
     # --- Initialize components for Routine "AUT_insight" ---
     insi_possible = visual.Slider(win=win, name='insi_possible',
@@ -628,7 +628,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, 0.2), draggable=False, height=0.1, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-2.0);
+        depth=-3.0);
     insight_end_key = keyboard.Keyboard(deviceName='insight_end_key')
     
     # --- Initialize components for Routine "insi_intensity" ---
@@ -645,7 +645,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         pos=(0, 0.2), draggable=False, height=0.1, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=1.0, 
         languageStyle='LTR',
-        depth=-2.0);
+        depth=-3.0);
     insi_intensity_end_key = keyboard.Keyboard(deviceName='insi_intensity_end_key')
     
     # --- Initialize components for Routine "thx" ---
@@ -980,7 +980,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         method='random', 
         extraInfo=expInfo, 
         originPath=-1, 
-        trialList=data.importConditions('stim/MR_AUT_items.csv'), 
+        trialList=data.importConditions(
+        'stim/MR_AUT_items.csv', 
+        selection='2:5'
+    )
+    , 
         seed=None, 
     )
     thisExp.addLoop(trials)  # add the loop to the experiment
@@ -1224,7 +1228,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if bids_handler:
                 bids_handler.addEvent(bids_event)
             else:
-                trials.addData('bidsEvent_fix.event', bids_event)
+                trials.addData('bidsE_fix.event', bids_event)
         except BIDSError as e:
             print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         try:
@@ -1241,7 +1245,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if bids_handler:
                 bids_handler.addEvent(bids_event)
             else:
-                trials.addData('bidsEvent_AUTitem.event', bids_event)
+                trials.addData('bidsE_AUTitem.event', bids_event)
         except BIDSError as e:
             print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         # check responses
@@ -1251,6 +1255,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if AUTidea_key.keys != None:  # we had a response
             trials.addData('AUTidea_key.rt', AUTidea_key.rt)
             trials.addData('AUTidea_key.duration', AUTidea_key.duration)
+        try:
+            if AUTidea_key.tStopRefresh is not None:
+                duration_val = AUTidea_key.tStopRefresh - AUTidea_key.tStartRefresh
+            else:
+                duration_val = thisExp.thisEntry['AUT_item.stopped'] - AUTidea_key.tStartRefresh
+            if hasattr(AUTidea_key, 'rt'):
+                rt_val = AUTidea_key.rt
+            else:
+                rt_val = None
+                logging.warning('The linked component "AUTidea_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
+            bids_event = BIDSTaskEvent(
+                onset=AUTidea_key.tStartRefresh,
+                duration=duration_val,
+                response_time=rt_val,
+                event_type=type(AUTidea_key).__name__,
+                trial_type='AUTidea_key',
+            )
+            if bids_handler:
+                bids_handler.addEvent(bids_event)
+            else:
+                trials.addData('bidsE_AUTideakey.event', bids_event)
+        except BIDSError as e:
+            print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         # the Routine "AUT_item" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
@@ -1454,7 +1481,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if bids_handler:
                 bids_handler.addEvent(bids_event)
             else:
-                trials.addData('bidsEvent_AUTresponse.event', bids_event)
+                trials.addData('bidsE_AUTresponse.event', bids_event)
         except BIDSError as e:
             print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         # the Routine "AUT_response" was not non-slip safe, so reset the non-slip timer
@@ -1464,7 +1491,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # create an object to store info about Routine AUT_likertRating
         AUT_likertRating = data.Routine(
             name='AUT_likertRating',
-            components=[likertRating, likertRating_header, likertRating_end_key, likertRating_l_label, likertRating_r_label],
+            components=[likertRating, likertRating_header, likertRating_l_label, likertRating_r_label, likertRating_end_key],
         )
         AUT_likertRating.status = NOT_STARTED
         continueRoutine = True
@@ -1559,32 +1586,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # update params
                 pass
             
-            # *likertRating_end_key* updates
-            waitOnFlip = False
-            
-            # if likertRating_end_key is starting this frame...
-            if likertRating_end_key.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-                # keep track of start time/frame for later
-                likertRating_end_key.frameNStart = frameN  # exact frame index
-                likertRating_end_key.tStart = t  # local t and not account for scr refresh
-                likertRating_end_key.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(likertRating_end_key, 'tStartRefresh')  # time at next scr refresh
-                # update status
-                likertRating_end_key.status = STARTED
-                # keyboard checking is just starting
-                waitOnFlip = True
-                win.callOnFlip(likertRating_end_key.clock.reset)  # t=0 on next screen flip
-                win.callOnFlip(likertRating_end_key.clearEvents, eventType='keyboard')  # clear events on next screen flip
-            if likertRating_end_key.status == STARTED and not waitOnFlip:
-                theseKeys = likertRating_end_key.getKeys(keyList=[goOn_key,'return'], ignoreKeys=["escape"], waitRelease=False)
-                _likertRating_end_key_allKeys.extend(theseKeys)
-                if len(_likertRating_end_key_allKeys):
-                    likertRating_end_key.keys = _likertRating_end_key_allKeys[-1].name  # just the last key pressed
-                    likertRating_end_key.rt = _likertRating_end_key_allKeys[-1].rt
-                    likertRating_end_key.duration = _likertRating_end_key_allKeys[-1].duration
-                    # a response ends the routine
-                    continueRoutine = False
-            
             # *likertRating_l_label* updates
             
             # if likertRating_l_label is starting this frame...
@@ -1620,6 +1621,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if likertRating_r_label.status == STARTED:
                 # update params
                 pass
+            
+            # *likertRating_end_key* updates
+            waitOnFlip = False
+            
+            # if likertRating_end_key is starting this frame...
+            if likertRating_end_key.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                likertRating_end_key.frameNStart = frameN  # exact frame index
+                likertRating_end_key.tStart = t  # local t and not account for scr refresh
+                likertRating_end_key.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(likertRating_end_key, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                likertRating_end_key.status = STARTED
+                # keyboard checking is just starting
+                waitOnFlip = True
+                win.callOnFlip(likertRating_end_key.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(likertRating_end_key.clearEvents, eventType='keyboard')  # clear events on next screen flip
+            if likertRating_end_key.status == STARTED and not waitOnFlip:
+                theseKeys = likertRating_end_key.getKeys(keyList=[goOn_key,'return'], ignoreKeys=["escape"], waitRelease=False)
+                _likertRating_end_key_allKeys.extend(theseKeys)
+                if len(_likertRating_end_key_allKeys):
+                    likertRating_end_key.keys = _likertRating_end_key_allKeys[-1].name  # just the last key pressed
+                    likertRating_end_key.rt = _likertRating_end_key_allKeys[-1].rt
+                    likertRating_end_key.duration = _likertRating_end_key_allKeys[-1].duration
+                    # a response ends the routine
+                    continueRoutine = False
             
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1666,13 +1693,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # Run 'End Routine' code from likertRating_code
         thisExp.addData("likertRating", likertRating.markerPos)
         
-        # check responses
-        if likertRating_end_key.keys in ['', [], None]:  # No response was made
-            likertRating_end_key.keys = None
-        trials.addData('likertRating_end_key.keys',likertRating_end_key.keys)
-        if likertRating_end_key.keys != None:  # we had a response
-            trials.addData('likertRating_end_key.rt', likertRating_end_key.rt)
-            trials.addData('likertRating_end_key.duration', likertRating_end_key.duration)
         try:
             if likertRating.tStopRefresh is not None:
                 duration_val = likertRating.tStopRefresh - likertRating.tStartRefresh
@@ -1693,7 +1713,37 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if bids_handler:
                 bids_handler.addEvent(bids_event)
             else:
-                trials.addData('bidsEvent_AUTlikert.event', bids_event)
+                trials.addData('bidsE_AUTlikert.event', bids_event)
+        except BIDSError as e:
+            print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
+        # check responses
+        if likertRating_end_key.keys in ['', [], None]:  # No response was made
+            likertRating_end_key.keys = None
+        trials.addData('likertRating_end_key.keys',likertRating_end_key.keys)
+        if likertRating_end_key.keys != None:  # we had a response
+            trials.addData('likertRating_end_key.rt', likertRating_end_key.rt)
+            trials.addData('likertRating_end_key.duration', likertRating_end_key.duration)
+        try:
+            if likertRating_end_key.tStopRefresh is not None:
+                duration_val = likertRating_end_key.tStopRefresh - likertRating_end_key.tStartRefresh
+            else:
+                duration_val = thisExp.thisEntry['AUT_likertRating.stopped'] - likertRating_end_key.tStartRefresh
+            if hasattr(likertRating_end_key, 'rt'):
+                rt_val = likertRating_end_key.rt
+            else:
+                rt_val = None
+                logging.warning('The linked component "likertRating_end_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
+            bids_event = BIDSTaskEvent(
+                onset=likertRating_end_key.tStartRefresh,
+                duration=duration_val,
+                response_time=rt_val,
+                event_type=type(likertRating_end_key).__name__,
+                trial_type='rating_key',
+            )
+            if bids_handler:
+                bids_handler.addEvent(bids_event)
+            else:
+                trials.addData('bidsE_likertRating_key.event', bids_event)
         except BIDSError as e:
             print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         # the Routine "AUT_likertRating" was not non-slip safe, so reset the non-slip timer
@@ -1884,13 +1934,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # Run 'End Routine' code from insi_code
         thisExp.addData("Insight", insi_possible.markerPos)
         
-        # check responses
-        if insight_end_key.keys in ['', [], None]:  # No response was made
-            insight_end_key.keys = None
-        trials.addData('insight_end_key.keys',insight_end_key.keys)
-        if insight_end_key.keys != None:  # we had a response
-            trials.addData('insight_end_key.rt', insight_end_key.rt)
-            trials.addData('insight_end_key.duration', insight_end_key.duration)
         try:
             if insi_possible.tStopRefresh is not None:
                 duration_val = insi_possible.tStopRefresh - insi_possible.tStartRefresh
@@ -1911,7 +1954,37 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             if bids_handler:
                 bids_handler.addEvent(bids_event)
             else:
-                trials.addData('bidsEvent_possible_insi.event', bids_event)
+                trials.addData('bidsE_possible_insi.event', bids_event)
+        except BIDSError as e:
+            print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
+        # check responses
+        if insight_end_key.keys in ['', [], None]:  # No response was made
+            insight_end_key.keys = None
+        trials.addData('insight_end_key.keys',insight_end_key.keys)
+        if insight_end_key.keys != None:  # we had a response
+            trials.addData('insight_end_key.rt', insight_end_key.rt)
+            trials.addData('insight_end_key.duration', insight_end_key.duration)
+        try:
+            if insight_end_key.tStopRefresh is not None:
+                duration_val = insight_end_key.tStopRefresh - insight_end_key.tStartRefresh
+            else:
+                duration_val = thisExp.thisEntry['AUT_insight.stopped'] - insight_end_key.tStartRefresh
+            if hasattr(insight_end_key, 'rt'):
+                rt_val = insight_end_key.rt
+            else:
+                rt_val = None
+                logging.warning('The linked component "insight_end_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
+            bids_event = BIDSTaskEvent(
+                onset=insight_end_key.tStartRefresh,
+                duration=duration_val,
+                response_time=rt_val,
+                event_type=type(insight_end_key).__name__,
+                trial_type='insight_key',
+            )
+            if bids_handler:
+                bids_handler.addEvent(bids_event)
+            else:
+                trials.addData('bidsE_insi_key.event', bids_event)
         except BIDSError as e:
             print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
         # the Routine "AUT_insight" was not non-slip safe, so reset the non-slip timer
@@ -2123,13 +2196,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # Run 'End Routine' code from insi_intensity_code
             thisExp.addData("insight_intensity", insi_intensity_likert.markerPos)
             
-            # check responses
-            if insi_intensity_end_key.keys in ['', [], None]:  # No response was made
-                insi_intensity_end_key.keys = None
-            insi_strength_on.addData('insi_intensity_end_key.keys',insi_intensity_end_key.keys)
-            if insi_intensity_end_key.keys != None:  # we had a response
-                insi_strength_on.addData('insi_intensity_end_key.rt', insi_intensity_end_key.rt)
-                insi_strength_on.addData('insi_intensity_end_key.duration', insi_intensity_end_key.duration)
             try:
                 if insi_intensity_likert.tStopRefresh is not None:
                     duration_val = insi_intensity_likert.tStopRefresh - insi_intensity_likert.tStartRefresh
@@ -2150,7 +2216,37 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if bids_handler:
                     bids_handler.addEvent(bids_event)
                 else:
-                    insi_strength_on.addData('bidsEvent_insi_intensity.event', bids_event)
+                    insi_strength_on.addData('bidsE_insi_intensity.event', bids_event)
+            except BIDSError as e:
+                print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
+            # check responses
+            if insi_intensity_end_key.keys in ['', [], None]:  # No response was made
+                insi_intensity_end_key.keys = None
+            insi_strength_on.addData('insi_intensity_end_key.keys',insi_intensity_end_key.keys)
+            if insi_intensity_end_key.keys != None:  # we had a response
+                insi_strength_on.addData('insi_intensity_end_key.rt', insi_intensity_end_key.rt)
+                insi_strength_on.addData('insi_intensity_end_key.duration', insi_intensity_end_key.duration)
+            try:
+                if insi_intensity_end_key.tStopRefresh is not None:
+                    duration_val = insi_intensity_end_key.tStopRefresh - insi_intensity_end_key.tStartRefresh
+                else:
+                    duration_val = thisExp.thisEntry['insi_intensity.stopped'] - insi_intensity_end_key.tStartRefresh
+                if hasattr(insi_intensity_end_key, 'rt'):
+                    rt_val = insi_intensity_end_key.rt
+                else:
+                    rt_val = None
+                    logging.warning('The linked component "insi_intensity_end_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
+                bids_event = BIDSTaskEvent(
+                    onset=insi_intensity_end_key.tStartRefresh,
+                    duration=duration_val,
+                    response_time=rt_val,
+                    event_type=type(insi_intensity_end_key).__name__,
+                    trial_type='insight_intensity_key',
+                )
+                if bids_handler:
+                    bids_handler.addEvent(bids_event)
+                else:
+                    insi_strength_on.addData('bidsE_insi_intensity_key.event', bids_event)
             except BIDSError as e:
                 print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
             # the Routine "insi_intensity" was not non-slip safe, so reset the non-slip timer
@@ -2385,6 +2481,29 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     if thx_key.keys != None:  # we had a response
         thisExp.addData('thx_key.rt', thx_key.rt)
         thisExp.addData('thx_key.duration', thx_key.duration)
+    try:
+        if thx_key.tStopRefresh is not None:
+            duration_val = thx_key.tStopRefresh - thx_key.tStartRefresh
+        else:
+            duration_val = thisExp.thisEntry['thx.stopped'] - thx_key.tStartRefresh
+        if hasattr(thx_key, 'rt'):
+            rt_val = thx_key.rt
+        else:
+            rt_val = None
+            logging.warning('The linked component "thx_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
+        bids_event = BIDSTaskEvent(
+            onset=thx_key.tStartRefresh,
+            duration=duration_val,
+            response_time=rt_val,
+            event_type=type(thx_key).__name__,
+            trial_type='thx_key',
+        )
+        if bids_handler:
+            bids_handler.addEvent(bids_event)
+        else:
+            thisExp.addData('bidsE_thx_key.event', bids_event)
+    except BIDSError as e:
+        print(f"[psychopy-bids(event)] An error occurred when creating BIDS event: {e}")
     # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
     if thx.maxDurationReached:
         routineTimer.addTime(-thx.maxDuration)
