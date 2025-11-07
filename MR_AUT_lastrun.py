@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on November 07, 2025, at 12:16
+    on November 07, 2025, at 12:57
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -434,12 +434,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     goLeft_key  = '9' 
     
     ## ### Options for DEBUG/RESARCH-mode ###
-    DEBUG = 0 #0=research-mode; 1=debug-mode 
+    DEBUG = 1 #0=research-mode; 1=debug-mode 
     if DEBUG: 
         fixDur = 2
         itemDur = 5
         carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer
-        MR_AUT_taskMaxTime = 1 * 60     #debugging: task lasts for 1min
+        MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 1min
     else: 
         fixDur = 6
         itemDur = 15
@@ -651,7 +651,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         depth=-3.0);
     insi_intensity_end_key = keyboard.Keyboard(deviceName='insi_intensity_end_key')
     
-    # --- Initialize components for Routine "chk_time4n2" ---
+    # --- Initialize components for Routine "chk4_n2item" ---
+    
+    # --- Initialize components for Routine "chk4_n2block" ---
     
     # --- Initialize components for Routine "thx" ---
     thx_txt = visual.TextStim(win=win, name='thx_txt',
@@ -1019,7 +1021,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             originPath=-1, 
             trialList=data.importConditions(
             MR_AUT_condition_file, 
-            selection='3:11'
+            selection='11:14'
         )
         , 
             seed=None, 
@@ -2312,32 +2314,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # if running in a Session with a Liaison client, send data up to now
                 thisSession.sendExperimentData()
             
-            # --- Prepare to start Routine "chk_time4n2" ---
-            # create an object to store info about Routine chk_time4n2
-            chk_time4n2 = data.Routine(
-                name='chk_time4n2',
+            # --- Prepare to start Routine "chk4_n2item" ---
+            # create an object to store info about Routine chk4_n2item
+            chk4_n2item = data.Routine(
+                name='chk4_n2item',
                 components=[],
             )
-            chk_time4n2.status = NOT_STARTED
+            chk4_n2item.status = NOT_STARTED
             continueRoutine = True
             # update component parameters for each repeat
-            # Run 'Begin Routine' code from trial_check
+            # Run 'Begin Routine' code from n2_item_check
             ##  check (remaining) time for items of 'n2' MR_AUT-Item-pool  ##
-            if core.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
-                if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':
+            if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':
+                if core.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
                     trials.finished = True
-                    MR_AUT_blocks.finished = True
+                    #MR_AUT_blocks.finished = True
                     continueRoutine = False
             
-            # store start times for chk_time4n2
-            chk_time4n2.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-            chk_time4n2.tStart = globalClock.getTime(format='float')
-            chk_time4n2.status = STARTED
-            thisExp.addData('chk_time4n2.started', chk_time4n2.tStart)
-            chk_time4n2.maxDuration = None
+            # store start times for chk4_n2item
+            chk4_n2item.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+            chk4_n2item.tStart = globalClock.getTime(format='float')
+            chk4_n2item.status = STARTED
+            thisExp.addData('chk4_n2item.started', chk4_n2item.tStart)
+            chk4_n2item.maxDuration = None
             # keep track of which components have finished
-            chk_time4n2Components = chk_time4n2.components
-            for thisComponent in chk_time4n2.components:
+            chk4_n2itemComponents = chk4_n2item.components
+            for thisComponent in chk4_n2item.components:
                 thisComponent.tStart = None
                 thisComponent.tStop = None
                 thisComponent.tStartRefresh = None
@@ -2349,8 +2351,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             _timeToFirstFrame = win.getFutureFlipTime(clock="now")
             frameN = -1
             
-            # --- Run Routine "chk_time4n2" ---
-            chk_time4n2.forceEnded = routineForceEnded = not continueRoutine
+            # --- Run Routine "chk4_n2item" ---
+            chk4_n2item.forceEnded = routineForceEnded = not continueRoutine
             while continueRoutine:
                 # if trial has changed, end Routine now
                 if hasattr(thisTrial, 'status') and thisTrial.status == STOPPING:
@@ -2374,17 +2376,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         thisExp=thisExp, 
                         win=win, 
                         timers=[routineTimer, globalClock], 
-                        currentRoutine=chk_time4n2,
+                        currentRoutine=chk4_n2item,
                     )
                     # skip the frame we paused on
                     continue
                 
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
-                    chk_time4n2.forceEnded = routineForceEnded = True
+                    chk4_n2item.forceEnded = routineForceEnded = True
                     break
                 continueRoutine = False  # will revert to True if at least one component still running
-                for thisComponent in chk_time4n2.components:
+                for thisComponent in chk4_n2item.components:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
@@ -2393,15 +2395,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
             
-            # --- Ending Routine "chk_time4n2" ---
-            for thisComponent in chk_time4n2.components:
+            # --- Ending Routine "chk4_n2item" ---
+            for thisComponent in chk4_n2item.components:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            # store stop times for chk_time4n2
-            chk_time4n2.tStop = globalClock.getTime(format='float')
-            chk_time4n2.tStopRefresh = tThisFlipGlobal
-            thisExp.addData('chk_time4n2.stopped', chk_time4n2.tStop)
-            # the Routine "chk_time4n2" was not non-slip safe, so reset the non-slip timer
+            # store stop times for chk4_n2item
+            chk4_n2item.tStop = globalClock.getTime(format='float')
+            chk4_n2item.tStopRefresh = tThisFlipGlobal
+            thisExp.addData('chk4_n2item.stopped', chk4_n2item.tStop)
+            # the Routine "chk4_n2item" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
             # mark thisTrial as finished
             if hasattr(thisTrial, 'status'):
@@ -2424,6 +2426,98 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if thisSession is not None:
             # if running in a Session with a Liaison client, send data up to now
             thisSession.sendExperimentData()
+        
+        # --- Prepare to start Routine "chk4_n2block" ---
+        # create an object to store info about Routine chk4_n2block
+        chk4_n2block = data.Routine(
+            name='chk4_n2block',
+            components=[],
+        )
+        chk4_n2block.status = NOT_STARTED
+        continueRoutine = True
+        # update component parameters for each repeat
+        # Run 'Begin Routine' code from n2_block_check
+        ##  check (remaining) time for items of 'n2' MR_AUT-Item-pool  ##
+        if core.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
+            #if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':
+            trials.finished = True
+            MR_AUT_blocks.finished = True
+            continueRoutine = False
+        
+        # store start times for chk4_n2block
+        chk4_n2block.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+        chk4_n2block.tStart = globalClock.getTime(format='float')
+        chk4_n2block.status = STARTED
+        thisExp.addData('chk4_n2block.started', chk4_n2block.tStart)
+        chk4_n2block.maxDuration = None
+        # keep track of which components have finished
+        chk4_n2blockComponents = chk4_n2block.components
+        for thisComponent in chk4_n2block.components:
+            thisComponent.tStart = None
+            thisComponent.tStop = None
+            thisComponent.tStartRefresh = None
+            thisComponent.tStopRefresh = None
+            if hasattr(thisComponent, 'status'):
+                thisComponent.status = NOT_STARTED
+        # reset timers
+        t = 0
+        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+        frameN = -1
+        
+        # --- Run Routine "chk4_n2block" ---
+        chk4_n2block.forceEnded = routineForceEnded = not continueRoutine
+        while continueRoutine:
+            # if trial has changed, end Routine now
+            if hasattr(thisMR_AUT_block, 'status') and thisMR_AUT_block.status == STOPPING:
+                continueRoutine = False
+            # get current time
+            t = routineTimer.getTime()
+            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            # update/draw components on each frame
+            
+            # check for quit (typically the Esc key)
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
+            if thisExp.status == FINISHED or endExpNow:
+                endExperiment(thisExp, win=win)
+                return
+            # pause experiment here if requested
+            if thisExp.status == PAUSED:
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[routineTimer, globalClock], 
+                    currentRoutine=chk4_n2block,
+                )
+                # skip the frame we paused on
+                continue
+            
+            # check if all components have finished
+            if not continueRoutine:  # a component has requested a forced-end of Routine
+                chk4_n2block.forceEnded = routineForceEnded = True
+                break
+            continueRoutine = False  # will revert to True if at least one component still running
+            for thisComponent in chk4_n2block.components:
+                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                    continueRoutine = True
+                    break  # at least one component has not yet finished
+            
+            # refresh the screen
+            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                win.flip()
+        
+        # --- Ending Routine "chk4_n2block" ---
+        for thisComponent in chk4_n2block.components:
+            if hasattr(thisComponent, "setAutoDraw"):
+                thisComponent.setAutoDraw(False)
+        # store stop times for chk4_n2block
+        chk4_n2block.tStop = globalClock.getTime(format='float')
+        chk4_n2block.tStopRefresh = tThisFlipGlobal
+        thisExp.addData('chk4_n2block.stopped', chk4_n2block.tStop)
+        # the Routine "chk4_n2block" was not non-slip safe, so reset the non-slip timer
+        routineTimer.reset()
         # mark thisMR_AUT_block as finished
         if hasattr(thisMR_AUT_block, 'status'):
             thisMR_AUT_block.status = FINISHED
