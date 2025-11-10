@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on November 07, 2025, at 12:57
+    on November 10, 2025, at 18:09
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -414,7 +414,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
          subject=expInfo['participant'], task=expInfo['expName'],
          data_type='func', acq='', runs=True)
     bids_handler.createDataset()
-    bids_handler.addLicense('CC-BY-NC-4.0', force=True)
+    bids_handler.addLicense('CC-BY-ND-4.0', force=True)
     bids_handler.addTaskCode(force=True)
     bids_handler.addEnvironment()
     
@@ -444,8 +444,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         fixDur = 6
         itemDur = 15
         carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer
-        #MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min
-        MR_AUT_taskMaxTime = 5 * 60    #task lasts for 20min
+        MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min
+        #MR_AUT_taskMaxTime = 5 * 60    #task lasts for 20min
     
     #header_pos_y = .40
     main_pos_y   = 0
@@ -1021,7 +1021,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             originPath=-1, 
             trialList=data.importConditions(
             MR_AUT_condition_file, 
-            selection='11:14'
+            selection='21:23'
         )
         , 
             seed=None, 
@@ -1262,7 +1262,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 bids_event = BIDSTaskEvent(
                     onset=fixation.tStartRefresh,
                     duration=duration_val,
-                    event_type=type(fixation).__name__,
+                    event_type='pre_item_fix',
                     trial_type='fixation',
                 )
                 if bids_handler:
@@ -1279,7 +1279,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 bids_event = BIDSTaskEvent(
                     onset=AUTitem_txt.tStartRefresh,
                     duration=duration_val,
-                    event_type="AUTitem %s" % (MR_AUTitem),
+                    event_type="AUTitem: %s" % (MR_AUTitem),
                     trial_type='AUTitem',
                 )
                 if bids_handler:
@@ -1309,7 +1309,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     onset=AUTidea_key.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type=type(AUTidea_key).__name__,
+                    event_type='AUTidea_button',
                     trial_type='AUTidea_key',
                 )
                 if bids_handler:
@@ -1516,8 +1516,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 bids_event = BIDSTaskEvent(
                     onset=AUTidea.tStartRefresh,
                     duration=duration_val,
-                    event_type="response2 %s" % (MR_AUTitem),
-                    trial_type='AUTresponse',
+                    event_type="idea for '%s'" % (MR_AUTitem),
+                    trial_type='AUTaudioResponse',
                 )
                 if bids_handler:
                     bids_handler.addEvent(bids_event)
@@ -1730,7 +1730,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             thisExp.addData('AUT_likertRating.stopped', AUT_likertRating.tStop)
             trials.addData('likertRating.response', likertRating.getRating())
             trials.addData('likertRating.rt', likertRating.getRT())
-            trials.addData('likertRating.history', likertRating.getHistory())
             # Run 'End Routine' code from likertRating_code
             thisExp.addData("likertRating", likertRating.markerPos)
             
@@ -1748,7 +1747,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     onset=likertRating.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type=type(likertRating).__name__,
+                    event_type="likertRating %s" % (likertRating.markerPos),
                     trial_type='AUTselfrating',
                 )
                 if bids_handler:
@@ -1778,8 +1777,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     onset=likertRating_end_key.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type=type(likertRating_end_key).__name__,
-                    trial_type='rating_key',
+                    event_type='certifyLikertRating',
+                    trial_type='eof_likertRating',
                 )
                 if bids_handler:
                     bids_handler.addEvent(bids_event)
@@ -1989,8 +1988,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     onset=insi_possible.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type=type(insi_possible).__name__,
-                    trial_type='possible_insight',
+                    event_type="INSI_possible: %s" % (insi_possible.markerPos),
+                    trial_type='INSI_possible',
                 )
                 if bids_handler:
                     bids_handler.addEvent(bids_event)
@@ -2019,8 +2018,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     onset=insight_end_key.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type=type(insight_end_key).__name__,
-                    trial_type='insight_key',
+                    event_type='certify_insight_possible',
+                    trial_type='eof_INSI_possible',
                 )
                 if bids_handler:
                     bids_handler.addEvent(bids_event)
@@ -2251,8 +2250,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         onset=insi_intensity_likert.tStartRefresh,
                         duration=duration_val,
                         response_time=rt_val,
-                        event_type=type(insi_intensity_likert).__name__,
-                        trial_type='insight_intensity',
+                        event_type="INSI_intensity %s" % (insi_intensity_likert.markerPos),
+                        trial_type='INSI_intensity',
                     )
                     if bids_handler:
                         bids_handler.addEvent(bids_event)
@@ -2281,8 +2280,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         onset=insi_intensity_end_key.tStartRefresh,
                         duration=duration_val,
                         response_time=rt_val,
-                        event_type=type(insi_intensity_end_key).__name__,
-                        trial_type='insight_intensity_key',
+                        event_type='certify_INSI_intensity',
+                        trial_type='eof_INSI_intensity',
                     )
                     if bids_handler:
                         bids_handler.addEvent(bids_event)
@@ -2736,8 +2735,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             onset=thx_key.tStartRefresh,
             duration=duration_val,
             response_time=rt_val,
-            event_type=type(thx_key).__name__,
-            trial_type='thx_key',
+            event_type='finalTaskKey',
+            trial_type='endOfTask',
         )
         if bids_handler:
             bids_handler.addEvent(bids_event)
