@@ -98,7 +98,7 @@
       <CodeComponent name="set_things" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="##  some start time info&amp;#10;print(data.getDateStr(format=&quot;%H:%M:%S.%m&quot;))   #local: set/mark start of current run&amp;#10;&amp;#10;wavDirName = '%s_%s_%s_%s_%s' % (os.path.join(_thisDir, 'data', ''), expInfo['participant'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;), '_wav')&amp;#10;if not os.path.isdir(wavDirName):&amp;#10;    os.makedirs(wavDirName)  # to hold .wav files&amp;#10;#print(f&quot;{wavDirName=}&quot;)&amp;#10;&amp;#10;##  define some handy keys&amp;#10;goRight_key = '7'&amp;#10;goOn_key    = '8'&amp;#10;goLeft_key  = '9' &amp;#10;&amp;#10;## ### Options for DEBUG/RESARCH-mode ###&amp;#10;DEBUG = 1 #0=research-mode; 1=debug-mode &amp;#10;if DEBUG: &amp;#10;    fixDur = 2&amp;#10;    itemDur = 5&amp;#10;    carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 1min&amp;#10;else: &amp;#10;    fixDur = 6&amp;#10;    itemDur = 15&amp;#10;    carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min&amp;#10;    #MR_AUT_taskMaxTime = 5 * 60    #task lasts for 20min&amp;#10;&amp;#10;#header_pos_y = .40&amp;#10;main_pos_y   = 0&amp;#10;#btn_pos_y    = -.25&amp;#10;&amp;#10;#trials_n1 = 'stim/MR_AUT_items_n1.csv'&amp;#10;#trials_n2 = 'stim/MR_AUT_items_n2.csv'&amp;#10;#trials_csv = trials_n1&amp;#10;&amp;#10;&amp;#10;&quot;&quot;&quot;&amp;#10;###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;&amp;#10;def generate_jitter_array(item_count):&amp;#10;    ###&amp;#10;    Generiert Jitter-Array von 'jitter_min' bis 'jitter_max'; 'jitter_range' wird gleichmäßig auf die Items verteilt.&amp;#10;    &amp;#10;    Args: item_count (int): Anzahl der Items&amp;#10;        &amp;#10;    Returns: numpy.array: Array mit jitter-Werten zwischen 'jitter_min' und 'jitter_max'&amp;#10;    ###&amp;#10;    if item_count &lt;= 0:&amp;#10;        return np.array([])&amp;#10;    &amp;#10;    jitter_min = 3.1        # Basiswert: 3 Sekunden&amp;#10;    jitter_max = 9.1        # jitterrange: 6 Sekunden (von 3 bis 9 Sekunden)&amp;#10;    &amp;#10;    # Gleichmäßige Verteilung über die Jitterrange&amp;#10;    step = (jitter_max-jitter_min) / item_count&amp;#10;    jitter_offsets = np.arange(0, (jitter_max-jitter_min), step)[:item_count]&amp;#10;    &amp;#10;    # Optional: Kleine zufällige Variation hinzufügen (kann entfernt werden)&amp;#10;    # jitter_offsets += np.random.uniform(-step/4, step/4, item_count)&amp;#10;    &amp;#10;    jitter_array = jitter_min + jitter_offsets  #Jitter-Array: Basiswert + Offset&amp;#10;    &amp;#10;    jitter_array = np.clip(jitter_array, jitter_min, jitter_max)    #Sicherstellen, dass Werte im Bereich [jitter_min, jitter_max] bleiben&amp;#10;    &amp;#10;    np.random.shuffle(jitter_array)             #Array durchmischen&amp;#10;    &amp;#10;    return jitter_array&amp;#10;&amp;#10;&amp;#10;# Beispiel-Verwendung&amp;#10;if __name__ == &quot;__main__&quot;:&amp;#10;    # Test mit verschiedenen Itemanzahlen&amp;#10;    #test_cases = [40, 60]&amp;#10;    test_cases = [60]&amp;#10;    &amp;#10;    for item_count in test_cases:&amp;#10;        jitter = generate_jitter_array(item_count)&amp;#10;        #print(f&quot;\nItemanzahl: {item_count}&quot;)&amp;#10;        #print(f&quot;Jitter-Array: {jitter}&quot;)&amp;#10;        #print(f&quot;Min: {jitter.min():.2f}s, Max: {jitter.max():.2f}s, Durchschnitt: {jitter.mean():.2f}s&quot;)&amp;#10;        #print(f&quot;Gesamt-Zeitspanne: {jitter.sum():.2f}s&quot;)&amp;#10;&quot;&quot;&quot;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="##  some start time info&amp;#10;print(data.getDateStr(format=&quot;%H:%M:%S.%m&quot;))   #local: set/mark start of current run&amp;#10;&amp;#10;wavDirName = '%s_%s_%s_%s_%s' % (os.path.join(_thisDir, 'data', ''), expInfo['participant'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;), '_wav')&amp;#10;if not os.path.isdir(wavDirName):&amp;#10;    os.makedirs(wavDirName)  # to hold .wav files&amp;#10;#print(f&quot;{wavDirName=}&quot;)&amp;#10;&amp;#10;##  define some handy keys&amp;#10;goRight_key = '7'&amp;#10;goOn_key    = '8'&amp;#10;goLeft_key  = '9' &amp;#10;&amp;#10;main_pos_y   = 0&amp;#10;&amp;#10;##  ### Options for DEBUG/RESARCH-mode ###  ##&amp;#10;DEBUG = 1 #0=research-mode; 1=debug-mode &amp;#10;if DEBUG: &amp;#10;    fixDur = 2&amp;#10;    itemDur = 5&amp;#10;    carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 30s/1min&amp;#10;else: &amp;#10;    fixDur = 6&amp;#10;    itemDur = 15&amp;#10;    carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min&amp;#10;    #MR_AUT_taskMaxTime = 5 * 60    #kind of debug: task lasts for 5min&amp;#10;&amp;#10;&amp;#10;&amp;#10;&quot;&quot;&quot;&amp;#10;###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;&amp;#10;def generate_jitter_array(item_count):&amp;#10;    ###&amp;#10;    Generiert Jitter-Array von 'jitter_min' bis 'jitter_max'; 'jitter_range' wird gleichmäßig auf die Items verteilt.&amp;#10;    &amp;#10;    Args: item_count (int): Anzahl der Items&amp;#10;        &amp;#10;    Returns: numpy.array: Array mit jitter-Werten zwischen 'jitter_min' und 'jitter_max'&amp;#10;    ###&amp;#10;    if item_count &lt;= 0:&amp;#10;        return np.array([])&amp;#10;    &amp;#10;    jitter_min = 3.1        # Basiswert: 3 Sekunden&amp;#10;    jitter_max = 9.1        # jitterrange: 6 Sekunden (von 3 bis 9 Sekunden)&amp;#10;    &amp;#10;    # Gleichmäßige Verteilung über die Jitterrange&amp;#10;    step = (jitter_max-jitter_min) / item_count&amp;#10;    jitter_offsets = np.arange(0, (jitter_max-jitter_min), step)[:item_count]&amp;#10;    &amp;#10;    # Optional: Kleine zufällige Variation hinzufügen (kann entfernt werden)&amp;#10;    # jitter_offsets += np.random.uniform(-step/4, step/4, item_count)&amp;#10;    &amp;#10;    jitter_array = jitter_min + jitter_offsets  #Jitter-Array: Basiswert + Offset&amp;#10;    &amp;#10;    jitter_array = np.clip(jitter_array, jitter_min, jitter_max)    #Sicherstellen, dass Werte im Bereich [jitter_min, jitter_max] bleiben&amp;#10;    &amp;#10;    np.random.shuffle(jitter_array)             #Array durchmischen&amp;#10;    &amp;#10;    return jitter_array&amp;#10;&amp;#10;&amp;#10;# Beispiel-Verwendung&amp;#10;if __name__ == &quot;__main__&quot;:&amp;#10;    # Test mit verschiedenen Itemanzahlen&amp;#10;    #test_cases = [40, 60]&amp;#10;    test_cases = [60]&amp;#10;    &amp;#10;    for item_count in test_cases:&amp;#10;        jitter = generate_jitter_array(item_count)&amp;#10;        #print(f&quot;\nItemanzahl: {item_count}&quot;)&amp;#10;        #print(f&quot;Jitter-Array: {jitter}&quot;)&amp;#10;        #print(f&quot;Min: {jitter.min():.2f}s, Max: {jitter.max():.2f}s, Durchschnitt: {jitter.mean():.2f}s&quot;)&amp;#10;        #print(f&quot;Gesamt-Zeitspanne: {jitter.sum():.2f}s&quot;)&amp;#10;&quot;&quot;&quot;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -190,7 +190,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="#store start time of MR_AUT task&amp;#10;MR_AUT_startTime = core.getTime()&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="#store start time of MR_AUT task&amp;#10;MR_AUTclock = core.Clock()&amp;#10;MR_AUT_startTime = MR_AUTclock.getTime()&amp;#10;print(f'{MR_AUT_startTime=}')&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="start_MR_AUT_code" valType="code" updates="None" name="name"/>
       </CodeComponent>
@@ -218,9 +218,9 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="##  jitter stuff  ##&amp;#10;#rand_dur = np.random.uniform(3, 9)&amp;#10;#trials.addData('rand_dur', rand_dur)&amp;#10;#trials.addData('fix_jitter', jitter[trials.thisN])&amp;#10;#print(f&quot;Unschärfe Nr. {trials.thisN} in [s]: {jitter[trials.thisN]}&quot;)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="##  jitter stuff  ##&amp;#10;#rand_dur = np.random.uniform(3, 9)&amp;#10;#trials.addData('rand_dur', rand_dur)&amp;#10;#trials.addData('fix_jitter', jitter[trials.thisN])&amp;#10;#print(f&quot;Unschärfe Nr. {trials.thisN} in [s]: {jitter[trials.thisN]}&quot;)&amp;#10;&amp;#10;print(f&quot;begin: {MR_AUTclock.getTime() = }&quot;)&amp;#10;print(f&quot;begin: {MR_AUTclock.getTime() - MR_AUT_startTime = }&quot;)&amp;#10;&amp;#10;once = False" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="if fixation.status==FINISHED and not once:&amp;#10;    once = True&amp;#10;    print(f&quot;each: {MR_AUTclock.getTime() = }&quot;)&amp;#10;    print(f&quot;each: {MR_AUTclock.getTime() - MR_AUT_startTime = }&quot;)" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
@@ -264,12 +264,12 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="pre_item_fix" valType="str" updates="None" name="event_type"/>
+        <Param val="cross" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="fixation" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_fix" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="(MR_AUTclock.getTime() - MR_AUT_startTime)" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -312,12 +312,12 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;AUTitem: %s&quot; % (MR_AUTitem)" valType="str" updates="None" name="event_type"/>
+        <Param val="$&quot;%s&quot; % (MR_AUTitem)" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="AUTitem_txt" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTitem" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="MR_AUTclock.getTime() - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -353,12 +353,12 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="AUTidea_button" valType="str" updates="None" name="event_type"/>
+        <Param val="keypress" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="AUTidea_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTideakey" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="MR_AUTclock.getTime() - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -436,12 +436,12 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;idea for '%s'&quot; % (MR_AUTitem)" valType="str" updates="None" name="event_type"/>
+        <Param val="$&quot;idea_%s&quot; % (MR_AUTitem)" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="AUTidea" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTresponse" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="MR_AUTclock.getTime() - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -529,7 +529,7 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;likertRating %s&quot; % (likertRating.markerPos)" valType="str" updates="None" name="event_type"/>
+        <Param val="$&quot;likertRating_%s&quot; % (likertRating.markerPos)" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="likertRating" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
@@ -744,7 +744,7 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;INSI_possible: %s&quot; % (insi_possible.markerPos)" valType="str" updates="None" name="event_type"/>
+        <Param val="$&quot;INSI_possible_%s&quot; % (insi_possible.markerPos)" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="insi_possible" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
@@ -905,7 +905,7 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;INSI_intensity %s&quot; % (insi_intensity_likert.markerPos)" valType="str" updates="None" name="event_type"/>
+        <Param val="$&quot;INSI_intensity_%s&quot; % (insi_intensity_likert.markerPos)" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="insi_intensity_likert" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>

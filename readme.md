@@ -2,6 +2,7 @@
 
 ---
 
-MRI ready AUT-Task with BIDS compatible output 
- at least: 'onset', 'duration', 'trial_type'
- add-on: 'event_type', 'response_time'
+MRI ready AUT-Task with BIDS compatible output
+
+* at least: 'onset', 'duration', 'trial_type'
+* add-on: 'event_type', 'response_time'

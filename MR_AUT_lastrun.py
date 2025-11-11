@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on November 10, 2025, at 18:09
+    on November 11, 2025, at 13:13
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -433,27 +433,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     goOn_key    = '8'
     goLeft_key  = '9' 
     
-    ## ### Options for DEBUG/RESARCH-mode ###
+    main_pos_y   = 0
+    
+    ##  ### Options for DEBUG/RESARCH-mode ###  ##
     DEBUG = 1 #0=research-mode; 1=debug-mode 
     if DEBUG: 
         fixDur = 2
         itemDur = 5
         carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer
-        MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 1min
+        MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 30s/1min
     else: 
         fixDur = 6
         itemDur = 15
         carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer
         MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min
-        #MR_AUT_taskMaxTime = 5 * 60    #task lasts for 20min
+        #MR_AUT_taskMaxTime = 5 * 60    #kind of debug: task lasts for 5min
     
-    #header_pos_y = .40
-    main_pos_y   = 0
-    #btn_pos_y    = -.25
-    
-    #trials_n1 = 'stim/MR_AUT_items_n1.csv'
-    #trials_n2 = 'stim/MR_AUT_items_n2.csv'
-    #trials_csv = trials_n1
     
     
     """
@@ -958,7 +953,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             wait4scanner_byp.addData('GOfromMRT_key.duration', GOfromMRT_key.duration)
         # Run 'End Routine' code from start_MR_AUT_code
         #store start time of MR_AUT task
-        MR_AUT_startTime = core.getTime()
+        MR_AUTclock = core.Clock()
+        MR_AUT_startTime = MR_AUTclock.getTime()
+        print(f'{MR_AUT_startTime=}')
         
         # the Routine "wait4scanner" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
@@ -1066,6 +1063,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             #trials.addData('fix_jitter', jitter[trials.thisN])
             #print(f"Unschärfe Nr. {trials.thisN} in [s]: {jitter[trials.thisN]}")
             
+            print(f"begin: {MR_AUTclock.getTime() = }")
+            print(f"begin: {MR_AUTclock.getTime() - MR_AUT_startTime = }")
+            
+            once = False
             AUTitem_txt.setText(MR_AUTitem)
             # create starting attributes for AUTidea_key
             AUTidea_key.keys = []
@@ -1103,6 +1104,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 tThisFlipGlobal = win.getFutureFlipTime(clock=None)
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
+                # Run 'Each Frame' code from fix_code
+                if fixation.status==FINISHED and not once:
+                    once = True
+                    print(f"each: {MR_AUTclock.getTime() = }")
+                    print(f"each: {MR_AUTclock.getTime() - MR_AUT_startTime = }")
                 
                 # *fixation* updates
                 
@@ -1260,9 +1266,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 else:
                     duration_val = thisExp.thisEntry['AUT_item.stopped'] - fixation.tStartRefresh
                 bids_event = BIDSTaskEvent(
-                    onset=fixation.tStartRefresh,
+                    onset=(MR_AUTclock.getTime() - MR_AUT_startTime),
                     duration=duration_val,
-                    event_type='pre_item_fix',
+                    event_type='cross',
                     trial_type='fixation',
                 )
                 if bids_handler:
@@ -1277,9 +1283,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 else:
                     duration_val = thisExp.thisEntry['AUT_item.stopped'] - AUTitem_txt.tStartRefresh
                 bids_event = BIDSTaskEvent(
-                    onset=AUTitem_txt.tStartRefresh,
+                    onset=MR_AUTclock.getTime() - MR_AUT_startTime,
                     duration=duration_val,
-                    event_type="AUTitem: %s" % (MR_AUTitem),
+                    event_type="%s" % (MR_AUTitem),
                     trial_type='AUTitem',
                 )
                 if bids_handler:
@@ -1306,10 +1312,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     rt_val = None
                     logging.warning('The linked component "AUTidea_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
                 bids_event = BIDSTaskEvent(
-                    onset=AUTidea_key.tStartRefresh,
+                    onset=MR_AUTclock.getTime() - MR_AUT_startTime,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type='AUTidea_button',
+                    event_type='keypress',
                     trial_type='AUTidea_key',
                 )
                 if bids_handler:
@@ -1514,9 +1520,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 else:
                     duration_val = thisExp.thisEntry['AUT_response.stopped'] - AUTidea.tStartRefresh
                 bids_event = BIDSTaskEvent(
-                    onset=AUTidea.tStartRefresh,
+                    onset=MR_AUTclock.getTime() - MR_AUT_startTime,
                     duration=duration_val,
-                    event_type="idea for '%s'" % (MR_AUTitem),
+                    event_type="idea_%s" % (MR_AUTitem),
                     trial_type='AUTaudioResponse',
                 )
                 if bids_handler:
@@ -1747,7 +1753,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     onset=likertRating.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type="likertRating %s" % (likertRating.markerPos),
+                    event_type="likertRating_%s" % (likertRating.markerPos),
                     trial_type='AUTselfrating',
                 )
                 if bids_handler:
@@ -1988,7 +1994,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     onset=insi_possible.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type="INSI_possible: %s" % (insi_possible.markerPos),
+                    event_type="INSI_possible_%s" % (insi_possible.markerPos),
                     trial_type='INSI_possible',
                 )
                 if bids_handler:
@@ -2250,7 +2256,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         onset=insi_intensity_likert.tStartRefresh,
                         duration=duration_val,
                         response_time=rt_val,
-                        event_type="INSI_intensity %s" % (insi_intensity_likert.markerPos),
+                        event_type="INSI_intensity_%s" % (insi_intensity_likert.markerPos),
                         trial_type='INSI_intensity',
                     )
                     if bids_handler:
