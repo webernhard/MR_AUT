@@ -98,7 +98,7 @@
       <CodeComponent name="set_things" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="##  some start time info&amp;#10;print(data.getDateStr(format=&quot;%H:%M:%S.%m&quot;))   #local: set/mark start of current run&amp;#10;&amp;#10;wavDirName = '%s_%s_%s_%s_%s' % (os.path.join(_thisDir, 'data', ''), expInfo['participant'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;), '_wav')&amp;#10;if not os.path.isdir(wavDirName):&amp;#10;    os.makedirs(wavDirName)  # to hold .wav files&amp;#10;#print(f&quot;{wavDirName=}&quot;)&amp;#10;&amp;#10;##  define some handy keys&amp;#10;goRight_key = '7'&amp;#10;goOn_key    = '8'&amp;#10;goLeft_key  = '9' &amp;#10;&amp;#10;main_pos_y   = 0&amp;#10;&amp;#10;##  ### Options for DEBUG/RESARCH-mode ###  ##&amp;#10;DEBUG = 1 #0=research-mode; 1=debug-mode &amp;#10;if DEBUG: &amp;#10;    fixDur = 2&amp;#10;    itemDur = 5&amp;#10;    carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 30s/1min&amp;#10;else: &amp;#10;    fixDur = 6&amp;#10;    itemDur = 15&amp;#10;    carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min&amp;#10;    #MR_AUT_taskMaxTime = 5 * 60    #kind of debug: task lasts for 5min&amp;#10;&amp;#10;&amp;#10;&amp;#10;&quot;&quot;&quot;&amp;#10;###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;&amp;#10;def generate_jitter_array(item_count):&amp;#10;    ###&amp;#10;    Generiert Jitter-Array von 'jitter_min' bis 'jitter_max'; 'jitter_range' wird gleichmäßig auf die Items verteilt.&amp;#10;    &amp;#10;    Args: item_count (int): Anzahl der Items&amp;#10;        &amp;#10;    Returns: numpy.array: Array mit jitter-Werten zwischen 'jitter_min' und 'jitter_max'&amp;#10;    ###&amp;#10;    if item_count &lt;= 0:&amp;#10;        return np.array([])&amp;#10;    &amp;#10;    jitter_min = 3.1        # Basiswert: 3 Sekunden&amp;#10;    jitter_max = 9.1        # jitterrange: 6 Sekunden (von 3 bis 9 Sekunden)&amp;#10;    &amp;#10;    # Gleichmäßige Verteilung über die Jitterrange&amp;#10;    step = (jitter_max-jitter_min) / item_count&amp;#10;    jitter_offsets = np.arange(0, (jitter_max-jitter_min), step)[:item_count]&amp;#10;    &amp;#10;    # Optional: Kleine zufällige Variation hinzufügen (kann entfernt werden)&amp;#10;    # jitter_offsets += np.random.uniform(-step/4, step/4, item_count)&amp;#10;    &amp;#10;    jitter_array = jitter_min + jitter_offsets  #Jitter-Array: Basiswert + Offset&amp;#10;    &amp;#10;    jitter_array = np.clip(jitter_array, jitter_min, jitter_max)    #Sicherstellen, dass Werte im Bereich [jitter_min, jitter_max] bleiben&amp;#10;    &amp;#10;    np.random.shuffle(jitter_array)             #Array durchmischen&amp;#10;    &amp;#10;    return jitter_array&amp;#10;&amp;#10;&amp;#10;# Beispiel-Verwendung&amp;#10;if __name__ == &quot;__main__&quot;:&amp;#10;    # Test mit verschiedenen Itemanzahlen&amp;#10;    #test_cases = [40, 60]&amp;#10;    test_cases = [60]&amp;#10;    &amp;#10;    for item_count in test_cases:&amp;#10;        jitter = generate_jitter_array(item_count)&amp;#10;        #print(f&quot;\nItemanzahl: {item_count}&quot;)&amp;#10;        #print(f&quot;Jitter-Array: {jitter}&quot;)&amp;#10;        #print(f&quot;Min: {jitter.min():.2f}s, Max: {jitter.max():.2f}s, Durchschnitt: {jitter.mean():.2f}s&quot;)&amp;#10;        #print(f&quot;Gesamt-Zeitspanne: {jitter.sum():.2f}s&quot;)&amp;#10;&quot;&quot;&quot;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="##  some start time info&amp;#10;print(data.getDateStr(format=&quot;%H:%M:%S.%m&quot;))   #local: set/mark start of current run&amp;#10;&amp;#10;wavDirName = '%s_%s_%s_%s_%s' % (os.path.join(_thisDir, 'data', ''), expInfo['participant'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;), '_wav')&amp;#10;if not os.path.isdir(wavDirName):&amp;#10;    os.makedirs(wavDirName)  # to hold .wav files&amp;#10;#print(f&quot;{wavDirName=}&quot;)&amp;#10;&amp;#10;##  define some handy keys&amp;#10;goRight_key = '7'&amp;#10;goOn_key    = '8'&amp;#10;goLeft_key  = '9' &amp;#10;&amp;#10;main_pos_y   = 0&amp;#10;&amp;#10;##  ### Options for DEBUG/RESARCH-mode ###  ##&amp;#10;DEBUG = 0 #0=research-mode; 1=debug-mode &amp;#10;if DEBUG: &amp;#10;    fixDur = 2&amp;#10;    itemDur = 5&amp;#10;    carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 30s/1min&amp;#10;else: &amp;#10;    fixDur = 6&amp;#10;    itemDur = 15&amp;#10;    carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min&amp;#10;    #MR_AUT_taskMaxTime = 5 * 60    #kind of debug: task lasts for 5min&amp;#10;&amp;#10;&amp;#10;&amp;#10;&quot;&quot;&quot;&amp;#10;###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###&amp;#10;&amp;#10;def generate_jitter_array(item_count):&amp;#10;    ###&amp;#10;    Generiert Jitter-Array von 'jitter_min' bis 'jitter_max'; 'jitter_range' wird gleichmäßig auf die Items verteilt.&amp;#10;    &amp;#10;    Args: item_count (int): Anzahl der Items&amp;#10;        &amp;#10;    Returns: numpy.array: Array mit jitter-Werten zwischen 'jitter_min' und 'jitter_max'&amp;#10;    ###&amp;#10;    if item_count &lt;= 0:&amp;#10;        return np.array([])&amp;#10;    &amp;#10;    jitter_min = 3.1        # Basiswert: 3 Sekunden&amp;#10;    jitter_max = 9.1        # jitterrange: 6 Sekunden (von 3 bis 9 Sekunden)&amp;#10;    &amp;#10;    # Gleichmäßige Verteilung über die Jitterrange&amp;#10;    step = (jitter_max-jitter_min) / item_count&amp;#10;    jitter_offsets = np.arange(0, (jitter_max-jitter_min), step)[:item_count]&amp;#10;    &amp;#10;    # Optional: Kleine zufällige Variation hinzufügen (kann entfernt werden)&amp;#10;    # jitter_offsets += np.random.uniform(-step/4, step/4, item_count)&amp;#10;    &amp;#10;    jitter_array = jitter_min + jitter_offsets  #Jitter-Array: Basiswert + Offset&amp;#10;    &amp;#10;    jitter_array = np.clip(jitter_array, jitter_min, jitter_max)    #Sicherstellen, dass Werte im Bereich [jitter_min, jitter_max] bleiben&amp;#10;    &amp;#10;    np.random.shuffle(jitter_array)             #Array durchmischen&amp;#10;    &amp;#10;    return jitter_array&amp;#10;&amp;#10;&amp;#10;# Beispiel-Verwendung&amp;#10;if __name__ == &quot;__main__&quot;:&amp;#10;    # Test mit verschiedenen Itemanzahlen&amp;#10;    #test_cases = [40, 60]&amp;#10;    test_cases = [60]&amp;#10;    &amp;#10;    for item_count in test_cases:&amp;#10;        jitter = generate_jitter_array(item_count)&amp;#10;        #print(f&quot;\nItemanzahl: {item_count}&quot;)&amp;#10;        #print(f&quot;Jitter-Array: {jitter}&quot;)&amp;#10;        #print(f&quot;Min: {jitter.min():.2f}s, Max: {jitter.max():.2f}s, Durchschnitt: {jitter.mean():.2f}s&quot;)&amp;#10;        #print(f&quot;Gesamt-Zeitspanne: {jitter.sum():.2f}s&quot;)&amp;#10;&quot;&quot;&quot;&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -190,7 +190,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="#store start time of MR_AUT task&amp;#10;MR_AUTclock = core.Clock()&amp;#10;MR_AUT_startTime = MR_AUTclock.getTime()&amp;#10;print(f'{MR_AUT_startTime=}')&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="##  store start time of MR_AUT task  ##&amp;#10;MR_AUT_startTime = globalClock.getTime()&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="start_MR_AUT_code" valType="code" updates="None" name="name"/>
       </CodeComponent>
@@ -218,14 +218,14 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="##  jitter stuff  ##&amp;#10;#rand_dur = np.random.uniform(3, 9)&amp;#10;#trials.addData('rand_dur', rand_dur)&amp;#10;#trials.addData('fix_jitter', jitter[trials.thisN])&amp;#10;#print(f&quot;Unschärfe Nr. {trials.thisN} in [s]: {jitter[trials.thisN]}&quot;)&amp;#10;&amp;#10;print(f&quot;begin: {MR_AUTclock.getTime() = }&quot;)&amp;#10;print(f&quot;begin: {MR_AUTclock.getTime() - MR_AUT_startTime = }&quot;)&amp;#10;&amp;#10;once = False" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="if fixation.status==FINISHED and not once:&amp;#10;    once = True&amp;#10;    print(f&quot;each: {MR_AUTclock.getTime() = }&quot;)&amp;#10;    print(f&quot;each: {MR_AUTclock.getTime() - MR_AUT_startTime = }&quot;)" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="AUTidea_key.clearEvents(eventType='keyboard')  # Lösche alle vorherigen Tasteneingaben" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="AUTidea_key.clearEvents(eventType='keyboard')  # Lösche alle vorherigen Tasteneingaben&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="fix_code" valType="code" updates="None" name="name"/>
       </CodeComponent>
@@ -258,7 +258,7 @@
       </TextComponent>
       <BidsEventComponent name="bidsE_fix" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
@@ -269,7 +269,7 @@
         <Param val="fixation" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_fix" valType="code" updates="None" name="name"/>
-        <Param val="(MR_AUTclock.getTime() - MR_AUT_startTime)" valType="num" updates="None" name="onset"/>
+        <Param val="fixation.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -306,18 +306,18 @@
       </TextComponent>
       <BidsEventComponent name="bidsE_AUTitem" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;%s&quot; % (MR_AUTitem)" valType="str" updates="None" name="event_type"/>
+        <Param val="$f'{MR_AUTitem}'" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="AUTitem_txt" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTitem" valType="code" updates="None" name="name"/>
-        <Param val="MR_AUTclock.getTime() - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="AUTitem_txt.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -347,18 +347,18 @@
       </KeyboardComponent>
       <BidsEventComponent name="bidsE_AUTideakey" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="keypress" valType="str" updates="None" name="event_type"/>
+        <Param val="button_press" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="AUTidea_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTideakey" valType="code" updates="None" name="name"/>
-        <Param val="MR_AUTclock.getTime() - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="AUTidea_key.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -430,18 +430,18 @@
       </TextComponent>
       <BidsEventComponent name="bidsE_AUTresponse" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;idea_%s&quot; % (MR_AUTitem)" valType="str" updates="None" name="event_type"/>
+        <Param val="$f'idea_{MR_AUTitem}'" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="AUTidea" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTresponse" valType="code" updates="None" name="name"/>
-        <Param val="MR_AUTclock.getTime() - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="AUTidea.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -523,18 +523,18 @@
       </CodeComponent>
       <BidsEventComponent name="bidsE_AUTlikert" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;likertRating_%s&quot; % (likertRating.markerPos)" valType="str" updates="None" name="event_type"/>
+        <Param val="$f'likertRating_{likertRating.markerPos}'" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="likertRating" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTlikert" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="likertRating.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -645,7 +645,7 @@
       </KeyboardComponent>
       <BidsEventComponent name="bidsE_likertRating_key" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
@@ -656,7 +656,7 @@
         <Param val="likertRating_end_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_likertRating_key" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="likertRating_end_key.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -738,18 +738,18 @@
       </CodeComponent>
       <BidsEventComponent name="bidsE_possible_insi" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;INSI_possible_%s&quot; % (insi_possible.markerPos)" valType="str" updates="None" name="event_type"/>
+        <Param val="$F'INSI_possible_{insi_possible.markerPos}'" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="insi_possible" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_possible_insi" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="insi_possible.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -806,7 +806,7 @@
       </KeyboardComponent>
       <BidsEventComponent name="bidsE_insi_key" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
@@ -817,7 +817,7 @@
         <Param val="insight_end_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_insi_key" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="insight_end_key.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -899,18 +899,18 @@
       </CodeComponent>
       <BidsEventComponent name="bidsE_insi_intensity" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$&quot;INSI_intensity_%s&quot; % (insi_intensity_likert.markerPos)" valType="str" updates="None" name="event_type"/>
+        <Param val="$f'INSI_intensity_{insi_intensity_likert.markerPos}'" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="insi_intensity_likert" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_insi_intensity" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="insi_intensity_likert.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -967,7 +967,7 @@
       </KeyboardComponent>
       <BidsEventComponent name="bidsE_insi_intensity_key" plugin="psychopy-bids">
         <Param val="" valType="str" updates="None" name="HED"/>
-        <Param val="False" valType="bool" updates="None" name="add_log"/>
+        <Param val="True" valType="bool" updates="None" name="add_log"/>
         <Param val="" valType="num" updates="None" name="bids_duration"/>
         <Param val="TaskEvent" valType="str" updates="None" name="bids_event_type"/>
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
@@ -978,7 +978,7 @@
         <Param val="insi_intensity_end_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_insi_intensity_key" valType="code" updates="None" name="name"/>
-        <Param val="" valType="num" updates="None" name="onset"/>
+        <Param val="insi_intensity_end_key.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -1123,7 +1123,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="##  check (remaining) time for items of 'n2' MR_AUT-Item-pool  ##&amp;#10;if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':&amp;#10;    if core.getTime() &gt; (MR_AUT_startTime + MR_AUT_taskMaxTime):&amp;#10;        trials.finished = True&amp;#10;        #MR_AUT_blocks.finished = True&amp;#10;        continueRoutine = False&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="##  check (remaining) time for items of 'n2' MR_AUT-Item-pool  ##&amp;#10;if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':&amp;#10;    #if core.getTime() &gt; (MR_AUT_startTime + MR_AUT_taskMaxTime):&amp;#10;    #if MR_AUTclock.getTime() &gt; (MR_AUT_startTime + MR_AUT_taskMaxTime):&amp;#10;    if globalClock.getTime() &gt; (MR_AUT_startTime + MR_AUT_taskMaxTime):&amp;#10;        trials.finished = True&amp;#10;        continueRoutine = False&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -1158,7 +1158,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="##  check (remaining) time for items of 'n2' MR_AUT-Item-pool  ##&amp;#10;if core.getTime() &gt; (MR_AUT_startTime + MR_AUT_taskMaxTime):&amp;#10;    #if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':&amp;#10;    trials.finished = True&amp;#10;    MR_AUT_blocks.finished = True&amp;#10;    continueRoutine = False&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="##  check (remaining) time for items of 'n2' MR_AUT-Item-pool  ##&amp;#10;#if core.getTime() &gt; (MR_AUT_startTime + MR_AUT_taskMaxTime):&amp;#10;#if MR_AUTclock.getTime() &gt; (MR_AUT_startTime + MR_AUT_taskMaxTime):&amp;#10;if globalClock.getTime() &gt; (MR_AUT_startTime + MR_AUT_taskMaxTime):&amp;#10;    #if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':&amp;#10;    trials.finished = True&amp;#10;    MR_AUT_blocks.finished = True&amp;#10;    continueRoutine = False&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -1213,7 +1213,7 @@
       <Param name="random seed" updates="None" val="" valType="code"/>
     </LoopInitiator>
     <LoopInitiator loopType="TrialHandler" name="trials">
-      <Param name="Selected rows" updates="None" val="21:23" valType="str"/>
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
       <Param name="conditions" updates="None" val="[OrderedDict([('MR_AUTitem', 'Autoreifen'), ('MR_AUTitem_mrk', np.int64(101))]), OrderedDict([('MR_AUTitem', 'Badewanne'), ('MR_AUTitem_mrk', np.int64(102))]), OrderedDict([('MR_AUTitem', 'Bananenschale'), ('MR_AUTitem_mrk', np.int64(103))]), OrderedDict([('MR_AUTitem', 'Blumenvase'), ('MR_AUTitem_mrk', np.int64(104))]), OrderedDict([('MR_AUTitem', 'Bügeleisen'), ('MR_AUTitem_mrk', np.int64(105))]), OrderedDict([('MR_AUTitem', 'Föhn'), ('MR_AUTitem_mrk', np.int64(106))]), OrderedDict([('MR_AUTitem', 'Frisbee'), ('MR_AUTitem_mrk', np.int64(107))]), OrderedDict([('MR_AUTitem', 'Gabel'), ('MR_AUTitem_mrk', np.int64(108))]), OrderedDict([('MR_AUTitem', 'Glocke'), ('MR_AUTitem_mrk', np.int64(109))]), OrderedDict([('MR_AUTitem', 'Gürtel'), ('MR_AUTitem_mrk', np.int64(110))]), OrderedDict([('MR_AUTitem', 'Hufeisen'), ('MR_AUTitem_mrk', np.int64(111))]), OrderedDict([('MR_AUTitem', 'Kleiderhaken'), ('MR_AUTitem_mrk', np.int64(112))]), OrderedDict([('MR_AUTitem', 'Klopapier'), ('MR_AUTitem_mrk', np.int64(113))]), OrderedDict([('MR_AUTitem', 'Knetmasse'), ('MR_AUTitem_mrk', np.int64(114))]), OrderedDict([('MR_AUTitem', 'Konservendose'), ('MR_AUTitem_mrk', np.int64(115))]), OrderedDict([('MR_AUTitem', 'Krawatte'), ('MR_AUTitem_mrk', np.int64(116))]), OrderedDict([('MR_AUTitem', 'Lampe'), ('MR_AUTitem_mrk', np.int64(117))]), OrderedDict([('MR_AUTitem', 'Locher'), ('MR_AUTitem_mrk', np.int64(118))]), OrderedDict([('MR_AUTitem', 'Mülleimer'), ('MR_AUTitem_mrk', np.int64(119))]), OrderedDict([('MR_AUTitem', 'Pflaster'), ('MR_AUTitem_mrk', np.int64(120))]), OrderedDict([('MR_AUTitem', 'Pinsel'), ('MR_AUTitem_mrk', np.int64(121))]), OrderedDict([('MR_AUTitem', 'Reisekoffer'), ('MR_AUTitem_mrk', np.int64(122))]), OrderedDict([('MR_AUTitem', 'Schaumstoffpolster'), ('MR_AUTitem_mrk', np.int64(123))]), OrderedDict([('MR_AUTitem', 'Seil'), ('MR_AUTitem_mrk', np.int64(124))]), OrderedDict([('MR_AUTitem', 'Socke'), ('MR_AUTitem_mrk', np.int64(125))]), OrderedDict([('MR_AUTitem', 'Spiegel'), ('MR_AUTitem_mrk', np.int64(126))]), OrderedDict([('MR_AUTitem', 'Stirnband'), ('MR_AUTitem_mrk', np.int64(127))]), OrderedDict([('MR_AUTitem', 'Tischtennisball'), ('MR_AUTitem_mrk', np.int64(128))]), OrderedDict([('MR_AUTitem', 'Uhr'), ('MR_AUTitem_mrk', np.int64(129))]), OrderedDict([('MR_AUTitem', 'Zahnbürste'), ('MR_AUTitem_mrk', np.int64(130))])]" valType="str"/>
       <Param name="conditionsFile" updates="None" val="$MR_AUT_condition_file" valType="file"/>
       <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
