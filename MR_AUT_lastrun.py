@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on November 12, 2025, at 15:18
+    on November 14, 2025, at 11:50
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -10,6 +10,10 @@ If you publish work using this script the most relevant publication is:
         https://doi.org/10.3758/s13428-018-01193-y
 
 """
+
+import psychopy
+psychopy.useVersion('2025.1.1')
+
 
 # --- Import packages ---
 from psychopy import locale_setup
@@ -68,7 +72,7 @@ or run the experiment with `--pilot` as an argument. To change what pilot
 PILOTING = core.setPilotModeFromArgs()
 # start off with values from experiment settings
 _fullScr = True
-_winSize = [1920, 1080]
+_winSize = [1920, 1200]
 # if in pilot mode, apply overrides according to preferences
 if PILOTING:
     # force windowed mode
@@ -440,7 +444,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     if DEBUG: 
         fixDur = 2
         itemDur = 5
-        carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer
+        carryOver_lock_time = 0.1       #for 'carryOver_lock_time' [s] it's not possible to stop the answer
         MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 30s/1min
     else: 
         fixDur = 6
@@ -448,57 +452,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer
         MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min
         #MR_AUT_taskMaxTime = 5 * 60    #kind of debug: task lasts for 5min
-    
-    
-    
-    """
-    ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
-       ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
-    ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
-    
-    def generate_jitter_array(item_count):
-        ###
-        Generiert Jitter-Array von 'jitter_min' bis 'jitter_max'; 'jitter_range' wird gleichmäßig auf die Items verteilt.
-        
-        Args: item_count (int): Anzahl der Items
-            
-        Returns: numpy.array: Array mit jitter-Werten zwischen 'jitter_min' und 'jitter_max'
-        ###
-        if item_count <= 0:
-            return np.array([])
-        
-        jitter_min = 3.1        # Basiswert: 3 Sekunden
-        jitter_max = 9.1        # jitterrange: 6 Sekunden (von 3 bis 9 Sekunden)
-        
-        # Gleichmäßige Verteilung über die Jitterrange
-        step = (jitter_max-jitter_min) / item_count
-        jitter_offsets = np.arange(0, (jitter_max-jitter_min), step)[:item_count]
-        
-        # Optional: Kleine zufällige Variation hinzufügen (kann entfernt werden)
-        # jitter_offsets += np.random.uniform(-step/4, step/4, item_count)
-        
-        jitter_array = jitter_min + jitter_offsets  #Jitter-Array: Basiswert + Offset
-        
-        jitter_array = np.clip(jitter_array, jitter_min, jitter_max)    #Sicherstellen, dass Werte im Bereich [jitter_min, jitter_max] bleiben
-        
-        np.random.shuffle(jitter_array)             #Array durchmischen
-        
-        return jitter_array
-    
-    
-    # Beispiel-Verwendung
-    if __name__ == "__main__":
-        # Test mit verschiedenen Itemanzahlen
-        #test_cases = [40, 60]
-        test_cases = [60]
-        
-        for item_count in test_cases:
-            jitter = generate_jitter_array(item_count)
-            #print(f"\nItemanzahl: {item_count}")
-            #print(f"Jitter-Array: {jitter}")
-            #print(f"Min: {jitter.min():.2f}s, Max: {jitter.max():.2f}s, Durchschnitt: {jitter.mean():.2f}s")
-            #print(f"Gesamt-Zeitspanne: {jitter.sum():.2f}s")
-    """
     
     
     # --- Initialize components for Routine "wait4scanner" ---
@@ -1531,6 +1484,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             ##  set likert scale starting point  ##
             event.clearEvents('keyboard')
             likertRating.markerPos = 3
+            
             # create starting attributes for likertRating_end_key
             likertRating_end_key.keys = []
             likertRating_end_key.rt = []
@@ -1594,7 +1548,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if goLeft_key in keys:
                         likertRating.markerPos = likertRating.markerPos - 1
                     elif goRight_key in keys:
-                        likertRating.markerPos = likertRating.markerPos  + 1 
+                        likertRating.markerPos = likertRating.markerPos  + 1
+                
                 
                 # *likertRating_header* updates
                 
@@ -1863,16 +1818,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif goRight_key in keys:
                         insi_possible.markerPos = insi_possible.markerPos  + 1 
                     pos_insi_rating = insi_possible.markerPos
-                    #print(f'{pos_insi_rating=}')
                 
                 if insi_possible.markerPos == 0:    #'Ja'
-                    #print(f'{pos_insi_rating=}')
-                    #print(f'{insi_possible.markerPos=}')
                     show_insi_intensity = 1
                 elif insi_possible.markerPos == 1 or insi_possible.markerPos == 2:  #'Nein'/'Weiß nicht'
-                    #print(f'{insi_possible.markerPos=}')
                     show_insi_intensity = 0
-                
                 
                 
                 # *insi_possible_header* updates
@@ -2320,8 +2270,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # Run 'Begin Routine' code from n2_item_check
             ##  check (remaining) time for items of 'n2' MR_AUT-Item-pool  ##
             if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':
-                #if core.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
-                #if MR_AUTclock.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
                 if globalClock.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
                     trials.finished = True
                     continueRoutine = False
@@ -2433,10 +2381,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # update component parameters for each repeat
         # Run 'Begin Routine' code from n2_block_check
         ##  check (remaining) time for items of 'n2' MR_AUT-Item-pool  ##
-        #if core.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
-        #if MR_AUTclock.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
         if globalClock.getTime() > (MR_AUT_startTime + MR_AUT_taskMaxTime):
-            #if MR_AUT_condition_file == 'stim/MR_AUT_items_n2.csv':
             trials.finished = True
             MR_AUT_blocks.finished = True
             continueRoutine = False
