@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on November 14, 2025, at 11:50
+    on November 19, 2025, at 09:50
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -437,14 +437,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     goOn_key    = '8'
     goLeft_key  = '9' 
     
-    main_pos_y   = 0
-    
     ##  ### Options for DEBUG/RESARCH-mode ###  ##
-    DEBUG = 0 #0=research-mode; 1=debug-mode 
+    DEBUG = 1 #0=research-mode; 1=debug-mode 
     if DEBUG: 
         fixDur = 2
         itemDur = 5
-        carryOver_lock_time = 0.1       #for 'carryOver_lock_time' [s] it's not possible to stop the answer
+        carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer
         MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 30s/1min
     else: 
         fixDur = 6
@@ -552,14 +550,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     likertRating_l_label = visual.TextStim(win=win, name='likertRating_l_label',
         text='gar nicht',
         font='Arial',
-        pos=(-.4, main_pos_y - .05), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
+        pos=(-.4, -.05), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-4.0);
     likertRating_r_label = visual.TextStim(win=win, name='likertRating_r_label',
         text='sehr',
         font='Arial',
-        pos=(.4, main_pos_y - .05), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
+        pos=(.4, -.05), draggable=False, height=0.05, wrapWidth=None, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-5.0);
@@ -906,6 +904,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             wait4scanner_byp.addData('GOfromMRT_key.duration', GOfromMRT_key.duration)
         # Run 'End Routine' code from start_MR_AUT_code
         ##  store start time of MR_AUT task  ##
+        globalClock.reset()
         MR_AUT_startTime = globalClock.getTime()
         
         # the Routine "wait4scanner" was not non-slip safe, so reset the non-slip timer
@@ -967,7 +966,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             method='random', 
             extraInfo=expInfo, 
             originPath=-1, 
-            trialList=data.importConditions(MR_AUT_condition_file), 
+            trialList=data.importConditions(
+            MR_AUT_condition_file, 
+            selection='17:19'
+        )
+        , 
             seed=None, 
         )
         thisExp.addLoop(trials)  # add the loop to the experiment
@@ -1198,7 +1201,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 else:
                     duration_val = thisExp.thisEntry['AUT_item.stopped'] - fixation.tStartRefresh
                 bids_event = BIDSTaskEvent(
-                    onset=fixation.tStartRefresh - MR_AUT_startTime,
+                    onset=fixation.tStartRefresh,
                     duration=duration_val,
                     event_type='cross',
                     trial_type='fixation',
@@ -1216,7 +1219,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 else:
                     duration_val = thisExp.thisEntry['AUT_item.stopped'] - AUTitem_txt.tStartRefresh
                 bids_event = BIDSTaskEvent(
-                    onset=AUTitem_txt.tStartRefresh - MR_AUT_startTime,
+                    onset=AUTitem_txt.tStartRefresh,
                     duration=duration_val,
                     event_type=f'{MR_AUTitem}',
                     trial_type='AUTitem',
@@ -1246,7 +1249,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     rt_val = None
                     logging.warning('The linked component "AUTidea_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
                 bids_event = BIDSTaskEvent(
-                    onset=AUTidea_key.tStartRefresh - MR_AUT_startTime,
+                    onset=AUTidea_key.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
                     event_type='button_press',
@@ -1455,7 +1458,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 else:
                     duration_val = thisExp.thisEntry['AUT_response.stopped'] - AUTidea.tStartRefresh
                 bids_event = BIDSTaskEvent(
-                    onset=AUTidea.tStartRefresh - MR_AUT_startTime,
+                    onset=AUTidea.tStartRefresh,
                     duration=duration_val,
                     event_type=f'idea_{MR_AUTitem}',
                     trial_type='AUTaudioResponse',
@@ -1688,7 +1691,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     rt_val = None
                     logging.warning('The linked component "likertRating" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
                 bids_event = BIDSTaskEvent(
-                    onset=likertRating.tStartRefresh - MR_AUT_startTime,
+                    onset=likertRating.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
                     event_type=f'likertRating_{likertRating.markerPos}',
@@ -1719,7 +1722,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     rt_val = None
                     logging.warning('The linked component "likertRating_end_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
                 bids_event = BIDSTaskEvent(
-                    onset=likertRating_end_key.tStartRefresh - MR_AUT_startTime,
+                    onset=likertRating_end_key.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
                     event_type='certifyLikertRating',
@@ -1926,10 +1929,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     rt_val = None
                     logging.warning('The linked component "insi_possible" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
                 bids_event = BIDSTaskEvent(
-                    onset=insi_possible.tStartRefresh - MR_AUT_startTime,
+                    onset=insi_possible.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
-                    event_type=F'INSI_possible_{insi_possible.markerPos}',
+                    event_type=f'INSI_possible_{insi_possible.markerPos}',
                     trial_type='INSI_possible',
                 )
                 if bids_handler:
@@ -1957,7 +1960,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     rt_val = None
                     logging.warning('The linked component "insight_end_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
                 bids_event = BIDSTaskEvent(
-                    onset=insight_end_key.tStartRefresh - MR_AUT_startTime,
+                    onset=insight_end_key.tStartRefresh,
                     duration=duration_val,
                     response_time=rt_val,
                     event_type='certify_insight_possible',
@@ -2190,7 +2193,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         rt_val = None
                         logging.warning('The linked component "insi_intensity_likert" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
                     bids_event = BIDSTaskEvent(
-                        onset=insi_intensity_likert.tStartRefresh - MR_AUT_startTime,
+                        onset=insi_intensity_likert.tStartRefresh,
                         duration=duration_val,
                         response_time=rt_val,
                         event_type=f'INSI_intensity_{insi_intensity_likert.markerPos}',
@@ -2221,7 +2224,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         rt_val = None
                         logging.warning('The linked component "insi_intensity_end_key" does not have a reaction time(.rt) attribute. Unable to link BIDS response_time to this component. Please verify the component settings.')
                     bids_event = BIDSTaskEvent(
-                        onset=insi_intensity_end_key.tStartRefresh - MR_AUT_startTime,
+                        onset=insi_intensity_end_key.tStartRefresh,
                         duration=duration_val,
                         response_time=rt_val,
                         event_type='certify_INSI_intensity',

@@ -98,7 +98,7 @@
       <CodeComponent name="set_things" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="##  some start time info&amp;#10;print(data.getDateStr(format=&quot;%H:%M:%S.%m&quot;))   #local: set/mark start of current run&amp;#10;&amp;#10;wavDirName = '%s_%s_%s_%s_%s' % (os.path.join(_thisDir, 'data', ''), expInfo['participant'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;), '_wav')&amp;#10;if not os.path.isdir(wavDirName):&amp;#10;    os.makedirs(wavDirName)  # to hold .wav files&amp;#10;#print(f&quot;{wavDirName=}&quot;)&amp;#10;&amp;#10;##  define some handy keys&amp;#10;goRight_key = '7'&amp;#10;goOn_key    = '8'&amp;#10;goLeft_key  = '9' &amp;#10;&amp;#10;main_pos_y   = 0&amp;#10;&amp;#10;##  ### Options for DEBUG/RESARCH-mode ###  ##&amp;#10;DEBUG = 0 #0=research-mode; 1=debug-mode &amp;#10;if DEBUG: &amp;#10;    fixDur = 2&amp;#10;    itemDur = 5&amp;#10;    carryOver_lock_time = 0.1       #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 30s/1min&amp;#10;else: &amp;#10;    fixDur = 6&amp;#10;    itemDur = 15&amp;#10;    carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min&amp;#10;    #MR_AUT_taskMaxTime = 5 * 60    #kind of debug: task lasts for 5min&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="##  some start time info&amp;#10;print(data.getDateStr(format=&quot;%H:%M:%S.%m&quot;))   #local: set/mark start of current run&amp;#10;&amp;#10;wavDirName = '%s_%s_%s_%s_%s' % (os.path.join(_thisDir, 'data', ''), expInfo['participant'], expName, data.getDateStr(format=&quot;%Y-%m-%d_%H%M&quot;), '_wav')&amp;#10;if not os.path.isdir(wavDirName):&amp;#10;    os.makedirs(wavDirName)  # to hold .wav files&amp;#10;#print(f&quot;{wavDirName=}&quot;)&amp;#10;&amp;#10;##  define some handy keys&amp;#10;goRight_key = '7'&amp;#10;goOn_key    = '8'&amp;#10;goLeft_key  = '9' &amp;#10;&amp;#10;##  ### Options for DEBUG/RESARCH-mode ###  ##&amp;#10;DEBUG = 0 #0=research-mode; 1=debug-mode &amp;#10;if DEBUG: &amp;#10;    fixDur = 2&amp;#10;    itemDur = 5&amp;#10;    carryOver_lock_time = 0.5       #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = .5 * 60     #debugging: task lasts for 30s/1min&amp;#10;else: &amp;#10;    fixDur = 6&amp;#10;    itemDur = 15&amp;#10;    carryOver_lock_time = 1         #for 'carryOver_lock_time' [s] it's not possible to stop the answer&amp;#10;    MR_AUT_taskMaxTime = 20 * 60    #orig: task lasts for 20min&amp;#10;    #MR_AUT_taskMaxTime = 5 * 60    #kind of debug: task lasts for 5min&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -190,7 +190,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="##  store start time of MR_AUT task  ##&amp;#10;MR_AUT_startTime = globalClock.getTime()&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="##  store start time of MR_AUT task  ##&amp;#10;globalClock.reset()&amp;#10;MR_AUT_startTime = globalClock.getTime()&amp;#10;" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="start_MR_AUT_code" valType="code" updates="None" name="name"/>
       </CodeComponent>
@@ -269,7 +269,7 @@
         <Param val="fixation" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_fix" valType="code" updates="None" name="name"/>
-        <Param val="fixation.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -317,7 +317,7 @@
         <Param val="AUTitem_txt" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTitem" valType="code" updates="None" name="name"/>
-        <Param val="AUTitem_txt.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -358,7 +358,7 @@
         <Param val="AUTidea_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTideakey" valType="code" updates="None" name="name"/>
-        <Param val="AUTidea_key.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -441,7 +441,7 @@
         <Param val="AUTidea" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTresponse" valType="code" updates="None" name="name"/>
-        <Param val="AUTidea.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -534,7 +534,7 @@
         <Param val="likertRating" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_AUTlikert" valType="code" updates="None" name="name"/>
-        <Param val="likertRating.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -583,7 +583,7 @@
         <Param val="likertRating_l_label" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(-.4, main_pos_y - .05)" valType="list" updates="constant" name="pos"/>
+        <Param val="(-.4, -.05)" valType="list" updates="constant" name="pos"/>
         <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -610,7 +610,7 @@
         <Param val="likertRating_r_label" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(.4, main_pos_y - .05)" valType="list" updates="constant" name="pos"/>
+        <Param val="(.4, -.05)" valType="list" updates="constant" name="pos"/>
         <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -656,7 +656,7 @@
         <Param val="likertRating_end_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_likertRating_key" valType="code" updates="None" name="name"/>
-        <Param val="likertRating_end_key.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -744,12 +744,12 @@
         <Param val="" valType="extendedCode" updates="None" name="custom"/>
         <Param val="" valType="str" updates="None" name="database"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="$F'INSI_possible_{insi_possible.markerPos}'" valType="str" updates="None" name="event_type"/>
+        <Param val="$f'INSI_possible_{insi_possible.markerPos}'" valType="str" updates="None" name="event_type"/>
         <Param val="" valType="str" updates="None" name="identifier"/>
         <Param val="insi_possible" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_possible_insi" valType="code" updates="None" name="name"/>
-        <Param val="insi_possible.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -817,7 +817,7 @@
         <Param val="insight_end_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_insi_key" valType="code" updates="None" name="name"/>
-        <Param val="insight_end_key.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -910,7 +910,7 @@
         <Param val="insi_intensity_likert" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_insi_intensity" valType="code" updates="None" name="name"/>
-        <Param val="insi_intensity_likert.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>
@@ -978,7 +978,7 @@
         <Param val="insi_intensity_end_key" valType="str" updates="None" name="link_component"/>
         <Param val="('Onset', 'Duration', 'Response Time', 'Event Type')" valType="list" updates="constant" name="linked_attributes"/>
         <Param val="bidsE_insi_intensity_key" valType="code" updates="None" name="name"/>
-        <Param val="insi_intensity_end_key.tStartRefresh - MR_AUT_startTime" valType="num" updates="None" name="onset"/>
+        <Param val="" valType="num" updates="None" name="onset"/>
         <Param val="True" valType="bool" updates="None" name="overwrite_linked"/>
         <Param val="" valType="num" updates="None" name="response_time"/>
         <Param val="" valType="num" updates="None" name="sample"/>

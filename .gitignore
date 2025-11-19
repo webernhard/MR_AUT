@@ -2,6 +2,7 @@
 data/
 *.csv
 *.psydat
+*_legacy*
 MR_AUT_BIDS/
 
 # Byte-compiled / optimized / DLL files
